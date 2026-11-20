@@ -341,7 +341,7 @@ TacticalRtsInput.prototype.draw=function(){var T=TacticalCommon.ns(this.app),app
 };
 
 /* Mouse look for direct control: the ONLY writer of the first-person yaw/pitch (NS look 0.0021 rad/count, ADS factor 0.72). */
-TacticalRtsInput.prototype.look=function(mx,my){var f=this.fps;if(!f)return;mx*=this.invertX?-1:1;my*=this.invertY?-1:1;var ads=f.s.arms.adsW,k=0.0021*this.sensitivity*(0.35+0.65*TacticalNS.lerp(1,0.72,ads));
+TacticalRtsInput.prototype.look=function(mx,my){var f=this.fps;if(!f)return;var prefs=window.DreadingSettings&&window.DreadingSettings.data;mx*=(prefs?prefs.invertX:this.invertX)?-1:1;my*=(prefs?prefs.invertY:this.invertY)?-1:1;var ads=f.s.arms.adsW,k=0.0021*this.sensitivity*(0.35+0.65*TacticalNS.lerp(1,0.72,ads));
  f.yaw-=mx*k;f.pitch=Math.max(-1.5,Math.min(1.5,f.pitch-my*k));f.manual=(f.manual||0)-my*k;};
 /* First-person viewmodel (FP pass 2026-11-16):
    - ARMS ONLY: a second instance of the soldier GLB whose skinned meshes keep only the triangles weighted >= 50% to arm/hand bones
