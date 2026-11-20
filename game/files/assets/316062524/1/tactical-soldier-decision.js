@@ -15,6 +15,7 @@ TacticalSoldierDecision.prototype.initialize=function(){
 };
 TacticalSoldierDecision.prototype.pos=function(){var p=this.entity.getPosition();return [p.x,p.y,p.z];};
 TacticalSoldierDecision.prototype.reset=function(){var T=TacticalCommon.ns(this.app),NS=TacticalNS;
+ if(this.visualRetired){var model=T.soldierGlb.resource.instantiateRenderEntity();this.entity.insertChild(model,0);model.addComponent('anim',{activate:true});T.soldierGlb.resource.animations.forEach(function(a){model.anim.assignAnimation(a.resource.name,a.resource,undefined,1,!/death|hit_react|grenade_toss/.test(a.resource.name));});this.model=model;this.visualRetired=false;}
  this.entity.setPosition(this.start[0],this.start[1],this.start[2]);this.path=[];this.index=0;this.goal=null;this.goalText='';this.stage=0;this.released=false;this.hold=false;this.moving=false;this.moveDir=null;this.distance=0;this.routeError=null;this.chosenCover=null;this.coverRanking=[];this.history.length=0;this.decision='';
  this.alive=true;this.health=T.combat?T.combat.health:100;var AR=typeof TacticalArsenal!=='undefined'?TacticalArsenal:null,pid=AR?AR.loadoutFor(this.team,this.soldierName):'m4';this.loadout=[NS.makeArms(NS.WEAPONS[pid]||NS.WEAPONS.m4),NS.makeArms(NS.WEAPONS[AR?AR.secondaryFor(this.team):'m9']||NS.WEAPONS.m4)];this.arms=this.loadout[0];this.armsIdx=0;/* Riposte arsenal: primary (?weapon= / ?loadout=) + M9 sidearm */this.dmgMul=NS.DIFF.dmg;this.crouchAmt=0;this.wantCrouch=false;this.inCover=false;this.order=null;this.speedNow=0;
  var th=T.perception?T.perception.threatPoint(this.team):[0,0,0];this.lookYaw=Math.atan2(-(th[0]-this.start[0]),-(th[2]-this.start[2]));this.pitch=0;this.yawV=0;this.pitchV=0;
@@ -97,7 +98,7 @@ TacticalSoldierDecision.prototype.update=function(dt){
  }
  if(urgent){foc=null;}
  if(foc){if(best===foc)this.focusSeenT=now;else if(now-this.focusT<4&&!(best&&best.isZombie&&best.target===this&&bd<2)){best=null;}}/* pass D: turn to the ordered target first (4 s), only a zombie on top of me interrupts */
- if(AIon){var tp0=best||(this.target&&this.target.alive?this.target:null),rd=tp0?Math.hypot(tp0.pos()[0]-me[0],tp0.pos()[2]-me[2]):40;D=TacticalSoldierDecision.diffAt(this.team,rd);this.aimTol=rd<TacticalSoldierDecision.CLOSE.near?Math.max(0.035,Math.min(0.11,0.45/Math.max(rd,1))*(this.moving?1.4:1)):0.035;}else this.aimTol=0;/* M5b: fast close, slower far */
+ if(AIon){var tp0=best||(this.target&&this.target.alive?this.target:null),rd=tp0?Math.hypot(tp0.pos()[0]-me[0],tp0.pos()[2]-me[2]):40;D=TacticalSoldierDecision.diffAt(this.team,rd);if(window.DreadingSquadAI)D=DreadingSquadAI.difficulty(this,D);this.aimTol=rd<TacticalSoldierDecision.CLOSE.near?Math.max(0.035,Math.min(0.11,0.45/Math.max(rd,1))*(this.moving?1.4:1)):0.035;}else this.aimTol=0;/* M5b: fast close, slower far */
  if(best){if(this.target!==best||now-this.lastSeenT>1.2){this.reactT=C.rand(D.react[0],D.react[1])*(this.target===best?0.5:1);this.seenT=0;this.aimHead=C.random()<D.head&&bd<45;}
   this.target=best;this.lastSeenT=now;}
  else if(this.target&&!this.target.alive)this.target=null;
@@ -132,12 +133,12 @@ TacticalSoldierDecision.prototype.update=function(dt){
  if(AIon&&this.inCover&&!this.moving&&(this.suppr||0)>1.0&&!reloading&&!(vis&&bd<8)){this.wantCrouch=true;this.pinnedSec=(this.pinnedSec||0)+dt;}/* M5: pinned by suppressive fire - stays down */// asked to duck: a teammate needs the lane
  this.crouchAmt+=((this.wantCrouch?1:0)-this.crouchAmt)*Math.min(1,dt*6);
  // --- trigger
- var supFire=!vis&&!!sup&&supOn&&!this.moving&&A.mag>0;if(!vis&&sup&&A.mag<=0&&!A.reload)this.input.reload=true;
+ var supClear=!sup||T.orders.bLine(eye.map(function(v,i){return i===1?v-1.6:v;}),sup.p);var supFire=!vis&&!!sup&&supOn&&supClear&&!this.moving&&A.mag>0;if(!vis&&sup&&A.mag<=0&&!A.reload)this.input.reload=true;
  var blind=now<(this.blindT||0);/* Riposte flashBang: a blinded soldier does not fire */
  var canShoot=!blind&&(vis||supFire)&&this.crouchAmt<0.6&&(!(this.order&&this.order.holdFire)||!!meleeZ);
  NS.botTrigger(this,A,vis||supFire,canShoot,dist,faceYaw,facePitch,dt,now,D,this.inCover||!this.moving);
  if(T.grenades&&AIon&&!blind)T.grenades.botConsider(this,best,vis,now,dt);/* Riposte 07b-tactics.js grenade use */
- if(this.input.fire&&!A.reload&&A.fireCd<=0&&A.mag>0&&(!NS.canCycle||NS.canCycle(A))){
+ if(this.input.fire&&(vis||!sup||supClear)&&!A.reload&&A.fireCd<=0&&A.mag>0&&(!NS.canCycle||NS.canCycle(A))){
   var f=NS.fwd(this.lookYaw,this.pitch),mate=T.combat.friendlyInLine(this,eye,f,dist);
   if(mate){var cn=T.combat.counters;cn.holdFireFriendly++;cn.holdFireSec+=dt;this.holdFireSec+=dt;if(this.decision.indexOf('Holding fire')<0)C.log(this.app,this,'Holding fire: '+mate.soldierName+' in the firing line');this.resolveLane(mate,eye,f,dist,now);}
   else{T.combat.shoot(this,eye,f,false);if(supFire){this.supShots++;T.combat.counters.suppressShots=(T.combat.counters.suppressShots||0)+1;}}}

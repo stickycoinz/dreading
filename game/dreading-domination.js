@@ -1,3 +1,4 @@
+if(new URLSearchParams(location.search).get("hordeTest")!=="1"&&new URLSearchParams(location.search).get("mode")!=="control"){
 /* Shared domination test: one clock and score, computed by the host, replicated with objectives. */
 (function(){'use strict';
 const D=window.DreadingDomination={ready:false,config:{interval:45,hold:20,radius:12,win:3,wave:8}};let T,N,O,acc=0,spawnClock=0,lastWon=false;
@@ -21,3 +22,5 @@ if(N.slot===1){if(S.winner!==null){T.paused=true;lastWon=true;}else if(lastWon){
 marker.style.display=S.point&&S.winner===null?'block':'none';if(S.point){const c=T.camera,e=c.getPosition(),r=c.right,u=c.up,f=c.forward,p=S.point,x=p[0]-e.x,y=p[1]+2-e.y,z=p[2]-e.z,d=x*f.x+y*f.y+z*f.z,tan=Math.tan(c.camera.fov*Math.PI/360),w=innerWidth,h=innerHeight;let sx=w/2+(x*r.x+y*r.y+z*r.z)*h/(2*Math.max(.1,d)*tan),sy=h/2-(x*u.x+y*u.y+z*u.z)*h/(2*Math.max(.1,d)*tan);marker.style.left=Math.max(85,Math.min(w-85,sx))+'px';marker.style.top=Math.max(155,Math.min(h-80,sy))+'px';marker.textContent=(d<=0?'BEHIND · ':'')+'★ HOLD '+S.name+' · '+Math.round(Math.hypot(x,y,z))+'m';}}
 const timer=setInterval(()=>{if(!window.DreadingObjectives?.ready||!window.DreadingMultiplayer?.ready)return;clearInterval(timer);T=tactical.T;N=DreadingMultiplayer;O=DreadingObjectives;if(N.slot===0)reset();D.ready=true;tactical.app.on('update',dt=>{acc+=dt;if(acc<.1)return;const step=Math.min(acc,.25);acc=0;if(N.slot===0&&!T.paused)D.tick(step);render();});},200);
 })();
+
+}

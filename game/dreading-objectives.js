@@ -1,3 +1,4 @@
+if(new URLSearchParams(location.search).get("hordeTest")!=="1"){
 /* DREADING objectives v2 (2026-11-19). Host-authoritative capture points, generators, research and reinforcement credits.
    Rules (values live in DreadingObjectives.config; F12 console edits apply live on the host):
    - 20 points spread over reachable navmesh: 5 REINFORCEMENT, 5 AMMO, 5 MEDICAL, 5 RESEARCH.
@@ -15,8 +16,9 @@
      and every 60 s, through the same bounded queue / alive cap / one-spawn-per-tick limit as before. */
 (function () {
   "use strict";
+  const CONTROL=new URLSearchParams(location.search).get("mode")==="control";
   const CFG = {
-    unlimitedFunds: true, points: 20, captureRadius: 9, captureDy: 4, captureSeconds: 8,
+    unlimitedFunds: !CONTROL, points: CONTROL?3:20, captureRadius: 9, captureDy: 4, captureSeconds: CONTROL?10:8,
     genRadiusFP: 2.4, genRadiusAI: 3, genDy: 2.5, genSecondsFP: 3, genSecondsAI: 6, genResearch: 1,
     researchCredit: 1, researchCreditPowered: 2, dropSeconds: 90, pickupRadius: 2.5,
     incomeSeconds: 45, medHps: 4, medHpsPowered: 12, ammoMagsPerSec: 1, fragEvery: 20, fragMax: 2,
@@ -24,7 +26,7 @@
   };
   const O = (window.DreadingObjectives = {
     version: 2, config: CFG, ready: false, feedback: [],
-    state: { v: 2, points: [], credits: [1000000, 1000000], research: [0, 0], carry: {}, drops: [], message: ["", ""], events: [], seq: 0 },
+    state: { v: 2, points: [], credits: CONTROL?[4,4]:[1000000,1000000], research: [0, 0], carry: {}, drops: [], message: ["", ""], events: [], seq: 0 },
   });
   const KIND = {
     reinforcement: { label: "REINFORCEMENT", short: "REINF", icon: "⚑", benefit: "Powered: +1 credit / 45 s and squads deploy here" },
@@ -101,15 +103,16 @@
       pool.push({ ...o, p });
     }
     O.rejected = all.length - pool.length;
+    if(CONTROL)pool=pool.filter(o=>hyp(o.p,mid)<65);
     const chosen = [];
     while (chosen.length < CFG.points && pool.length) {
-      const score = (o) => (chosen.length ? Math.min(...chosen.map((x) => hyp(o.p, x.p))) : -hyp(o.p, mid));
+      const score = (o) => (chosen.length ? Math.min(...chosen.map((x) => hyp(o.p, x.p)))-(CONTROL?hyp(o.p,mid)*.7:0) : -hyp(o.p, mid));
       pool.sort((a, b) => score(b) - score(a));
       const o = pool.shift();
       chosen.push(o);
       pool = pool.filter((x) => hyp(x.p, o.p) > 14);
     }
-    if (chosen.length < 8) return false;
+    if (chosen.length < (CONTROL?3:8)) return false;
     const kinds = ["reinforcement", "ammo", "medical", "research"], taken = [];
     O.state.points = chosen.map((o, i) => {
       const pt = {
@@ -120,7 +123,7 @@
     });
     for (const pt of O.state.points) taken.push(pt.p);
     for (const pt of O.state.points) {
-      pt.gens = placeGenerators(pt, taken);
+      pt.gens = CONTROL?[]:placeGenerators(pt, taken);
       for (const g of pt.gens) taken.push(g.p);
     }
     return true;
@@ -724,7 +727,7 @@ body:not(.tl-fp) #fire-support-panel button{font:10px var(--tlh-font-mono,monosp
       if (!listEl._hint) {
         listEl._hint = document.createElement("div");
         listEl._hint.className = "dob-hint";
-        listEl._hint.textContent = "Click a point to jump the camera · ⚑ reinf ▤ ammo ✚ med ◆ research · capture 8 s = +1 cr first time · 3/3 ⚙ = power (draws zombies)";
+        listEl._hint.textContent = CONTROL ? "Click A, B or C to view it. Capture: 10 seconds. Hold two uncontested points to score." : "Click a point to jump the camera · ⚑ reinf ▤ ammo ✚ med ◆ research · capture 8 s = +1 cr first time · 3/3 ⚙ = power (draws zombies)";
         side.append(listEl._hint);
       }
       S.points.forEach((o, i) => {
@@ -733,13 +736,13 @@ body:not(.tl-fp) #fire-support-panel button{font:10px var(--tlh-font-mono,monosp
         setT(n, o.name);
         setT(k, KIND[o.kind].icon);
         setT(s, st);
-        setT(g, "⚙" + ownGen + "/3");
+        setT(g, CONTROL ? "" : "⚙" + ownGen + "/3");
         setT(p, o.powered ? "⚡" : "");
         const c = hex[o.contested ? "contested" : rel(o.owner)];
         if (led.style.color !== c) (led.style.color = c), (n.style.color = c);
         bar.style.width = (o.capturing >= 0 ? Math.round((o.progress / CFG.captureSeconds) * 100) : 0) + "%";
         b.classList.toggle("sel", i === RH.sel);
-        b.title = o.name + " · " + KIND[o.kind].label + " · " + ownerWord(o.owner) + " · power " + (o.powered ? "ON" : "OFF") + " · " + KIND[o.kind].benefit;
+        b.title = o.name + " · " + KIND[o.kind].label + " · " + ownerWord(o.owner) + (CONTROL ? " · capture 10 s · majority earns score" : " · power " + (o.powered ? "ON" : "OFF") + " · " + KIND[o.kind].benefit);
       });
     }
     const mpp = document.getElementById("mp-panel");
@@ -754,7 +757,7 @@ body:not(.tl-fp) #fire-support-panel button{font:10px var(--tlh-font-mono,monosp
         b.disabled = !okk;
         r.classList.toggle("ok", okk);
       }
-      setT(why, sl.free + " free troop slots of " + sl.total + " · " + S.credits[me] + " CR · earn credits: first capture of a point +1 · deliver research to your ◆ point · powered ⚑ point +1 / 45 s");
+      setT(why, sl.free + " free troop slots of " + sl.total + " · " + S.credits[me] + (CONTROL?" CR · +2 credits / 20 s; majority +1 bonus":" CR · earn credits: first capture +1; deliver research; powered point income"));
       why.classList.remove("ok");
     }
     // HUD rectangles world labels must never sit under (read once per HUD tick, not per frame)
@@ -1072,13 +1075,13 @@ body:not(.tl-fp) #fire-support-panel button{font:10px var(--tlh-font-mono,monosp
     const sl = O.slots(me), carry = O.carried(me), preset = O.presets[choice.value];
     creditsEl.textContent = (CFG.unlimitedFunds ? "∞" : S.credits[me]) + " CR";
     panel.classList.toggle("dob-fp", fp);
-    info.textContent = fp
+    info.textContent = CONTROL ? "Troops " + sl.active + "/" + sl.total + " · Reinforcements deploy at your start" : fp
       ? "Research carried " + carry.rp + (carry.rp ? " → deliver to an owned ◆ RESEARCH point" : "") + " · troops " + sl.active + "/" + sl.total + " · T: command view to deploy"
       : "Troops " + sl.active + "/" + sl.total + " · " + sl.free + " free slots (mortar: 1 / squad: 4) · research carried " + carry.rp + (carry.carriers ? " by " + carry.carriers : "");
     const fwd = O.forwardPoint(me);
     help.textContent =
-      "Capture (stand 8 s): +1 credit first time · 4 credits = basic squad · Generators ⚙ (hold E / park a soldier): +1 research each — deliver to your ◆ point for credits · 3/3 generators on your point = POWER: bonus, but draws zombies" +
-      (fwd ? " · squads deploy at " + fwd.name : " · squads deploy at your start (power a ⚑ point to deploy forward)");
+      (CONTROL?"Hold two of A, B, C to score. Stand inside a point for 10 seconds to capture. First to 300 wins. Reinforcements: +2 credits every 20 seconds." : "Capture (stand 8 s): +1 credit first time · 4 credits = basic squad · Generators ⚙ (hold E / park a soldier): +1 research each — deliver to your ◆ point for credits · 3/3 generators on your point = POWER: bonus, but draws zombies") +
+      (fwd ? " · squads deploy at " + fwd.name : (CONTROL ? " · squads deploy at your start" : " · squads deploy at your start (power a ⚑ point to deploy forward)"));
     const cant = S.credits[me] < preset.cost ? "need " + (preset.cost - S.credits[me]) + " more" : sl.free < preset.guns.length ? "no free slots" : "";
     buy.disabled = !!cant;
     buy.textContent = "DEPLOY · " + preset.cost + (cant ? " (" + cant + ")" : "");
@@ -1237,3 +1240,5 @@ body:not(.tl-fp) #fire-support-panel button{font:10px var(--tlh-font-mono,monosp
     });
   }, 200);
 })();
+
+}

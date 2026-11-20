@@ -192,7 +192,7 @@ P.CAT_SVG={
  launcher:'M20 30H210V54H20Z M210 26V58 M70 54 64 76 76 76 82 54 M120 54V70H132V54 M90 18H120V30H90Z'};
 P.catSVG=function(cat,cls){var d=P.CAT_SVG[cat]||P.CAT_SVG[cat==='rifle'?'ar':cat==='support'?'lmg':'ar'];
  return '<svg class="'+(cls||'gun')+' line" viewBox="0 0 240 90" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="'+d+'"/></svg>';};
-P.gunImg=function(id,cat,cls){if(!id)return P.catSVG(cat||'ar',cls);if(P._noImg&&P._noImg[id])return P.catSVG(cat,cls);
+P.gunImg=function(id,cat,cls){if(!id)return P.catSVG(cat||'ar',cls);if(id==='bazooka')return P.catSVG('launcher',cls);if(P._noImg&&P._noImg[id])return P.catSVG(cat,cls);
  return '<img class="'+(cls||'gun')+'" data-gun="'+P.esc(id)+'" data-gcat="'+P.esc(cat||'ar')+'" src="'+P.base()+'guns/'+encodeURIComponent(id)+'.webp" alt="" draggable="false">';};
 P._onImgErr=function(e){var t=e.target;if(!t||t.tagName!=='IMG'||!t.getAttribute('data-gun'))return;P._noImg=P._noImg||{};P._noImg[t.getAttribute('data-gun')]=1;
  var w=document.createElement('span');w.innerHTML=P.catSVG(t.getAttribute('data-gcat'),t.className);if(t.parentNode)t.parentNode.replaceChild(w.firstChild,t);};

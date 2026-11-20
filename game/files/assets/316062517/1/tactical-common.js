@@ -127,7 +127,7 @@ function marker(app,slot){if(!_mk||_mk.app!==app){_mk={app:app,map:{}};collect(a
  var t=_mk.map[slot];if(t&&(!t.entity.parent||!t.entity.enabled)){_mk=null;return marker(app,slot);}return t||null;}
 function v3(p){return Array.isArray(p)?p:[p.x,p.y,p.z];}
 function fmt(p){return '['+v3(p).map(function(n){return (+n).toFixed(2);}).join(', ')+']';}
-function log(app,s,text){var T=ns(app);if(s.decision===text)return;s.decision=text;T.events.push({time:+T.elapsed.toFixed(2),soldier:s.soldierName,decision:text});if(T.events.length>100)T.events.shift();s.history.push((T.elapsed).toFixed(1)+'s '+text);if(s.history.length>8)s.history.shift();}
+function log(app,s,text){var T=ns(app);if(s.decision===text)return;s.decision=text;T.events.push({time:+T.elapsed.toFixed(2),soldier:s.soldierName,decision:text});if(T.events.length>100)T.events.splice(0,T.events.length-100);s.history.push((T.elapsed).toFixed(1)+'s '+text);if(s.history.length>8)s.history.shift();}
 g.TacticalCommon={AI:AI,invalidateMarkers:invalidateMarkers,rayWorld:rayWorld,seed:seed,random:random,rand:rand,randi:randi,allied:allied,KINDS:KINDS,TAG_ALIASES:TAG_ALIASES,ns:ns,tagInfo:tagInfo,collect:collect,shape:shape,corner:corner,segmentShape:segmentShape,pointInShape:pointInShape,navGeometry:navGeometry,marker:marker,v3:v3,fmt:fmt,log:log};
 })(globalThis);
 

@@ -11,7 +11,7 @@
    All gameplay randomness uses the seeded TacticalCommon RNG; texture noise uses its own fixed visual generator. */
 var TacticalZombies=pc.createScript('tacticalZombies');
 /* pass 4b perf: packs (one leader thinks, followers steer along its trail) + animation LOD. URL ?packs=0 / ?animlod=0 turn them off. */
-TacticalZombies.PERF={pathsPerFrame:8,repathKeep:0.75,snapEvery:2,snapSep:0.5,packs:true,packMin:6,packMax:10,packJoin:16,engage:7,rejoin:20,crumb:1.5,trailMax:40,animLod:true,lodNear:25,lodMid:50,lodOff:6,shadowNear:30,shadowFar:40};
+TacticalZombies.PERF={pathsPerFrame:8,pathMs:2,repathKeep:0.75,snapEvery:2,snapSep:0.5,packs:true,packMin:6,packMax:10,packJoin:16,engage:7,rejoin:20,crumb:1.5,trailMax:40,animLod:true,lodNear:25,lodMid:50,lodOff:6,shadowNear:30,shadowFar:40};
 /* feeding: the ground feed loop plays ONLY on a dead squad member's corpse. Up to 6 slots in a ring per corpse; claimed by zombies whose target just died within claimRange. Feeders ignore sight; they wake on gunshots (hear), damage, or a live soldier within 'wake' m. */
 TacticalZombies.FEED={on:true,slots:6,ring:0.85,claimRange:14,wake:4,clip:'bite_2'};/* measured clip head heights: bite_2 0.30 m (on the ground), bite 1.52->0.25 (kneels down), neck_bite 1.43 (standing) */
 TacticalZombies.CONFIG={
@@ -44,15 +44,17 @@ TacticalZombies.prototype.makeMaterial=function(){var app=this.app,N=512,cv=docu
  var m=new pc.StandardMaterial();m.diffuseMap=tex;m.diffuse=new pc.Color(0.82,0.84,0.8);m.useMetalness=true;m.metalness=0;m.gloss=0.32;m.specular=new pc.Color(0.25,0.22,0.2);
  m.emissive=new pc.Color(0,0,0);m.cull=pc.CULLFACE_NONE;m.update();this.texture=tex;return m;};
 /* ---------- pool ---------- */
-TacticalZombies.prototype.make=function(){var T=TacticalCommon.ns(this.app),i=this.pool.length,glb=this.glb,self=this;
- var z={uid:1000+i,soldierName:'Z'+(i+1),team:'zombie',history:[],decision:'',alive:false,active:false,health:0,crouchAmt:0,lastHitT:-99,moving:false,speedNow:0,suppr:0,arms:{reload:null},path:[],index:0,isZombie:true};
- var e=new pc.Entity(z.soldierName);T.root.addChild(e);var model=glb.resource.instantiateRenderEntity();var pivot=new pc.Entity('pivot');e.addChild(pivot);pivot.addChild(model);// pivot carries tilt/sink: the GLB's single root node 'Zombie' IS the model and holds the Z-up->Y-up rotation + 1.894 scale, never overwrite it
+TacticalZombies.prototype.createVisual=function(z){var glb=this.glb,e=z.entity;var model=glb.resource.instantiateRenderEntity();var pivot=new pc.Entity('pivot');e.addChild(pivot);pivot.addChild(model);// pivot carries tilt/sink: the GLB's single root node 'Zombie' IS the model and holds the Z-up->Y-up rotation + 1.894 scale, never overwrite it
  z.pivot=pivot;model.addComponent('anim',{activate:true});
  glb.resource.animations.forEach(function(a){model.anim.assignAnimation(a.resource.name,a.resource,undefined,1,!/attack|^bite$|neck_bite|scream|death|dying/.test(a.resource.name));});
  var original=glb.resource.materials&&glb.resource.materials[0];var mat=(original&&original.resource?original.resource:this.mat).clone();mat.update();model.findComponents('render').forEach(function(r){r.castShadows=true;r.meshInstances.forEach(function(mi){mi.material=mat;
   /* pass 4b: fixed local AABB (1.3 m box around the body in every pose) instead of re-deriving it from ~65 bone boxes per mesh, per camera and per shadow cascade every frame */
   try{var inv=new pc.Mat4().copy(mi.node.getWorldTransform()).invert(),wb=new pc.BoundingBox(new pc.Vec3(0,0.9,0),new pc.Vec3(1.3,1.3,1.3)),lb=new pc.BoundingBox();lb.setFromTransformedAabb(wb,inv);mi.setCustomAabb(lb);}catch(err){}});});
- z.entity=e;z.model=model;z.mat=mat;z.pos=function(){var p=e.getPosition();return [p.x,p.y,p.z];};
+z.model=model;z.mat=mat;z._crowdBaked=false;};
+TacticalZombies.prototype.retireVisual=function(z){if(!z.model)return;if(z._voiceSource){try{z._voiceSource.stop();}catch(e){}z._voiceSource=null;}z.model.destroy();z.pivot.destroy();z.mat.destroy();z.model=null;z.pivot=null;z.mat=null;z._rs=null;z.castSh=undefined;z._crowdBaked=false;};
+TacticalZombies.prototype.make=function(){var T=TacticalCommon.ns(this.app),i=this.pool.length,glb=this.glb,self=this;
+ var z={uid:1000+i,soldierName:'Z'+(i+1),team:'zombie',history:[],decision:'',alive:false,active:false,health:0,crouchAmt:0,lastHitT:-99,moving:false,speedNow:0,suppr:0,arms:{reload:null},path:[],index:0,isZombie:true};
+ var e=new pc.Entity(z.soldierName);T.root.addChild(e);z.entity=e;z.pos=function(){var p=e.getPosition();return [p.x,p.y,p.z];};this.createVisual(z);
  z.vision=new TacticalYuka.Vision({getWorldPosition:function(){var p=z.pos();return [p[0],p[1]+(z.type==='crawl'?0.5:1.55),p[2]];},getWorldDirection:function(){return [-Math.sin(z.yaw),0,-Math.cos(z.yaw)];}});
  z.vision.range=TacticalZombies.CONFIG.sight;z.vision.fieldOfView=TacticalZombies.CONFIG.fovDeg*Math.PI/180;if(T.perception)z.vision.addObstacle(T.perception.obstacle);
  z.regulator=new TacticalYuka.Regulator(TacticalZombies.CONFIG.sense,(i%8)/(8*TacticalZombies.CONFIG.sense));
@@ -61,13 +63,15 @@ TacticalZombies.prototype.make=function(){var T=TacticalCommon.ns(this.app),i=th
 TacticalZombies.prototype.spawn=function(p,type){type="run";var T=TacticalCommon.ns(this.app),C=TacticalCommon,cfg=TacticalZombies.CONFIG,z=null;
  for(var i=0;i<this.pool.length;i++)if(!this.pool[i].active){z=this.pool[i];break;}
  if(!z){if(this.pool.length>=cfg.pool)return null;z=this.make();}
+ // A pooled life must not inherit unfinished blend clips from its previous life.
+ if(!z.model)this.createVisual(z);z.model.anim.baseLayer.reset();z._crowdTime=0;z._crowdClip=null;
  var ty=cfg.types[type]||cfg.types.walk;z.type=type;z.ty=ty;z.active=true;z.alive=true;z.health=ty.hp;z.maxHp=ty.hp;z.hitK=ty.hitK;z.state='wander';z.target=null;z.lastSeenT=-99;z.lastSeenPos=null;
  z.noisePos=null;z.noiseT=-99;z.path=[];z.index=0;z.repathT=0;z.attackT=0;z.attackHit=false;z.staggerUntil=-99;z.screamT=0;z.flinchT=0;z.flash=0;z.tilt=0;z.tiltV=0;z.deadT=0;z.wanderT=C.rand(0.5,3);z.lastHitT=-99;
  z._voiceState=undefined;z._voiceNext=0;if(z._voiceSource){try{z._voiceSource.stop();}catch(e){}z._voiceSource=null;}z.fp=null;z.fpT=0;z.pathGoal=null;/* AI pass B: pooled zombies no longer carry route/stuck state into the next run (determinism across resets) */z.feed=null;z.feeding=false;z.pack=null;z.packRole='solo';z.free=false;z.crumb=0;z.trail=null;z.animAcc=0;z.yaw=C.rand(-Math.PI,Math.PI);z.moving=false;z.speedNow=0;z.clip='';z.alertedByScream=false;z.progressP=p.slice();z.progressT=T.elapsed;z.stuck=0;var w=Math.max(1,this.wave);/* NS nszSpawn speeds + damage: walker rand(1.25,1.9)+min(0.6,0.05w), runner rand(3.9,4.6), dmg min(30,12+1.5w) */z.speedMul=(type==='run'?C.rand(3.9,4.6):type==='crawl'?ty.speed*C.rand(0.9,1.12):C.rand(1.25,1.9)+Math.min(0.6,0.05*w))/ty.speed;z.speedMul*=cfg.speedBoost;z.dmg=Math.min(30,12+1.5*w)*(type==='crawl'?0.7:1);z.history.length=0;z.decision='';z.ignore=null;z.ignoreUntil=-99;z.stuckLog=[];z.regulator.reset(T.elapsed+(this.pool.indexOf(z)%8)/(8*cfg.sense));
  z.entity.setPosition(p[0],p[1],p[2]);z.entity.enabled=true;z.pivot.setLocalPosition(0,0,0);z.pivot.setLocalEulerAngles(0,0,0);z.mat.emissive.set(0,0,0);z.mat.update();
  if(T.zombies.indexOf(z)<0)T.zombies.push(z);this.stats.spawned++;this.play(z,type==='crawl'?'crawl':'idle',true);return z;};
-TacticalZombies.prototype.despawn=function(z){var T=TacticalCommon.ns(this.app);this.releaseFeed(z);this.leavePack(z);z.active=false;z.alive=false;z.entity.enabled=false;var i=T.zombies.indexOf(z);if(i>=0)T.zombies.splice(i,1);};
-TacticalZombies.prototype.reset=function(){var self=this,T=TacticalCommon.ns(this.app);this.pool.forEach(function(z){if(z.active)self.despawn(z);});T.zombies.length=0;this.packs=[];this.corpses=new Map();this.frame=0;this.queue=null;this.wave=0;this.nextWaveT=TacticalZombies.CONFIG.firstWave;this.lastWaveSize=0;
+TacticalZombies.prototype.despawn=function(z){z._routeFailure=null;if(this.pendingRoutes)this.pendingRoutes.delete(z);if(!z.alive)this.retireVisual(z);var T=TacticalCommon.ns(this.app);this.releaseFeed(z);this.leavePack(z);z.active=false;z.alive=false;z.entity.enabled=false;var i=T.zombies.indexOf(z);if(i>=0)T.zombies.splice(i,1);};
+TacticalZombies.prototype.reset=function(){if(this.pendingRoutes)this.pendingRoutes.clear();var self=this,T=TacticalCommon.ns(this.app);this.pool.forEach(function(z){if(z.active)self.despawn(z);});T.zombies.length=0;this.packs=[];this.corpses=new Map();this.frame=0;this.queue=null;this.wave=0;this.nextWaveT=TacticalZombies.CONFIG.firstWave;this.lastWaveSize=0;
  for(var k in this.stats)this.stats[k]=0;};
 /* ---------- waves ---------- */
 TacticalZombies.prototype.spawnPoints=function(n,taken){var T=TacticalCommon.ns(this.app),C=TacticalCommon,cfg=TacticalZombies.CONFIG,obj=T.orders.objective(),out=[],tries=0;
@@ -106,7 +110,7 @@ TacticalZombies.prototype.sense=function(z,now,sold){var best=null,bd=1e9,p=z.po
   if(lightSource||(!globalThis.DreadingNight||globalThis.DreadingNight.lit(z,s,TacticalCommon.ns(this.app),PC))&&((d<2.2&&(!PC||!PC.sightBlocked(NS.entEye(z),NS.entChest(s))))||z.vision.visible(NS.entChest(s))||z.vision.visible(NS.entHead(s)))){bd=d;best=s;}}
  return best;};
 /* ---------- animation ---------- */
-TacticalZombies.prototype.play=function(z,clip,force,rate){if(z.clip!==clip||force){z.clip=clip;try{z.model.anim.baseLayer.transition(clip,clip==='death'||clip==='dying'?0.12:0.2);}catch(e){}}z.animRate=rate||1;if(!TacticalZombies.PERF.animLod)z.model.anim.speed=z.animRate;};
+TacticalZombies.prototype.play=function(z,clip,force,rate){if(z.clip!==clip||force){z.clip=clip;if(!z._crowdBaked)try{z.model.anim.baseLayer.transition(clip,clip==='death'||clip==='dying'?0.12:0.2);}catch(e){}}z.animRate=rate||1;if(!TacticalZombies.PERF.animLod)z.model.anim.speed=z.animRate;};
 /* ---------- damage / death (called from tacticalCombat) ---------- */
 TacticalZombies.prototype.onDamaged=function(z,att,dmg,part,dir){var T=TacticalCommon.ns(this.app);if(!z.alive)return;
  z.flash=0;if(z.state==='feed'){this.releaseFeed(z);z.state='wander';this.stats.feedWokeHit=(this.stats.feedWokeHit||0)+1;}if(z.packRole==='follower')z.free=true;var stagger=T.elapsed>=(z.staggerUntil||0);z.flinchT=stagger?(part==='head'?.24:.1):0;if(stagger){z.staggerUntil=T.elapsed+.65;z.tiltV-=(part==='head'?90:60);}z.hitReaction=(z.hitReaction||0)+1;
@@ -121,9 +125,9 @@ TacticalZombies.prototype.update=function(dt){var T=TacticalCommon.ns(this.app),
  // waves
  if(this.on&&!T.outcome){var aliveN=T.zombies.filter(function(z){return z.alive;}).length;
   if(now>=this.nextWaveT||(this.wave>0&&aliveN<=Math.floor(this.lastWaveSize*0.25)&&now-this.lastWaveT>20)){this.spawnWave(this.waveSize+this.wave*cfg.waveGrow,'timer');this.nextWaveT=now+cfg.waveEvery;}}
- var sold=this.soldiers(),grid=this.crowdGrid(T.zombies),key=null;this.solPos(sold);this.pathBudget=TacticalZombies.PERF.pathsPerFrame;(this._dem||(this._dem=new Map())).clear();this._fu=0;
+ var sold=this.soldiers(),grid=this.crowdGrid(T.zombies),key=null;this.solPos(sold);this.pathBudget=TacticalZombies.PERF.pathsPerFrame;this.pathSpent=0;this.drainRoutes();(this._dem||(this._dem=new Map())).clear();this._fu=0;
  for(var i=T.zombies.length-1;i>=0;i--){var z=T.zombies[i];
-  if(!z.alive){z.deadT+=dt;z.flash=Math.max(0,z.flash-dt*3);if(z.deadT>9)z.pivot.setLocalPosition(0,-Math.min(1.2,(z.deadT-9)*0.5),0);if(z.deadT>12){this.despawn(z);continue;}this.paint(z,dt);continue;}
+  if(!z.alive){z.deadT+=dt;z.flash=Math.max(0,z.flash-dt*3);var deathTrack=this.glb.resource.animations.find(function(a){return a.resource.name===z.clip;}),deathDuration=deathTrack?deathTrack.resource.duration:1;if(z.deadT>Math.max(.6,deathDuration)+.15){this.despawn(z);this.retireVisual(z);continue;}this.paint(z,dt);continue;}
   if(z.packRole==='follower'&&!z.free&&(z.useField=false,this.follow(z,now,sold))){this.move(z,dt,now,grid,key,sold);}
   else{this.think(z,dt,now,sold);this.move(z,dt,now,grid,key,sold);}
   if(z.packRole==='leader'&&z.alive)this.crumbs(z);this.paint(z,dt);}
@@ -166,8 +170,11 @@ TacticalZombies.prototype.fieldTick=function(now){var FD=TacticalZombies.FIELD;i
  this._dem.forEach(function(c,tg){if(c<FD.minChasers||!tg.alive)return;var e=fs.get(tg);if(!e){if(fs.size>=FD.maxFields)return;e={cur:null,next:null,failT:-99};fs.set(tg,e);}e.seen=now;
   var g=tg.pos(),f=e.next||e.cur,lim=e.next?FD.retarget*3:FD.retarget;if(now-e.failT<2)return;if(!f||Math.hypot(g[0]-f.goal[0],g[2]-f.goal[2])>lim||Math.abs(g[1]-f.goal[1])>1.2)e.next=self.fieldNew(g);});
  var t0=performance.now(),end=t0+FD.budget;
- fs.forEach(function(e,tg){if(!tg.alive||now-e.seen>5){fs.delete(tg);return;}var f=e.next;if(!f||performance.now()>end)return;
-  self.fieldBuild(f,N,end);if(f.done){if(f.ok){f.ref=null;f.st=null;f.hk=f.hv=null;e.cur=f;self.stats.fieldBuilds=(self.stats.fieldBuilds||0)+1;}else e.failT=now;e.next=null;}});
+ // Rotate the first field each frame so a large build cannot starve other targets.
+ var work=this._fieldWork||(this._fieldWork=[]);work.length=0;fs.forEach(function(e,tg){if(!tg.alive||now-e.seen>5)fs.delete(tg);else if(e.next)work.push(e);});
+ var count=work.length,start=count?(this._fieldCursor||0)%count:0;
+ for(var i=0;i<count&&performance.now()<end;i++){var e=work[(start+i)%count],f=e.next;self.fieldBuild(f,N,Math.min(end,performance.now()+FD.budget/count));if(f.done){if(f.ok){f.ref=null;f.st=null;f.hk=f.hv=null;e.cur=f;self.stats.fieldBuilds=(self.stats.fieldBuilds||0)+1;}else e.failT=now;e.next=null;}}
+ this._fieldCursor=count?(start+1)%count:0;work.length=0;
  this.stats.fieldMs=(this.stats.fieldMs||0)+(performance.now()-t0);this.stats.fields=fs.size;};
 TacticalZombies.prototype.fieldBuild=function(F,N,end){var FD=TacticalZombies.FIELD,n=F.n,c=F.c,hk=F.hk,hv=F.hv;
  function push(k,v){var i=hk.length;hk.push(k);hv.push(v);while(i>0){var pa=(i-1)>>1;if(hv[pa]<=v)break;hk[i]=hk[pa];hv[i]=hv[pa];i=pa;}hk[i]=k;hv[i]=v;}
@@ -268,9 +275,15 @@ TacticalZombies.prototype.think=function(z,dt,now,sold){var T=TacticalCommon.ns(
   z.repathT-=dt;if(z.repathT<=0||!z.path.length){this.route(z,z.noisePos);z.repathT=3+(z.uid%7)*0.2;}return;}
  // wander / idle
  z.state='wander';z.wanderT-=dt;if(z.wanderT<=0&&!z.path.length){z.wanderT=C.rand(4,9);if(C.random()<0.6){var p5=z.pos(),a=C.rand(0,Math.PI*2),r=C.rand(2,6);this.route(z,[p5[0]+Math.cos(a)*r,p5[1],p5[2]+Math.sin(a)*r]);}}};
-TacticalZombies.prototype.route=function(z,goal){var T=TacticalCommon.ns(this.app),PF=TacticalZombies.PERF;if(!goal){z.path=[];z.index=0;return;}
- var has=z.path&&z.index<z.path.length&&!z.navDirty;if(has&&z.pathGoal&&Math.hypot(goal[0]-z.pathGoal[0],goal[2]-z.pathGoal[2])<PF.repathKeep&&Math.abs(goal[1]-z.pathGoal[1])<1){this.stats.pathKept=(this.stats.pathKept||0)+1;return;}
- if(has&&this.pathBudget!==undefined&&this.pathBudget<=0){z.repathT=0.05+(z.uid%4)*0.03;this.stats.pathDeferred=(this.stats.pathDeferred||0)+1;return;}if(this.pathBudget!==undefined)this.pathBudget--;z.navDirty=false;this.stats.pathSolves=(this.stats.pathSolves||0)+1;try{z.path=T.navigation.path(z.pos(),goal);z.index=1;z.pathGoal=goal.slice();}catch(e){var q=T.navigation.nearest(goal,{x:2,y:3,z:2});z.path=q?[z.pos(),q]:[];z.index=1;z.pathGoal=goal.slice();}};
+TacticalZombies.prototype.route=function(z,goal){var T=TacticalCommon.ns(this.app),PF=TacticalZombies.PERF;if(!goal){if(this.pendingRoutes)this.pendingRoutes.delete(z);z.path=[];z.index=0;return;}
+ var failed=z._routeFailure;if(failed&&failed.version===T.navigation.version&&(T.elapsed||0)<failed.until&&Math.hypot(goal[0]-failed.goal[0],goal[2]-failed.goal[2])<PF.repathKeep&&Math.abs(goal[1]-failed.goal[1])<.5){if(this.pendingRoutes)this.pendingRoutes.delete(z);this.stats.pathFailureKept=(this.stats.pathFailureKept||0)+1;return;}
+ var has=z.path&&z.index<z.path.length&&!z.navDirty;if(has&&z.pathGoal&&Math.hypot(goal[0]-z.pathGoal[0],goal[2]-z.pathGoal[2])<PF.repathKeep&&Math.abs(goal[1]-z.pathGoal[1])<1){if(this.pendingRoutes)this.pendingRoutes.delete(z);this.stats.pathKept=(this.stats.pathKept||0)+1;return;}
+ var pending=this.pendingRoutes||(this.pendingRoutes=new Map());
+ if(this.pathBudget!==undefined&&(this.pathBudget<=0||this.pathSpent>=PF.pathMs)){if(!has)pending.set(z,goal.slice());z.repathT=0.05+(z.uid%4)*0.03;this.stats.pathDeferred=(this.stats.pathDeferred||0)+1;return;}
+ pending.delete(z);if(this.pathBudget!==undefined)this.pathBudget--;var begin=performance.now();z.navDirty=false;this.stats.pathSolves=(this.stats.pathSolves||0)+1;try{z.path=T.navigation.path(z.pos(),goal);z.index=1;z.pathGoal=goal.slice();}catch(e){z.path=[];z.index=0;z.pathGoal=null;}finally{this.pathSpent=(this.pathSpent||0)+performance.now()-begin;z._routeFailure=z.path.length<2?{goal:goal.slice(),version:T.navigation.version,until:(T.elapsed||0)+.5}:null;}};
+/* FIFO requests retain each zombie's own goal. New requests cannot bypass the frame budget. */
+TacticalZombies.prototype.drainRoutes=function(){var pending=this.pendingRoutes;if(!pending)return;for(var entry of pending){var z=entry[0],goal=entry[1];if(!z.alive||!z.entity.enabled||z.useField||z.state==='attack'||z.state==='feed'||z.state==='scream'){pending.delete(z);continue;}if(this.pathBudget<=0||this.pathSpent>=TacticalZombies.PERF.pathMs)break;pending.delete(z);this.route(z,goal);}this.stats.pathQueue=pending.size;};
+
 TacticalZombies.prototype.move=function(z,dt,now,grid,key,sold){var T=TacticalCommon.ns(this.app),cfg=TacticalZombies.CONFIG,ty=z.ty,p=z.pos(),vx=0,vz=0,sp=0;
  /* terrain batch: zombies climb through windows / drop off ledges on the same off-mesh links (no vault clip: walk clip slowed) */
  if(z.trav){var tq=TacticalTraversal.step(z,dt);z.entity.setPosition(tq[0],tq[1],tq[2]);z.speedNow=0.5;z.moving=true;if(z.trav.done){z.trav=null;this.stats.linkUses=(this.stats.linkUses||0)+1;}if(z.alive&&z.type!=='crawl')this.play(z,'walk',false,0.6);else if(z.alive)this.play(z,'crawl',false,0.8);return;}

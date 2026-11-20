@@ -117,7 +117,7 @@ TacticalNavigationScript.prototype.validateIter=function*(report){
  var spawn=T.spawnPoints&&T.spawnPoints[0],spawnLabel=spawn?spawn.name+' spawn':'';
  var sps=T.spawnPoints||[];for(i=0;i<sps.length;i++){self.check(report,sps[i].name+' spawn',sps[i].position,i?spawn.position:null,spawnLabel);yield;}
  var from=spawn?spawn.position:null;
- var needed=['stairApproach1','stairApproach2','overwatch1','overwatch2','room1','room2'];
+ var needed=T.requiredDefensiveSlots||['stairApproach1','stairApproach2','overwatch1','overwatch2','room1','room2'];
  needed.forEach(function(slot){if(!C.marker(self.app,slot))report.errors.push('Missing defensive area slot "'+slot+'" (add an entity with tacticalTag Kind = Defensive area, Slot id = '+slot+')');});
  for(i=0;i<tags.length;i++){var t=tags[i],p=C.v3(t.entity.getPosition());
   if(t.kind==='defensiveArea'){self.check(report,'Role slot "'+(t.slot||t.name)+'" ('+t.name+')',p,from,spawnLabel);yield;}

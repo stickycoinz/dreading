@@ -11246,12 +11246,8 @@ var TacticalNavCore = (() => {
               length += Math.hypot(route[i][0] - route[i - 1][0], route[i][2] - route[i - 1][2]);
             diagnostic.mode = "recast-funnel";
             diagnostic.length = length;
-            // If a tiny nearby move requires an enormous detour, stop the
-            // order rather than walk fifty feet. This is deliberately a
-            // FAIL-SAFE, not a replacement for fixing broken nav connectivity.
-            // Different floors legitimately require a longer trip around the stairwell.
-            if (Math.abs(from.nearestPoint.y - to.nearestPoint.y) < 1.0 && direct <= 3.0 && length > Math.max(4.0, direct * 3 + 1.2))
-              fail("short click needs " + length.toFixed(1) + " m detour (" + direct.toFixed(1) + " m direct); check navmesh / wall connectivity");
+            // A complete corridor may legitimately go around a wall even for nearby endpoints.
+            // Partial corridors are rejected above; distance alone is not a connectivity failure.
             return route;
           } finally {
             straight.straightPath.destroy();

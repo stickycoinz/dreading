@@ -40,7 +40,7 @@ TacticalSoldierAnimation.prototype.update=function(dt){
  if(s.alive&&this.corpseVisual){model.enabled=this.corpseVisual.enabled;model.anim.enabled=this.corpseVisual.animEnabled;this.corpseVisual=null;this.current='';this.fall=0;}
  if(!s.alive&&this.corpseVisual)return;
  if(T.paused){model.anim.speed=0;return;}
- if(!s.alive&&T.elapsed-(s.deathT??T.elapsed)>=12){this.corpseVisual={enabled:model.enabled,animEnabled:model.anim.enabled};model.anim.enabled=false;model.enabled=false;return;}
+ if(!s.alive&&T.elapsed-(s.deathT??T.elapsed)>=Math.max(.6,(DreadingBodyAnimation.track(T,this.has('death'))||{}).duration||.6)+.15){model.destroy();s.model=null;s.visualRetired=true;this.upperBody=null;this.current='';return;}
  this.upperBody=DreadingBodyAnimation.ensure(model,T);var clip=this.pick(s,T);if(this.upperBody&&s.alive&&s.arms.reload&&!(s.speedNow>.3&&(s.controlled||s.moving)))clip=s.crouchAmt>.5?this.map.crouch:(this.has('aim')||this.map.idle);
  if(clip&&clip!==this.current&&model.anim.baseLayer){var layer=model.anim.baseLayer,gaitChange=/run|walk|strafe/.test(clip)&&/run|walk|strafe/.test(this.current),phase=gaitChange?(layer.activeStateCurrentTime/Math.max(.001,layer.activeStateDuration))%1:null;this.current=clip;this.transitions++;try{layer.transition(clip,gaitChange?.035:clip===this.map.fire?.06:.08,phase);}catch(e){}}
  var want=this.rate||1,track=DreadingBodyAnimation.track(T,clip),settings=window.DreadingAnimationSettings;if(track&&/run|walk|strafe/.test(clip))want*=track.duration/(/run/.test(clip)?(settings?.runCycle||.65):(settings?.walkCycle||1));model.anim.speed=Math.max(0.1,Math.min(2.4,want));var tune=window.DreadingAnimationSettings;if(tune){var category=/reload/i.test(clip)?'reload':/run/i.test(clip)?'run':/walk/i.test(clip)?'walk':null;if(category)model.anim.speed*=tune[category];}this.lod(T,s,model,dt);DreadingBodyAnimation.update(model,s,T,dt,this.upperBody);if((s.moving||s.speedNow>0.3)&&s.alive){this.moveTime+=dt;if(want<0.5||want>2.4)this.rateClamped+=dt;}
@@ -48,7 +48,7 @@ TacticalSoldierAnimation.prototype.update=function(dt){
  var yawDeg=s.lookYaw*180/Math.PI;
  if(!s.alive){model.anim.playing=true;// procedural death: fall backwards over 0.6 s, sink after 8 s
   this.fall=Math.min(1,this.fall+dt/0.6);var since=T.elapsed-(s.deathT||0);
-  this.entity.setEulerAngles(0,yawDeg,0);model.setLocalEulerAngles(this.has('death')?0:-88*this.fall*this.fall,0,0);model.setLocalPosition(0,since>8?-Math.min(1,(since-8)*0.3):0,0);return;}
+  this.entity.setEulerAngles(0,yawDeg,0);model.setLocalEulerAngles(this.has('death')?0:-88*this.fall*this.fall,0,0);model.setLocalPosition(0,0,0);return;}
  this.fall=0;model.setLocalPosition(0,0,0);
  var fl=s.flinchT>0&&!this.has('hit')?s.flinchT/0.3:0;model.setLocalEulerAngles(-9*fl,0,0);// procedural hit flinch
  this.entity.setEulerAngles(0,yawDeg,0);

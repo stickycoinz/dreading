@@ -7,6 +7,7 @@ let T,N,opened=false;const applied=[null,null];
 P.canPlay=()=>P.installed&&(N.slot===2||!!P.state.plans[N.slot]);
 function hide(s){s.disabled=true;s.alive=false;s.entity.enabled=false;if(s.label)s.label.style.display='none';if(s.row)s.row.style.display='none';}
 function validate(raw){
+ if(window.DreadingControl)raw={squad:DreadingControl.starter()};
  if(!raw||!Array.isArray(raw.squad)||raw.squad.length<1||raw.squad.length>DreadingCatalogue.capacity)throw Error('Choose one to thirty troops.');
  const squad=raw.squad.map((u,i)=>{
   const cls=DreadingPrep.cls(u.clsId||u.cls);if(!cls||cls.locked)throw Error('Unavailable soldier class.');
@@ -41,7 +42,8 @@ P.receive=function(state){if(!state||!P.installed)return;P.state=state;for(let s
  if(state.plans[N.slot]){if(opened){DreadingPrep.close();opened=false;}}
  else if(state.errors[N.slot]){DreadingPrep.state.ready=false;DreadingPrep.sync();T.input.toast(state.errors[N.slot]);}
 };
-function open(){if(N.slot===2||P.state.plans[N.slot]||opened)return;opened=true;
+P.restart=()=>{if(N.slot!==0)return;P.state={plans:[null,null],errors:[null,null]};applied[0]=applied[1]=null;commit(0,{});commit(1,{});};
+function open(){if(N.slot===2||P.state.plans[N.slot]||opened)return;opened=true;if(window.DreadingControl){if(N.slot===0)commit(0,{});else N.api.send({type:'command',method:'plan',args:[{}]});return;}
  DreadingPrep.open({mode:'player',playerId:'p'+(N.slot+1),playerName:'Commander '+(N.slot+1),budget:{scrap:1000000,fortify:1000000},app:tactical.app,T,armed:true,onReady(plan){
   if(!DreadingPrep.state.ready)return;
   if(N.slot===0){commit(0,plan);if(P.state.plans[0]){DreadingPrep.close();opened=false;}else{DreadingPrep.state.ready=false;DreadingPrep.sync();T.input.toast(P.state.errors[0]);}}

@@ -26,6 +26,11 @@ TacticalSquadOrders.prototype.spots=function(group,point){
  // could choose a different walkable surface across a wall.
  var c=nav.nearest(point,{x:0.7,y:1.5,z:0.7});
  if(!c||Math.hypot(c[0]-point[0],c[2]-point[2])>0.55)return new Map();
+ // Large selections preserve squad clusters instead of mixing everyone into concentric rings.
+ if(group.length>4){var groups=new Map(),out=new Map(),taken=res.slice();group.forEach(function(s){var k=s.squadKey||('unit-'+s.uid);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(s);});
+  var gi=0;groups.forEach(function(members){var angle=gi*2.399963,radius=gi?4.2*Math.sqrt(gi):0,center=[c[0]+Math.cos(angle)*radius,c[1],c[2]+Math.sin(angle)*radius];gi++;
+   members.forEach(function(s,i){var found=null;for(var j=0;j<24&&!found;j++){var a=(i+j)*2.399963,r=1.5*Math.sqrt(i+j),q=nav.nearest([center[0]+Math.cos(a)*r,center[1],center[2]+Math.sin(a)*r],{x:.6,y:1,z:.6});if(q&&Math.abs(q[1]-c[1])<1&&!taken.some(function(p){return Math.hypot(p[0]-q[0],p[2]-q[2])<1.3;})){found=q;taken.push(q);out.set(s,q);}}});
+  });return out;}
  // No formation ring or cover rearrangement for a single selected soldier.
  if(group.length===1)return new Map([[group[0],c]]);
  while(spots.length<group.length&&ring<8){var n=ring===0?1:Math.round(2*Math.PI*ring*1.3/1.3);
@@ -37,7 +42,7 @@ TacticalSquadOrders.prototype.spots=function(group,point){
 TacticalSquadOrders.prototype.cancelAssault=function(group){if(this.assault){var a=this.assault;group.forEach(function(s){var i=a.members.indexOf(s);if(i>=0)a.members.splice(i,1);});if(!a.members.length)this.assault=null;}};
 TacticalSquadOrders.prototype.moveGroup=function(group,point,face){var self=this,T=TacticalCommon.ns(this.app);group=group.filter(function(s){return s.alive;});if(!group.length)return [];this.cancelAssault(group);
  var map=this.spots(group,point),out=[],AIon=TacticalCommon.AI.on,used=[];this.assignSectors(group,face||this.travelFace(group,point));group.forEach(function(s){T.cover.release(s);});
- group.forEach(function(s){s.inCover=false;s.hold=false;var p=map.get(s);if(!p)return;var cv=null;
+ group.forEach(function(s){s.inCover=false;s.hold=false;s.suppress=null;s._rocketCommand=null;var p=map.get(s);if(!p){s.stop();s.order={type:'move',by:'player',dest:s.pos(),anchor:s.pos(),failed:true};out.push({soldier:s.soldierName,failed:true,error:'No free destination near the order',path:[]});return;}var cv=null;
   if(AIon&&Math.hypot(s.pos()[0]-p[0],s.pos()[2]-p[2])>3.0){/* preserve precise short move orders; auto-cover only for larger moves */var bd=TacticalSquadOrders.HOLD_SLACK;T.cover.usable().forEach(function(c){var q=c.position,d=Math.hypot(q[0]-p[0],q[2]-p[2]);if(d<bd&&Math.abs(q[1]-p[1])<1&&!T.cover.claimedBy(q,s)&&!used.some(function(u){return Math.hypot(u[0]-q[0],u[2]-q[2])<1.0;})){bd=d;cv=c;}});}
   if(cv){p=cv.position.slice();T.cover.claim(s,p);s.chosenCover={position:p,source:cv.source,kind:cv.kind,crouched:true};}used.push(p);
   if(!s.moveTo(p,'Moving (player order)'+(cv?' - cover at '+cv.source:''))){
@@ -256,8 +261,8 @@ TacticalSquadOrders.prototype.separate=function(now,frA){var T=TacticalCommon.ns
    if(!b.moveTo(q,'Spacing out from '+a.soldierName))return false;if(b.order)b.order.dest=q;b.sepMoveT=now+3;T.combat.counters.separations=(T.combat.counters.separations||0)+1;return true;});
   if(ok)break;}}};
 /* pass D: focus fire. Every member gets the same focus target for 20 s (cleared when it dies); the target picker honours it. */
-TacticalSquadOrders.prototype.focusFire=function(group,target,by){var T=TacticalCommon.ns(this.app),C=TacticalCommon;if(!target||!target.alive)return [];var until=T.elapsed+20,name=target.soldierName||((target.type||'')+' zombie');
- group=group.filter(function(s){return s&&s.alive&&!s.controlled&&s.team==='friendly';});group.forEach(function(s){s.focus=target;s.focusUntil=until;s.focusT=T.elapsed;s.focusSeenT=-99;if(T.perception)T.perception.sense(s,target,T.elapsed,2);C.log(s.app,s,'Focus fire: '+name+' ('+by+')');});
+TacticalSquadOrders.prototype.focusFire=function(group,target,by){var T=TacticalCommon.ns(this.app),C=TacticalCommon;if(!target||!target.alive)return [];var commandTeam=this.localTeam||'friendly',until=T.elapsed+20,name=target.soldierName||((target.type||'')+' zombie');
+ group=group.filter(function(s){return s&&s.alive&&!s.controlled&&s.team===commandTeam;});group.forEach(function(s){window.DreadingSpecialistAI?.orderRocket(s,[target.pos()[0],target.pos()[1]+1,target.pos()[2]],target);s.focus=target;s.focusUntil=until;s.focusT=T.elapsed;s.focusSeenT=-99;if(T.perception)T.perception.sense(s,target,T.elapsed,2);C.log(s.app,s,'Focus fire: '+name+' ('+by+')');});
  T.combat.counters.focusOrders=(T.combat.counters.focusOrders||0)+1;T.events.push({time:+T.elapsed.toFixed(2),soldier:'-',decision:'focus fire on '+name+' x'+group.length+' ('+by+')'});return group;};
 
 /* ================= M5: squad brain. One order (assault / defend / suppress / move) is broken into behaviour-tree
@@ -349,7 +354,7 @@ TacticalSquadOrders.prototype.bMove=function(b,s,p,face,text,extra){var T=Tactic
  var me=s.pos();if(Math.hypot(me[0]-p[0],me[2]-p[2])<0.5&&Math.abs(me[1]-p[1])<1){s.stop();o.arrived=true;TacticalCommon.log(s.app,s,text);return true;}
  if(!s.moveTo(p,text)){b.navFail++;b.navLog.push({t:+T.elapsed.toFixed(2),soldier:s.soldierName,step:b.cur,dest:p});o.failed=true;o.arrived=false;return false;}return true;};
 TacticalSquadOrders.prototype.bGroup=function(b,group,point,face,text,extra){var self=this,map=this.spots(group,point),B=b.building,used=[];
- group.forEach(function(s){var p=map.get(s)||point,q=B&&B.ok?self.notDoorway(B,p,used):p;used.push(q);self.bMove(b,s,q,face,text,extra);});};
+ group.forEach(function(s){var p=map.get(s)||point,q=B&&B.ok?self.notDoorway(B,p,used):p;var nav=TacticalCommon.ns(self.app).navigation,me=s.pos(),reachable=function(v){try{return !!nav.path(me,v);}catch(e){return false;}};if(!reachable(q)){var found=null;for(var r=1;r<=4&&!found;r++)for(var k=0;k<12&&!found;k++){var a=k*Math.PI/6,v=nav.nearest([q[0]+Math.cos(a)*r,q[1],q[2]+Math.sin(a)*r],{x:.4,y:.5,z:.4});if(v&&!used.some(function(u){return Math.hypot(v[0]-u[0],v[2]-u[2])<1;})&&reachable(v))found=v;}if(!found){s.stop();s.order={type:'brain',brain:b.kind,bid:b.id,by:'brain',arrived:false,failed:true};b.navFail++;return;}q=found;}used.push(q);self.bMove(b,s,q,face,text,extra);});};
 /* M7: a brain spot that lands in a doorway (within 1.3 m of a door point) is moved to a side angle on that door from inside */
 TacticalSquadOrders.prototype.notDoorway=function(B,p,used){var dr=(B.doors||[]).find(function(d){return Math.hypot(d.c[0]-p[0],d.c[2]-p[2])<1.3&&Math.abs((d.c[1]||0)-p[1])<1.5;});if(!dr)return p;
  var sp=this.angleSpot(B,{o:[dr.c[0],B.floorY||0,dr.c[2]],nIn:[-dr.n[0],0,-dr.n[2]]},used||[],B.floorY||0);TacticalCommon.ns(this.app).doorSpotFix=(TacticalCommon.ns(this.app).doorSpotFix||0)+1;return sp?sp.p:p;};
@@ -402,7 +407,7 @@ TacticalSquadOrders.prototype.startBrain=function(kind,members,opt){var C=Tactic
  members.forEach(function(s){T.cover.release(s);s.suppress=null;s.order={type:'brain',brain:kind,bid:b.id,dest:s.pos(),arrived:true,by:'brain',step:'start'};C.log(s.app,s,'Squad order: '+kind+(b.building?' '+b.building.name:'')+' ('+b.reason+')');});
  b.floor=kind==='assault'&&opt.floor&&typeof opt.floor==='object'?opt.floor:null;/* Task 8: floor picker - {i,label,y,pts,roof} from buildingFloors() */
  b.tree=b.shelterOnly?this.shelterTree():this.brainTree(kind,b.floor);this.brain=b;this.lastBrain=b;T.lastOrderT=T.elapsed;T.running=true;
- T.events.push({time:+T.elapsed.toFixed(2),soldier:'-',decision:'squad order '+kind+' x'+members.length+' ('+b.reason+')'});this.brainTick(T.elapsed,true);return b;};
+ T.events.push({time:+T.elapsed.toFixed(2),soldier:'-',decision:'squad order '+kind+' x'+members.length+' ('+b.reason+')'});this.brainTick(T.elapsed,true);if(kind==='suppress')members.forEach(function(s){window.DreadingSpecialistAI?.orderRocket(s,opt.point||opt.target?.pos(),opt.target);});return b;};
 /* M9: buddy cohesion: a clearing team may be spread across two covering pairs, but nobody advances
    when a live squadmate is isolated. If an isolated soldier is stuck, his nearest buddy moves to help.
    Do not run this as a per-frame distance-only formation controller. */
@@ -638,12 +643,12 @@ TacticalSquadOrders.prototype.btWindows=function(b,now,st){var T=TacticalCommon.
  b.why='spreading to '+st.assign.length+' openings ('+st.sides.join(', ')+')';
  b.windowAssignments=st.assign;
  if(this.bArrived(m)||now-b.stepT>15){b.onWindows=st.assign.filter(function(a){if(!a.w.open)return false;var p=a.s.pos();return a.s.alive&&Math.hypot(p[0]-a.w.p[0],p[2]-a.w.p[2])<1.2&&Math.abs(p[1]-a.w.p[1])<1;}).length;return 'ok';}return 'run';};
-TacticalSquadOrders.prototype.btHold=function(b,now,st){var T=TacticalCommon.ns(this.app),K=TacticalSquadOrders.BRAIN,m=this.brainMembers(b),self=this,en=this.team('enemy').filter(function(s){return s.alive;});
+TacticalSquadOrders.prototype.btHold=function(b,now,st){var T=TacticalCommon.ns(this.app),K=TacticalSquadOrders.BRAIN,m=this.brainMembers(b),self=this,en=this.team((this.localTeam||'friendly')==='friendly'?'enemy':'friendly').filter(function(s){return s.alive;});
  if(st.q===undefined){st.q=now;m.forEach(function(s){TacticalCommon.log(s.app,s,s.order&&s.order.angle?'Holding an angle on the '+s.order.window:'Holding window');});}
  /* M7: re-assign the angles when a teammate dies or an opening is breached (hostile inside within 3 m of an opening) */
  if(st.n===undefined){st.n=m.length;st.rT=now;}var B=b.building,self=this;
  if(B&&B.ok&&now-st.rT>1){st.rT=now;var fy=B.floorY||0,up=B.upperY!=null&&m.filter(function(s){return s.pos()[1]>fy+1.5;}).length*2>=m.length,ops=this.openings(B,up,b.start),R=B.rect,br=null;
-  T.squad.concat(T.zombies||[]).forEach(function(e){if(br||!e.alive||e.team==='friendly'||e.disabled)return;var p=e.pos();if(p[0]<R[0]||p[0]>R[2]||p[2]<R[1]||p[2]>R[3]||Math.abs(p[1]-(up?B.upperY:fy))>1.5)return;var op=ops.find(function(o){return Math.hypot(o.o[0]-p[0],o.o[2]-p[2])<3;});if(op)br={op:op,p:p};});
+  T.squad.concat(T.zombies||[]).forEach(function(e){if(br||!e.alive||e.team===(self.localTeam||'friendly')||e.disabled)return;var p=e.pos();if(p[0]<R[0]||p[0]>R[2]||p[2]<R[1]||p[2]>R[3]||Math.abs(p[1]-(up?B.upperY:fy))>1.5)return;var op=ops.find(function(o){return Math.hypot(o.o[0]-p[0],o.o[2]-p[2])<3;});if(op)br={op:op,p:p};});
   var brk=br?br.op.id:null;
   if(m.length&&(m.length<st.n||(brk&&brk!==st.brk&&now-(st.brT||-99)>5))){var asg=this.holdAngles(B,m,up,br?br.p:b.start);asg.forEach(function(a){self.bMove(b,a.s,a.spot.p,a.spot.face,'Re-assigned: angle on the '+a.op.kind+(br?' (breach at the '+br.op.kind+')':''),{window:a.op.kind,angle:a.op.id});});
    T.angleReassign=(T.angleReassign||0)+1;if(brk){st.brT=now;}}
@@ -662,17 +667,17 @@ TacticalSquadOrders.prototype.btDefMove=function(b,now,st){var m=this.brainMembe
  if(!st.sent){st.sent=true;var face=null,T=TacticalCommon.ns(this.app),th=T.perception?T.perception.threatsFor(m[0]):[];if(th.length)face=th[0];this.bGroup(b,m,p,face,'Defend: moving to the area');}
  b.why='moving to the defend area ('+b.area+' m)';if(this.bArrived(m)||now-b.stepT>20)return 'ok';return 'run';};
 TacticalSquadOrders.prototype.btDefHold=function(b,now,st){var T=TacticalCommon.ns(this.app),m=this.brainMembers(b),K=TacticalSquadOrders.BRAIN,c=b.point||this.bCentroid(m),self=this;
- if(!st.init){st.init=true;this.assignSectors(m,T.perception.threatPoint('friendly'));m.forEach(function(s){s.order.autoCover=true;s.order.anchor=c.slice();s.order.area=b.area;s.order.arrived=true;});}
+ if(!st.init){st.init=true;this.assignSectors(m,T.perception.threatPoint(this.localTeam||'friendly'));m.forEach(function(s){s.order.autoCover=true;s.order.anchor=c.slice();s.order.area=b.area;s.order.arrived=true;});}
  /* M7: defending inside a building - hold angles on its openings instead of auto cover */
  if(!st.ang){st.ang=true;var bn=this.buildingNear(c,0.01);if(bn&&bn.d===0){var BI=this.docInfo(bn.ref,c);if(BI.ok){b.angleB=BI;var upD=BI.upperY!=null&&c[1]>(BI.floorY||0)+1.5;
-   this.holdAngles(BI,m,upD,T.perception.threatPoint('friendly')).forEach(function(a){self.bMove(b,a.s,a.spot.p,a.spot.face,'Defend: holding an angle on the '+a.op.kind,{anchor:c.slice(),area:b.area,window:a.op.kind,angle:a.op.id});});T.angleHolds=(T.angleHolds||0)+1;}}}
+   this.holdAngles(BI,m,upD,T.perception.threatPoint(this.localTeam||'friendly')).forEach(function(a){self.bMove(b,a.s,a.spot.p,a.spot.face,'Defend: holding an angle on the '+a.op.kind,{anchor:c.slice(),area:b.area,window:a.op.kind,angle:a.op.id});});T.angleHolds=(T.angleHolds||0)+1;}}}
  /* anyone pulled out of the area (chasing, spacing) is brought back */
  m.forEach(function(s){var p=s.pos();if(!s.path.length&&Math.hypot(p[0]-c[0],p[2]-c[2])>b.area+3){self.bMove(b,s,c,null,'Defend: back into the area',{autoCover:true,anchor:c.slice(),area:b.area});}});
  var inC=m.filter(function(s){return s.inCover;}).length,known=T.perception.known(m[0],true).filter(function(r){return r.entity.alive;}),ns=known.filter(function(r){return !r.entity.isZombie;}).length,nz=known.length-ns;
  b.why='holding '+b.area+' m around '+c.map(function(v){return v.toFixed(0);}).join(',')+': '+inC+'/'+m.length+' in auto cover'+(known.length?', threats '+ns+' soldier'+(ns===1?'':'s')+' / '+nz+' zombie'+(nz===1?'':'s'):', no threat');return 'run';};
 TacticalSquadOrders.prototype.bSupPoint=function(b,s){var T=TacticalCommon.ns(this.app);if(b.target){var r=T.perception.known(s,true).find(function(r){return r.entity===b.target;});if(r)return r.lastSensedPosition.slice();if(!b.target.alive)return null;}return b.point;};
 TacticalSquadOrders.prototype.bLine=function(from,to){var T=TacticalCommon.ns(this.app),e=[from[0],from[1]+1.6,from[2]],t=[to[0],to[1]+1.1,to[2]],d=[t[0]-e[0],t[1]-e[1],t[2]-e[2]],L=Math.hypot(d[0],d[1],d[2])||1;d=[d[0]/L,d[1]/L,d[2]/L];
- var h=TacticalCommon.rayWorld(e,d,L,T.perception.blockers);return !h||h.t>=L-1.6;};
+ var h=TacticalCommon.rayWorld(e,d,L,T.perception.blockers);return !h||h.t>=L-.2;};
 TacticalSquadOrders.prototype.btSupLine=function(b,now,st){var T=TacticalCommon.ns(this.app),m=this.brainMembers(b),self=this;
  if(!st.sent){st.sent=true;st.moved=0;m.forEach(function(s){var tp=self.bSupPoint(b,s);if(!tp)return;var me=s.pos();if(self.bLine(me,tp))return;
    var c=T.cover.usable().filter(function(c){return Math.hypot(c.position[0]-me[0],c.position[2]-me[2])<10&&!T.cover.claimedBy(c.position,s);}).sort(function(a,c2){return Math.hypot(a.position[0]-me[0],a.position[2]-me[2])-Math.hypot(c2.position[0]-me[0],c2.position[2]-me[2]);}).slice(0,8).find(function(c){return self.bLine(c.position,tp);});
@@ -681,7 +686,7 @@ TacticalSquadOrders.prototype.btSupLine=function(b,now,st){var T=TacticalCommon.
  if(this.bArrived(m)||now-b.stepT>8)return 'ok';return 'run';};
 TacticalSquadOrders.prototype.btSupFire=function(b,now,st){var K=TacticalSquadOrders.BRAIN,m=this.brainMembers(b),self=this,T=TacticalCommon.ns(this.app);
  if(!st.until){st.until=now+(b.duration||K.suppress);st.shots0=m.reduce(function(a,s){return a+(s.arms?s.arms.shots:0);},0);}
- var tp=null;m.forEach(function(s){var p=self.bSupPoint(b,s);if(p){tp=p;s.suppress={p:p,until:st.until,bid:b.id};s.order.face=p;}});
+ var tp=null;m.forEach(function(s){var p=self.bSupPoint(b,s);if(p){tp=p;if(self.bLine(s.pos(),p)){s.suppress={p:p,until:st.until,bid:b.id};s.order.face=p;}else{s.suppress=null;b.blocked=(b.blocked||0)+1;}} });
  if(!tp){b.why='target gone - suppression ends';return 'ok';}
  b.supShots=m.reduce(function(a,s){return a+(s.arms?s.arms.shots:0);},0)-st.shots0;
  b.why='suppressing '+(b.target?'last known position of '+this.bName(b.target):'the point')+' ('+(st.until-now).toFixed(0)+' s left, '+b.supShots+' rounds)';
