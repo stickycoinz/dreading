@@ -101,10 +101,16 @@ function dedupeChunk(file,a){const r=a.resource;if(!r||!r.textures)return;const 
  r.textures=keep;chunkTex.set(file,used);used.forEach(k=>texRefs.set(k,(texRefs.get(k)||0)+1));}
 function loadChunk(file){
  if(chunks.has(file))return chunks.get(file);
- const promise=new Promise((resolve,reject)=>{
+ const promise=(async function(){
+  let url=base+file;
+  if(window.DREADING_COMPRESSED_MAP){
+   const response=await fetch(url+'.gz');if(!response.ok)throw Error('Map chunk '+file+' HTTP '+response.status);
+   const blob=await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).blob();url=URL.createObjectURL(blob);
+  }
+  return new Promise((resolve,reject)=>{
   const options={image:{processAsync:(image,done)=>{const key=base+image.uri+'|'+!!image.extras?.srgb;if(!images.has(key))images.set(key,new Promise((yes,no)=>{const a=new pc.Asset(image.name,'texture',{url:base+image.uri},{srgb:!!image.extras?.srgb});a.once('load',()=>{texByUrl.set(texKey(a),a);I.texStats.unique=texByUrl.size;yes(a);});a.once('error',no);app.assets.add(a);app.assets.load(a);}));images.get(key).then(a=>done(null,a),done);}}};
-  const a=new pc.Asset('Imported '+file,'container',{url,filename:file},null,options);a.once('load',()=>{if(window.DREADING_COMPRESSED_MAP)URL.revokeObjectURL(url);try{dedupeChunk(file,a);}catch(e){console.warn('[texture dedupe] '+file,e);}resolve(a);});a.once('error',reject);app.assets.add(a);app.assets.load(a);
- });chunks.set(file,promise);return promise;
+  const a=new pc.Asset('Imported '+file,'container',{url,filename:file},null,options);a.once('load',()=>{if(window.DREADING_COMPRESSED_MAP)URL.revokeObjectURL(url);try{dedupeChunk(file,a);}catch(e){console.warn('[texture dedupe] '+file,e);}resolve(a);});a.once('error',error=>{if(window.DREADING_COMPRESSED_MAP)URL.revokeObjectURL(url);reject(error);});app.assets.add(a);app.assets.load(a);
+ });})();chunks.set(file,promise);return promise;
 }
 async function loadNav(file){if(!navData.has(file))navData.set(file,fetch(base+file).then(r=>{if(!r.ok)throw Error('Navigation HTTP '+r.status);return r.json();}));return navData.get(file);}
 function releaseChunk(file){const p=chunks.get(file);if(!p)return;chunks.delete(file);const u=chunkTex.get(file);if(u){u.forEach(k=>texRefs.set(k,(texRefs.get(k)||1)-1));chunkTex.delete(file);}p.then(a=>{if(a.resource)a.resource.textures=[];a.unload();app.assets.remove(a);});}
