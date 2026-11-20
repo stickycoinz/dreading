@@ -75,7 +75,7 @@ TacticalSoldierDecision.prototype.update=function(dt){
    if(hitMe)d*=0.25;
    var vt=e.target;if(vt&&vt!==self&&vt.alive&&vt.team===self.team)d*=e.isZombie?(e.state==='attack'?0.6:0.8):0.85;
    var n=tc.get(e)||0,cap=e.isZombie?2:3;if(n>=cap&&self.target!==e&&!hitMe&&e.target!==self&&self.focus!==e)d*=2.2;}
-  if(foc===e)d*=0.05;/* pass D: ordered focus target */
+  if(window.DreadingSpecialistAI)d*=DreadingSpecialistAI.priority(self,e);if(foc===e)d*=0.05;/* pass D: ordered focus target */
   if(sec&&!hitMe&&foc!==e&&!(r.entity.isZombie&&r.entity.target===self)&&!TacticalSoldierDecision.inSector(sec,me,p))d*=1.4;/* pass B: prefer targets in my sector */
   if(r.entity.isZombie)d*=(r.entity.target===self?0.5:0.85)*(r.entity.type==='run'?0.8:1)*(r.entity.state==="attack"?0.6:1);/* pass 3 threat weighting */if(d<bd){bd=d;best=r.entity;}});
  /* M7: self-defence always - a zombie biting me / on top of me is my target whether I can see it or not (it is touching me), whatever the step or order */

@@ -36,7 +36,7 @@ TacticalPerception.prototype.updateSoldierLegacy=function(s,now){
   if(!s.memory.hasRecord(e))s.memory.createRecord(e);var r=s.memory.getRecord(e);
   if(!e.alive){r.visible=false;r.dead=true;return;}r.dead=false;
   var night=globalThis.DreadingNight;var seen=(!night||night.lit(s,e,T,T.perception))&&(s.vision.visible(NS.entHead(e))||s.vision.visible(NS.entChest(e)));
-  if(seen){if(!r.visible)r.timeBecameVisible=now;r.timeLastSensed=now;var p=e.pos();r.lastSensedPosition=[p[0],p[1],p[2]];r.visible=true;}
+  if(seen){if(!r.visible)r.timeBecameVisible=now;r.timeLastSensed=now;var p=e.pos();r.lastSensedPosition=[p[0],p[1],p[2]];r.lastVisualPosition=r.lastSensedPosition.slice();r.lastVisualT=now;r.visible=true;}
   else r.visible=false;});
 };
 
@@ -83,7 +83,7 @@ TacticalPerception.prototype.updateSoldier=function(s,now){
   this._count('seen');
   if(!s.memory.hasRecord(e))s.memory.createRecord(e);
   var rec=s.memory.getRecord(e);if(!previouslyVisible.has(e))rec.timeBecameVisible=now;
-  rec.timeLastSensed=now;rec.lastSensedPosition=[p[0],p[1],p[2]];rec.visible=true;rec.dead=false;
+  rec.timeLastSensed=now;rec.lastSensedPosition=[p[0],p[1],p[2]];rec.lastVisualPosition=rec.lastSensedPosition.slice();rec.lastVisualT=now;rec.visible=true;rec.dead=false;
  }
 };
 TacticalPerception.prototype.metrics=function(){return Object.assign({mode:this.useBroadphase?'hierarchical':'legacy',indexCells:this._cells.size},this.stats);};
