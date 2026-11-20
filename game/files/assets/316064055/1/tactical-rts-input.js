@@ -407,19 +407,27 @@ TacticalRtsInput.prototype.vmTick=function(dt){var f=this.fps,vm=this.vm;if(!f||
  f.kickV+=(-f.kick*260-f.kickV*26)*dt;f.kick+=f.kickV*dt;if(f.kick<-0.2)f.kick=-0.2;
  var a=A.adsW*A.adsW*(3-2*A.adsW),NV=TacticalRtsInput.VM.newSkin,h=T.newSkin?new pc.Vec3(NV.hipX,NV.hipY,NV.hipZ+0.10):TacticalRtsInput.VM.hip,d=T.newSkin?new pc.Vec3(NV.adsX,NV.adsY,NV.adsZ+0.10):TacticalRtsInput.VM.ads,sw=A.switching>0?Math.sin(Math.PI*Math.min(1,A.switching/(TacticalNS.SWITCH?TacticalNS.SWITCH.dur:0.44)))*0.25:0;
  if(A.def.id==='bazooka'){h.x+=.22;h.y-=.06;d.copy(h);}
- var bob=s.speedNow>0.3&&f.airY<=0?Math.sin(T.elapsed*s.speedNow*2.4)*0.008*(window.DreadingAnimationSettings?window.DreadingAnimationSettings.bob:1)*(1-a*0.8):0,c=this.vmCorr||[0,0,0];
+ // Integrate phase: multiplying total match time by instantaneous speed caused discontinuous jumps.
+ var motionK=1-Math.exp(-10*Math.min(dt,.05));f.vmSpeed=(f.vmSpeed||0)+(s.speedNow-(f.vmSpeed||0))*motionK;
+ var moving=f.vmMoving?f.vmSpeed>.15:f.vmSpeed>.4;f.vmMoving=moving;
+ var running=f.vmRunning?f.sprintW>.35&&moving:f.sprintW>.65&&f.vmSpeed>1.6;f.vmRunning=running;
+ var cadence=window.DreadingAnimationSettings,cycle=running?(cadence?.runCycle||.65):(cadence?.walkCycle||1);
+ var motionRate=Math.max(.75,Math.min(1.15,f.vmSpeed/(running?6.8:4.5)));
+ f.vmPhase=((f.vmPhase||0)+dt*Math.PI*2/cycle*motionRate)%(Math.PI*2);
+ var targetBob=moving&&f.airY<=0?1:0;f.vmBob=(f.vmBob||0)+(targetBob-(f.vmBob||0))*motionK;
+ var bob=Math.sin(f.vmPhase)*.004*f.vmBob*(cadence?cadence.bob:1)*(1-a*.8),c=this.vmCorr||[0,0,0];
  var recoilAngle=0,recoilRad=recoilAngle*Math.PI/180,pivotY=1.35;
  this.vmBase=[NS_l(h.x,d.x,a),NS_l(h.y,d.y,a)+bob-f.airY*0.04-sw+pivotY*(1-Math.cos(recoilRad)),NS_l(h.z,d.z,a)+(DreadingBodyAnimation.pistol(s)?0.06:0)-pivotY*Math.sin(recoilRad)];
  vm.setLocalPosition(this.vmBase[0]+c[0],this.vmBase[1]+c[1],this.vmBase[2]+c[2]);vm.setLocalEulerAngles(recoilAngle,0,0);
- var sp=s.speedNow,clip=TacticalRtsInput.vmClipFor(!!A.reload,f.sprintW,sp,A.adsW),rate=1;
- if(clip==='reload'){clip=DreadingBodyAnimation.reloadClip(s,T);var reloadTrack=DreadingBodyAnimation.track(T,clip);rate=(reloadTrack?reloadTrack.duration:1.85)/Math.max(0.5,A.reload.dur||A.def.reload);}else if(DreadingBodyAnimation.pistol(s)){clip='pistol__pistol_idle';}else if(clip==='rifle_run')rate=sp/TacticalRtsInput.VM.runRate;else if(clip==='rifle_walk')rate=Math.max(0.8,Math.min(1.5,sp/TacticalRtsInput.VM.walkRate));
+ var sp=f.vmSpeed,clip=TacticalRtsInput.vmClipFor(!!A.reload,running?1:0,moving?Math.max(.4,sp):0,A.adsW),rate=1;
+ if(clip==='reload'){clip=DreadingBodyAnimation.reloadClip(s,T);var reloadTrack=DreadingBodyAnimation.track(T,clip);rate=(reloadTrack?reloadTrack.duration:1.85)/Math.max(0.5,A.reload.dur||A.def.reload);}else if(DreadingBodyAnimation.pistol(s)){clip='pistol__pistol_idle';}else if(clip==='rifle_run'||clip==='rifle_walk')rate=motionRate;
  // Replay the authored rifle recoil only after a successful shot, never on trigger/dry fire.
  var shotTrack=!DreadingBodyAnimation.pistol(s)&&DreadingBodyAnimation.track(T,'loose__Firing_Rifle'),shotNew=Number.isFinite(s.lastShotT)&&T.elapsed-s.lastShotT<0.1&&s.lastShotT!==this.vmShotStamp;
  if(shotNew){this.vmShotStamp=s.lastShotT;this.vmShotWeapon=A;this.vmShotUntil=T.elapsed+(shotTrack?shotTrack.duration:0);}
  var shotActive=shotTrack&&A.adsW<.35&&!A.reload&&!(A.switching>0)&&this.vmShotWeapon===A&&T.elapsed<this.vmShotUntil;
  // Local recoil is applied as arm-bone deltas after the base pose, including ADS.
  shotActive=false;
- var reloadStart=A.reload&&(!this.vmWasReload||(A.reload.elapsed??A.reload.t??0)<(this.vmReloadT||0)-.1);this.vmWasReload=!!A.reload;this.vmReloadT=A.reload?.elapsed??A.reload?.t??0;if((clip!==this.vmClip||reloadStart||(shotActive&&shotNew))&&vm.anim.baseLayer){try{vm.anim.baseLayer.transition(clip,shotActive?0.025:0.12);if(shotActive&&shotNew)vm.anim.baseLayer.activeStateCurrentTime=0;this.vmClip=clip;this.vmClipT=T.elapsed;this.vmTransitions=(this.vmTransitions||0)+1;}catch(e){}}
+ var reloadStart=A.reload&&(!this.vmWasReload||(A.reload.elapsed??A.reload.t??0)<(this.vmReloadT||0)-.1);this.vmWasReload=!!A.reload;this.vmReloadT=A.reload?.elapsed??A.reload?.t??0;if((clip!==this.vmClip||reloadStart||(shotActive&&shotNew))&&vm.anim.baseLayer){try{var gaitChange=/rifle_run|rifle_walk/.test(clip)&&/rifle_run|rifle_walk/.test(this.vmClip),layer=vm.anim.baseLayer,phase=gaitChange?(layer.activeStateCurrentTime/Math.max(.001,layer.activeStateDuration))%1:undefined;layer.transition(clip,shotActive?.025:.2,phase);if(shotActive&&shotNew)vm.anim.baseLayer.activeStateCurrentTime=0;this.vmClip=clip;this.vmClipT=T.elapsed;this.vmTransitions=(this.vmTransitions||0)+1;}catch(e){}}
  var cadence=window.DreadingAnimationSettings,ct=DreadingBodyAnimation.track(T,clip);if(ct&&/rifle_run|rifle_walk/.test(clip))rate*=ct.duration/(clip==='rifle_run'?(cadence?.runCycle||.65):(cadence?.walkCycle||1));var tuning=window.DreadingAnimationSettings,category=/reload/i.test(clip)?'fpReload':clip==='rifle_run'?'fpRun':clip==='rifle_walk'?'fpWalk':null;vm.anim.speed=Math.max(0.1,Math.min(2.4,rate))*(tuning&&category?tuning[category]:1);
  function NS_l(x,y,t){return x+(y-x)*t;}};
 /* head-bone anchor (after the animation pose): keep the head bone at its aim_idle spot in viewmodel space */
