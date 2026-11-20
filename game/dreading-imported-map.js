@@ -103,7 +103,7 @@ function loadChunk(file){
  if(chunks.has(file))return chunks.get(file);
  const promise=new Promise((resolve,reject)=>{
   const options={image:{processAsync:(image,done)=>{const key=base+image.uri+'|'+!!image.extras?.srgb;if(!images.has(key))images.set(key,new Promise((yes,no)=>{const a=new pc.Asset(image.name,'texture',{url:base+image.uri},{srgb:!!image.extras?.srgb});a.once('load',()=>{texByUrl.set(texKey(a),a);I.texStats.unique=texByUrl.size;yes(a);});a.once('error',no);app.assets.add(a);app.assets.load(a);}));images.get(key).then(a=>done(null,a),done);}}};
-  const a=new pc.Asset('Imported '+file,'container',{url:base+file},null,options);a.once('load',()=>{try{dedupeChunk(file,a);}catch(e){console.warn('[texture dedupe] '+file,e);}resolve(a);});a.once('error',reject);app.assets.add(a);app.assets.load(a);
+  const a=new pc.Asset('Imported '+file,'container',{url,filename:file},null,options);a.once('load',()=>{if(window.DREADING_COMPRESSED_MAP)URL.revokeObjectURL(url);try{dedupeChunk(file,a);}catch(e){console.warn('[texture dedupe] '+file,e);}resolve(a);});a.once('error',reject);app.assets.add(a);app.assets.load(a);
  });chunks.set(file,promise);return promise;
 }
 async function loadNav(file){if(!navData.has(file))navData.set(file,fetch(base+file).then(r=>{if(!r.ok)throw Error('Navigation HTTP '+r.status);return r.json();}));return navData.get(file);}

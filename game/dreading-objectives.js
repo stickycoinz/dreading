@@ -342,7 +342,7 @@
           : "Need " + preset.cost + " credits for " + preset.name + " (have " + O.state.credits[side] + ").";
       return false;
     }
-    const kits = O.kits(tier), fwd = O.forwardPoint(side);
+    const kits = O.kits(tier).map(u=>({...u,packageId:tier})), fwd = O.forwardPoint(side);
     const base = fwd ? fwd.p : N.api.spawnPoints[N.api.units.findIndex((s) => s._netOwner === side)];
     for (let i = 0; i < unitCount; i++) {
       const s = free[i], u = kits[i];
