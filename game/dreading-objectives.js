@@ -671,8 +671,9 @@ body:not(.tl-fp) #fire-support-panel button{font:10px var(--tlh-font-mono,monosp
     if (e.code === "F9" && !e.shiftKey) return void document.body.classList.toggle("dh-dev");
     const el = e.target, tg = el && el.tagName, typing = tg === "TEXTAREA" || (el && el.isContentEditable) || (tg === "INPUT" && !/^(range|checkbox|radio|button|submit|color)$/i.test(el.type || ""));
     if (T.input?.fps || typing) return;
-    if (e.code === "KeyN" || e.code === "KeyO") setList(!RH.list);
-    else if (e.code === "KeyM") {
+    const code = window.DreadingSettings?.codeFor(e, false) || e.code;
+    if (code === "KeyN" || code === "KeyO") setList(!RH.list);
+    else if (code === "KeyM") {
       setMenu(!RH.menu);
       if (tg === "SELECT" || tg === "INPUT" || tg === "BUTTON") el.blur?.();
       e.preventDefault();
