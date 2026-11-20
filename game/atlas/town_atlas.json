@@ -1,0 +1,741 @@
+{
+ "format": "dreading-material-table",
+ "version": 1,
+ "notes": "One shared PBR atlas for generated buildings, site props and terrain. UV origin is bottom-left (Blender convention). Box-project each face at uvMetres metres per UV unit, wrap the fractional part into the tile rect. Final colour = albedo * tint (tint is linear RGB, applied as vertex colour at runtime).",
+ "uvMetres": 2.0,
+ "uvOrigin": "bottom-left",
+ "atlas": {
+  "size": 2048,
+  "padPx": 16,
+  "grid": [
+   4,
+   4
+  ],
+  "cellPx": 512,
+  "maps": {
+   "albedo": {
+    "file": "town_albedo",
+    "colorSpace": "sRGB"
+   },
+   "normal": {
+    "file": "town_normal",
+    "colorSpace": "linear",
+    "convention": "OpenGL +Y"
+   },
+   "orm": {
+    "file": "town_orm",
+    "colorSpace": "linear",
+    "channels": "R=AO G=roughness B=metalness"
+   }
+  },
+  "formats": [
+   "ktx2",
+   "jpg"
+  ],
+  "ktx2Note": "KTX2 files are stored bottom-row-first (toktx --lower_left_maybe_flip_y), so no flip is needed at upload; JPG/PNG are top-row-first and need flipY."
+ },
+ "tiles": {
+  "brick": {
+   "rect": [
+    0.007812,
+    0.757812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    16,
+    16,
+    480,
+    480
+   ],
+   "srcMetres": 2,
+   "roughness": 0.532,
+   "metalness": 0.005,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.153,
+    0.0954,
+    0.0782
+   ],
+   "source": "polyhaven:red_brick_03"
+  },
+  "plaster": {
+   "rect": [
+    0.257812,
+    0.757812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    528,
+    16,
+    480,
+    480
+   ],
+   "srcMetres": 2,
+   "roughness": 0.52,
+   "metalness": 0.005,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.4972,
+    0.4914,
+    0.4547
+   ],
+   "source": "polyhaven:white_rough_plaster"
+  },
+  "stone": {
+   "rect": [
+    0.507812,
+    0.757812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    1040,
+    16,
+    480,
+    480
+   ],
+   "srcMetres": 1.5,
+   "roughness": 0.706,
+   "metalness": 0.004,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.2559,
+    0.1831,
+    0.1108
+   ],
+   "source": "polyhaven:rustic_stone_wall_02"
+  },
+  "slate": {
+   "rect": [
+    0.757812,
+    0.757812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    1552,
+    16,
+    480,
+    480
+   ],
+   "srcMetres": 3,
+   "roughness": 0.844,
+   "metalness": 0.008,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.2979,
+    0.2538,
+    0.1931
+   ],
+   "source": "polyhaven:roof_slates_02"
+  },
+  "tile": {
+   "rect": [
+    0.007812,
+    0.507812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    16,
+    528,
+    480,
+    480
+   ],
+   "srcMetres": 2.5,
+   "roughness": 0.914,
+   "metalness": 0.002,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.315,
+    0.0842,
+    0.0227
+   ],
+   "source": "polyhaven:clay_roof_tiles_02"
+  },
+  "timber": {
+   "rect": [
+    0.257812,
+    0.507812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    528,
+    528,
+    480,
+    480
+   ],
+   "srcMetres": 1.8,
+   "roughness": 0.654,
+   "metalness": 0.009,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.1201,
+    0.0716,
+    0.0407
+   ],
+   "source": "polyhaven:weathered_brown_planks"
+  },
+  "metal": {
+   "rect": [
+    0.507812,
+    0.507812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    1040,
+    528,
+    480,
+    480
+   ],
+   "srcMetres": 2.24,
+   "roughness": 0.703,
+   "metalness": 0.987,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.4098,
+    0.4577,
+    0.4345
+   ],
+   "source": "polyhaven:corrugated_iron"
+  },
+  "glass": {
+   "rect": [
+    0.757812,
+    0.507812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    1552,
+    528,
+    480,
+    480
+   ],
+   "srcMetres": 2.0,
+   "roughness": 0.078,
+   "metalness": 0.0,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.0303,
+    0.0511,
+    0.0656
+   ],
+   "source": "procedural (flat glass)"
+  },
+  "rubble": {
+   "rect": [
+    0.007812,
+    0.257812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    16,
+    1040,
+    480,
+    480
+   ],
+   "srcMetres": 3,
+   "roughness": 0.714,
+   "metalness": 0.01,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.2307,
+    0.1978,
+    0.168
+   ],
+   "source": "polyhaven:rocks_ground_05"
+  },
+  "grass": {
+   "rect": [
+    0.257812,
+    0.257812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    528,
+    1040,
+    480,
+    480
+   ],
+   "srcMetres": 2,
+   "roughness": 0.942,
+   "metalness": 0.008,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.0788,
+    0.045,
+    0.005
+   ],
+   "source": "polyhaven:sparse_grass"
+  },
+  "mud": {
+   "rect": [
+    0.507812,
+    0.257812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    1040,
+    1040,
+    480,
+    480
+   ],
+   "srcMetres": 2.6,
+   "roughness": 0.949,
+   "metalness": 0.011,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.0753,
+    0.058,
+    0.0366
+   ],
+   "source": "polyhaven:brown_mud_02"
+  },
+  "dirt": {
+   "rect": [
+    0.757812,
+    0.257812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    1552,
+    1040,
+    480,
+    480
+   ],
+   "srcMetres": 2.6,
+   "roughness": 0.527,
+   "metalness": 0.009,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.1843,
+    0.1101,
+    0.0485
+   ],
+   "source": "polyhaven:brown_mud_dry"
+  },
+  "gravel": {
+   "rect": [
+    0.007812,
+    0.007812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    16,
+    1552,
+    480,
+    480
+   ],
+   "srcMetres": 2,
+   "roughness": 0.78,
+   "metalness": 0.008,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.0782,
+    0.077,
+    0.0722
+   ],
+   "source": "polyhaven:gravel_stones"
+  },
+  "concrete": {
+   "rect": [
+    0.257812,
+    0.007812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    528,
+    1552,
+    480,
+    480
+   ],
+   "srcMetres": 3,
+   "roughness": 0.619,
+   "metalness": 0.008,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.6395,
+    0.5052,
+    0.3631
+   ],
+   "source": "polyhaven:concrete_wall_003"
+  },
+  "asphalt": {
+   "rect": [
+    0.507812,
+    0.007812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    1040,
+    1552,
+    480,
+    480
+   ],
+   "srcMetres": 3,
+   "roughness": 0.77,
+   "metalness": 0.014,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.1066,
+    0.1049,
+    0.0924
+   ],
+   "source": "polyhaven:asphalt_02"
+  },
+  "cobble": {
+   "rect": [
+    0.757812,
+    0.007812,
+    0.234375,
+    0.234375
+   ],
+   "px": [
+    1552,
+    1552,
+    480,
+    480
+   ],
+   "srcMetres": 1.5,
+   "roughness": 0.627,
+   "metalness": 0.009,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "avgLinear": [
+    0.2847,
+    0.2322,
+    0.1511
+   ],
+   "source": "polyhaven:cobblestone_floor_04"
+  }
+ },
+ "materials": {
+  "concrete": {
+   "tile": "concrete",
+   "tint": [
+    0.82,
+    0.82,
+    0.8
+   ]
+  },
+  "brick": {
+   "tile": "brick",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "plaster": {
+   "tile": "plaster",
+   "tint": [
+    0.9,
+    0.86,
+    0.78
+   ]
+  },
+  "metal": {
+   "tile": "metal",
+   "tint": [
+    0.75,
+    0.76,
+    0.78
+   ]
+  },
+  "roof": {
+   "tile": "slate",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "floor": {
+   "tile": "timber",
+   "tint": [
+    0.8,
+    0.74,
+    0.68
+   ]
+  },
+  "wood": {
+   "tile": "timber",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "rubble": {
+   "tile": "rubble",
+   "tint": [
+    0.5,
+    0.47,
+    0.43
+   ]
+  },
+  "burnt": {
+   "tile": "rubble",
+   "tint": [
+    0.16,
+    0.14,
+    0.12
+   ]
+  },
+  "asphalt": {
+   "tile": "asphalt",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "rust": {
+   "tile": "metal",
+   "tint": [
+    0.72,
+    0.45,
+    0.3
+   ]
+  },
+  "hedge": {
+   "tile": "grass",
+   "tint": [
+    0.55,
+    0.75,
+    0.45
+   ]
+  },
+  "dark": {
+   "tile": "plaster",
+   "tint": [
+    0.07,
+    0.075,
+    0.08
+   ]
+  },
+  "stone": {
+   "tile": "stone",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "tile": {
+   "tile": "tile",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "cobble": {
+   "tile": "cobble",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "dirt": {
+   "tile": "dirt",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "leaf": {
+   "tile": "grass",
+   "tint": [
+    0.45,
+    0.7,
+    0.35
+   ]
+  },
+  "bark": {
+   "tile": "timber",
+   "tint": [
+    0.45,
+    0.36,
+    0.28
+   ]
+  },
+  "rail": {
+   "tile": "metal",
+   "tint": [
+    0.45,
+    0.43,
+    0.42
+   ]
+  },
+  "car": {
+   "tile": "metal",
+   "tint": [
+    0.3,
+    0.36,
+    0.29
+   ]
+  },
+  "glass": {
+   "tile": "glass",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "grass": {
+   "tile": "grass",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "mud": {
+   "tile": "mud",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "gravel": {
+   "tile": "gravel",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "slate": {
+   "tile": "slate",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "timber": {
+   "tile": "timber",
+   "tint": [
+    1,
+    1,
+    1
+   ]
+  },
+  "loot0": {
+   "tile": "plaster",
+   "tint": [
+    0.62,
+    0.62,
+    0.6
+   ]
+  },
+  "loot1": {
+   "tile": "plaster",
+   "tint": [
+    0.2,
+    0.62,
+    0.25
+   ]
+  },
+  "loot2": {
+   "tile": "plaster",
+   "tint": [
+    0.2,
+    0.38,
+    0.85
+   ]
+  },
+  "loot3": {
+   "tile": "plaster",
+   "tint": [
+    0.85,
+    0.55,
+    0.1
+   ]
+  }
+ },
+ "terrain": {
+  "cellMetres": 2.5,
+  "rule": "one tile per 2.5 m terrain cell; tile by height/district (mud below -0.15 m, gravel in industrial, grass elsewhere); tint = old vertex colour / tile avgLinear"
+ }
+}

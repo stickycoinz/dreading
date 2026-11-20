@@ -1,0 +1,904 @@
+{
+ "version": 2,
+ "note": "Layered VDB flipbooks baked by bake/bake_vdb.py from the game camera angle (60 deg). body = premultiplied alpha, fire = additive.",
+ "explosions": [
+  {
+   "name": "explosion_01",
+   "kind": "explosion",
+   "groundUV": [
+    0.4987,
+    0.5971
+   ],
+   "plumeWidth": 0.8413,
+   "plumeHeight": 0.8135,
+   "sourceSeconds": 5.542,
+   "loop": false,
+   "cellWorld": 351.7361898052882,
+   "body": {
+    "file": "explosion_01_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_01_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_02",
+   "kind": "explosion",
+   "groundUV": [
+    0.5017,
+    0.628
+   ],
+   "plumeWidth": 0.7579,
+   "plumeHeight": 0.754,
+   "sourceSeconds": 5.875,
+   "loop": false,
+   "cellWorld": 366.17006799607054,
+   "body": {
+    "file": "explosion_02_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_02_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_03",
+   "kind": "explosion",
+   "groundUV": [
+    0.5085,
+    0.4961
+   ],
+   "plumeWidth": 0.8571,
+   "plumeHeight": 0.7778,
+   "sourceSeconds": 5.292,
+   "loop": false,
+   "cellWorld": 569.3211641874767,
+   "body": {
+    "file": "explosion_03_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_03_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_04",
+   "kind": "explosion",
+   "groundUV": [
+    0.4622,
+    0.7506
+   ],
+   "plumeWidth": 0.9048,
+   "plumeHeight": 0.7024,
+   "sourceSeconds": 5.042,
+   "loop": false,
+   "cellWorld": 213.5542114045885,
+   "body": {
+    "file": "explosion_04_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_04_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_05",
+   "kind": "explosion",
+   "groundUV": [
+    0.4654,
+    0.6331
+   ],
+   "plumeWidth": 0.8254,
+   "plumeHeight": 0.8492,
+   "sourceSeconds": 5.583,
+   "loop": false,
+   "cellWorld": 318.0984836154514,
+   "body": {
+    "file": "explosion_05_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_05_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_06",
+   "kind": "explosion",
+   "groundUV": [
+    0.5651,
+    0.5009
+   ],
+   "plumeWidth": 0.9167,
+   "plumeHeight": 0.873,
+   "sourceSeconds": 3.708,
+   "loop": false,
+   "cellWorld": 534.5870562865242,
+   "body": {
+    "file": "explosion_06_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_06_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_07",
+   "kind": "explosion",
+   "groundUV": [
+    0.5381,
+    0.5091
+   ],
+   "plumeWidth": 0.9325,
+   "plumeHeight": 0.8889,
+   "sourceSeconds": 3.375,
+   "loop": false,
+   "cellWorld": 554.4997039334736,
+   "body": {
+    "file": "explosion_07_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_07_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_08",
+   "kind": "explosion",
+   "groundUV": [
+    0.5037,
+    0.6774
+   ],
+   "plumeWidth": 0.6508,
+   "plumeHeight": 0.8056,
+   "sourceSeconds": 4.292,
+   "loop": false,
+   "cellWorld": 151.88784711201987,
+   "body": {
+    "file": "explosion_08_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_08_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_09",
+   "kind": "explosion",
+   "groundUV": [
+    0.4981,
+    0.8178
+   ],
+   "plumeWidth": 0.7341,
+   "plumeHeight": 0.7738,
+   "sourceSeconds": 4.0,
+   "loop": false,
+   "cellWorld": 541.5746503787572,
+   "body": {
+    "file": "explosion_09_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_09_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_10",
+   "kind": "explosion",
+   "groundUV": [
+    0.5046,
+    0.6321
+   ],
+   "plumeWidth": 0.8294,
+   "plumeHeight": 0.9087,
+   "sourceSeconds": 5.875,
+   "loop": false,
+   "cellWorld": 414.63455347939146,
+   "body": {
+    "file": "explosion_10_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_10_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_11",
+   "kind": "explosion",
+   "groundUV": [
+    0.4973,
+    0.6146
+   ],
+   "plumeWidth": 0.7937,
+   "plumeHeight": 0.7897,
+   "sourceSeconds": 5.042,
+   "loop": false,
+   "cellWorld": 327.58621181911894,
+   "body": {
+    "file": "explosion_11_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_11_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_12",
+   "kind": "explosion",
+   "groundUV": [
+    0.4799,
+    0.5912
+   ],
+   "plumeWidth": 0.9167,
+   "plumeHeight": 0.8413,
+   "sourceSeconds": 5.042,
+   "loop": false,
+   "cellWorld": 178.78448281303284,
+   "body": {
+    "file": "explosion_12_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_12_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_13",
+   "kind": "explosion",
+   "groundUV": [
+    0.4962,
+    0.4586
+   ],
+   "plumeWidth": 0.9087,
+   "plumeHeight": 0.8571,
+   "sourceSeconds": 4.042,
+   "loop": false,
+   "cellWorld": 404.17505630008753,
+   "body": {
+    "file": "explosion_13_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_13_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_14",
+   "kind": "explosion",
+   "groundUV": [
+    0.4948,
+    0.5261
+   ],
+   "plumeWidth": 0.9048,
+   "plumeHeight": 0.8492,
+   "sourceSeconds": 3.292,
+   "loop": false,
+   "cellWorld": 425.92237238202785,
+   "body": {
+    "file": "explosion_14_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_14_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_15",
+   "kind": "explosion",
+   "groundUV": [
+    0.4979,
+    0.4548
+   ],
+   "plumeWidth": 0.8849,
+   "plumeHeight": 0.8452,
+   "sourceSeconds": 5.042,
+   "loop": false,
+   "cellWorld": 500.5293396843805,
+   "body": {
+    "file": "explosion_15_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_15_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_16",
+   "kind": "explosion",
+   "groundUV": [
+    0.5134,
+    0.559
+   ],
+   "plumeWidth": 0.9206,
+   "plumeHeight": 0.873,
+   "sourceSeconds": 5.792,
+   "loop": false,
+   "cellWorld": 294.655790129162,
+   "body": {
+    "file": "explosion_16_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_16_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_17",
+   "kind": "explosion",
+   "groundUV": [
+    0.5656,
+    0.4839
+   ],
+   "plumeWidth": 0.8294,
+   "plumeHeight": 0.8135,
+   "sourceSeconds": 5.542,
+   "loop": false,
+   "cellWorld": 656.563218703497,
+   "body": {
+    "file": "explosion_17_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_17_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_18",
+   "kind": "explosion",
+   "groundUV": [
+    0.5061,
+    0.6247
+   ],
+   "plumeWidth": 0.873,
+   "plumeHeight": 0.881,
+   "sourceSeconds": 4.542,
+   "loop": false,
+   "cellWorld": 314.7579083397275,
+   "body": {
+    "file": "explosion_18_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_18_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_19",
+   "kind": "explosion",
+   "groundUV": [
+    0.4986,
+    0.5848
+   ],
+   "plumeWidth": 0.8175,
+   "plumeHeight": 0.873,
+   "sourceSeconds": 4.792,
+   "loop": false,
+   "cellWorld": 336.4895510597834,
+   "body": {
+    "file": "explosion_19_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_19_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  },
+  {
+   "name": "explosion_20",
+   "kind": "explosion",
+   "groundUV": [
+    0.5134,
+    0.567
+   ],
+   "plumeWidth": 0.8294,
+   "plumeHeight": 0.8175,
+   "sourceSeconds": 5.042,
+   "loop": false,
+   "cellWorld": 426.81056195758646,
+   "body": {
+    "file": "explosion_20_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": {
+    "file": "explosion_20_fire.png",
+    "width": 1024,
+    "height": 512,
+    "cell": 128,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   }
+  }
+ ],
+ "smoke": [
+  {
+   "name": "smoke_01",
+   "kind": "smoke",
+   "groundUV": [
+    0.4925,
+    0.9063
+   ],
+   "plumeWidth": 0.6389,
+   "plumeHeight": 0.9365,
+   "sourceSeconds": 6.237,
+   "loop": true,
+   "cellWorld": 207.38419675433448,
+   "body": {
+    "file": "smoke_01_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": null
+  },
+  {
+   "name": "smoke_10",
+   "kind": "smoke",
+   "groundUV": [
+    0.5008,
+    0.4958
+   ],
+   "plumeWidth": 0.869,
+   "plumeHeight": 0.7817,
+   "sourceSeconds": 4.172,
+   "loop": true,
+   "cellWorld": 33.979366673060824,
+   "body": {
+    "file": "smoke_10_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": null
+  },
+  {
+   "name": "smoke_11",
+   "kind": "smoke",
+   "groundUV": [
+    0.4889,
+    0.5699
+   ],
+   "plumeWidth": 0.6468,
+   "plumeHeight": 0.8571,
+   "sourceSeconds": 4.172,
+   "loop": true,
+   "cellWorld": 24.182627344131475,
+   "body": {
+    "file": "smoke_11_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": null
+  },
+  {
+   "name": "smoke_12",
+   "kind": "smoke",
+   "groundUV": [
+    0.5717,
+    0.7146
+   ],
+   "plumeWidth": 0.4484,
+   "plumeHeight": 0.8889,
+   "sourceSeconds": 4.172,
+   "loop": true,
+   "cellWorld": 19.510228837558206,
+   "body": {
+    "file": "smoke_12_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": null
+  },
+  {
+   "name": "smoke_13",
+   "kind": "smoke",
+   "groundUV": [
+    0.4922,
+    0.5293
+   ],
+   "plumeWidth": 0.7778,
+   "plumeHeight": 0.7976,
+   "sourceSeconds": 4.172,
+   "loop": true,
+   "cellWorld": 34.8614718815637,
+   "body": {
+    "file": "smoke_13_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": null
+  },
+  {
+   "name": "smoke_14",
+   "kind": "smoke",
+   "groundUV": [
+    0.4901,
+    0.4916
+   ],
+   "plumeWidth": 0.8492,
+   "plumeHeight": 0.7421,
+   "sourceSeconds": 8.344,
+   "loop": true,
+   "cellWorld": 50.59194940884908,
+   "body": {
+    "file": "smoke_14_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": null
+  },
+  {
+   "name": "smoke_15",
+   "kind": "smoke",
+   "groundUV": [
+    0.5068,
+    0.5239
+   ],
+   "plumeWidth": 0.6944,
+   "plumeHeight": 0.6032,
+   "sourceSeconds": 12.516,
+   "loop": true,
+   "cellWorld": 35.34275487263997,
+   "body": {
+    "file": "smoke_15_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": null
+  },
+  {
+   "name": "smoke_16",
+   "kind": "smoke",
+   "groundUV": [
+    0.4952,
+    0.7663
+   ],
+   "plumeWidth": 0.8571,
+   "plumeHeight": 0.881,
+   "sourceSeconds": 12.516,
+   "loop": true,
+   "cellWorld": 30.3138760811942,
+   "body": {
+    "file": "smoke_16_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": null
+  },
+  {
+   "name": "smoke_17",
+   "kind": "smoke",
+   "groundUV": [
+    0.4607,
+    0.7943
+   ],
+   "plumeWidth": 0.4206,
+   "plumeHeight": 0.8849,
+   "sourceSeconds": 12.516,
+   "loop": true,
+   "cellWorld": 23.160555512375304,
+   "body": {
+    "file": "smoke_17_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": null
+  },
+  {
+   "name": "smoke_18",
+   "kind": "smoke",
+   "groundUV": [
+    0.4509,
+    0.8024
+   ],
+   "plumeWidth": 0.3095,
+   "plumeHeight": 0.8929,
+   "sourceSeconds": 12.516,
+   "loop": true,
+   "cellWorld": 20.935280026878633,
+   "body": {
+    "file": "smoke_18_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": null
+  },
+  {
+   "name": "smoke_19",
+   "kind": "smoke",
+   "groundUV": [
+    0.5057,
+    0.7961
+   ],
+   "plumeWidth": 0.4921,
+   "plumeHeight": 0.9048,
+   "sourceSeconds": 12.516,
+   "loop": true,
+   "cellWorld": 24.559763870750157,
+   "body": {
+    "file": "smoke_19_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": null
+  },
+  {
+   "name": "smoke_ns01",
+   "kind": "smoke",
+   "groundUV": [
+    0.4939,
+    0.9032
+   ],
+   "plumeWidth": 0.6349,
+   "plumeHeight": 0.9365,
+   "sourceSeconds": 6.237,
+   "loop": true,
+   "cellWorld": 206.77063404204355,
+   "body": {
+    "file": "smoke_ns01_body.png",
+    "width": 2048,
+    "height": 1024,
+    "cell": 256,
+    "cols": 8,
+    "rows": 4,
+    "frames": 32
+   },
+   "fire": null
+  }
+ ]
+}

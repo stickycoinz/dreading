@@ -1,0 +1,666 @@
+{
+  "pack": "DREADING SFX Pack 1",
+  "created": "2026-11-18T16:30:00-08:00",
+  "timezone": "America/Los_Angeles",
+  "format": "mono 44.1 kHz; Ogg Vorbis q5 and MP3",
+  "processing": "Lead silence trimmed (~-50 dB, -80 dB fallback on quiet sources); tails kept; 5 ms fade-in; short fade-out; gunshots/explosions/ballistics/impacts peak-normalized to -1 dBFS; footsteps and gear around -18 LUFS / -1.5 dBTP.",
+  "model": "eleven_text_to_sound_v2",
+  "prompt_influence": 0.6,
+  "counts": {
+    "ballistic": 8,
+    "explosion": 8,
+    "foley": 2,
+    "gunshot": 24,
+    "impact": 4,
+    "footstep": 24
+  },
+  "clip_count": 70,
+  "files": [
+    {
+      "file": "bullet_ricochet_01.ogg",
+      "mp3": "bullet_ricochet_01.mp3",
+      "category": "ballistic",
+      "weapon_or_surface": "bullet_ricochet",
+      "duration": 1.0,
+      "peak_dbfs": -1.7,
+      "ogg_bytes": 12873
+    },
+    {
+      "file": "bullet_ricochet_02.ogg",
+      "mp3": "bullet_ricochet_02.mp3",
+      "category": "ballistic",
+      "weapon_or_surface": "bullet_ricochet",
+      "duration": 1.0,
+      "peak_dbfs": -0.3,
+      "ogg_bytes": 12822
+    },
+    {
+      "file": "bullet_whiz_01.ogg",
+      "mp3": "bullet_whiz_01.mp3",
+      "category": "ballistic",
+      "weapon_or_surface": "bullet_whiz",
+      "duration": 0.8,
+      "peak_dbfs": -1.4,
+      "ogg_bytes": 11472
+    },
+    {
+      "file": "bullet_whiz_02.ogg",
+      "mp3": "bullet_whiz_02.mp3",
+      "category": "ballistic",
+      "weapon_or_surface": "bullet_whiz",
+      "duration": 0.8,
+      "peak_dbfs": -1.6,
+      "ogg_bytes": 11069
+    },
+    {
+      "file": "crack_supersonic_01.ogg",
+      "mp3": "crack_supersonic_01.mp3",
+      "category": "ballistic",
+      "weapon_or_surface": "crack_supersonic",
+      "duration": 0.68,
+      "peak_dbfs": -0.9,
+      "ogg_bytes": 9727
+    },
+    {
+      "file": "crack_supersonic_02.ogg",
+      "mp3": "crack_supersonic_02.mp3",
+      "category": "ballistic",
+      "weapon_or_surface": "crack_supersonic",
+      "duration": 0.68,
+      "peak_dbfs": -1.1,
+      "ogg_bytes": 10711
+    },
+    {
+      "file": "crack_supersonic_03.ogg",
+      "mp3": "crack_supersonic_03.mp3",
+      "category": "ballistic",
+      "weapon_or_surface": "crack_supersonic",
+      "duration": 0.68,
+      "peak_dbfs": -1.1,
+      "ogg_bytes": 9740
+    },
+    {
+      "file": "crack_supersonic_04.ogg",
+      "mp3": "crack_supersonic_04.mp3",
+      "category": "ballistic",
+      "weapon_or_surface": "crack_supersonic",
+      "duration": 0.68,
+      "peak_dbfs": -0.8,
+      "ogg_bytes": 10874
+    },
+    {
+      "file": "exp_artillery_distant_01.ogg",
+      "mp3": "exp_artillery_distant_01.mp3",
+      "category": "explosion",
+      "weapon_or_surface": "exp_artillery_distant",
+      "duration": 3.0,
+      "peak_dbfs": -1.1,
+      "ogg_bytes": 28429
+    },
+    {
+      "file": "exp_artillery_distant_02.ogg",
+      "mp3": "exp_artillery_distant_02.mp3",
+      "category": "explosion",
+      "weapon_or_surface": "exp_artillery_distant",
+      "duration": 3.0,
+      "peak_dbfs": -1.0,
+      "ogg_bytes": 26947
+    },
+    {
+      "file": "exp_debris_fall_01.ogg",
+      "mp3": "exp_debris_fall_01.mp3",
+      "category": "explosion",
+      "weapon_or_surface": "exp_debris_fall",
+      "duration": 2.449,
+      "peak_dbfs": -1.7,
+      "ogg_bytes": 28673
+    },
+    {
+      "file": "exp_debris_fall_02.ogg",
+      "mp3": "exp_debris_fall_02.mp3",
+      "category": "explosion",
+      "weapon_or_surface": "exp_debris_fall",
+      "duration": 2.48,
+      "peak_dbfs": -1.0,
+      "ogg_bytes": 29609
+    },
+    {
+      "file": "exp_grenade_close_01.ogg",
+      "mp3": "exp_grenade_close_01.mp3",
+      "category": "explosion",
+      "weapon_or_surface": "exp_grenade_close",
+      "duration": 2.0,
+      "peak_dbfs": -0.9,
+      "ogg_bytes": 21117
+    },
+    {
+      "file": "exp_grenade_close_02.ogg",
+      "mp3": "exp_grenade_close_02.mp3",
+      "category": "explosion",
+      "weapon_or_surface": "exp_grenade_close",
+      "duration": 2.0,
+      "peak_dbfs": -0.9,
+      "ogg_bytes": 21571
+    },
+    {
+      "file": "exp_muffled_walls_01.ogg",
+      "mp3": "exp_muffled_walls_01.mp3",
+      "category": "explosion",
+      "weapon_or_surface": "exp_muffled_walls",
+      "duration": 2.48,
+      "peak_dbfs": -1.1,
+      "ogg_bytes": 23811
+    },
+    {
+      "file": "exp_muffled_walls_02.ogg",
+      "mp3": "exp_muffled_walls_02.mp3",
+      "category": "explosion",
+      "weapon_or_surface": "exp_muffled_walls",
+      "duration": 2.48,
+      "peak_dbfs": -0.8,
+      "ogg_bytes": 25117
+    },
+    {
+      "file": "gear_rattle_01.ogg",
+      "mp3": "gear_rattle_01.mp3",
+      "category": "foley",
+      "weapon_or_surface": "gear_rattle",
+      "duration": 0.68,
+      "peak_dbfs": -2.4,
+      "ogg_bytes": 12256
+    },
+    {
+      "file": "gear_rattle_02.ogg",
+      "mp3": "gear_rattle_02.mp3",
+      "category": "foley",
+      "weapon_or_surface": "gear_rattle",
+      "duration": 0.68,
+      "peak_dbfs": -2.0,
+      "ogg_bytes": 12631
+    },
+    {
+      "file": "gun_ak47_burst_01.ogg",
+      "mp3": "gun_ak47_burst_01.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_ak47_burst",
+      "duration": 1.48,
+      "peak_dbfs": -1.1,
+      "ogg_bytes": 16445
+    },
+    {
+      "file": "gun_ak47_close_01.ogg",
+      "mp3": "gun_ak47_close_01.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_ak47_close",
+      "duration": 1.48,
+      "peak_dbfs": -1.1,
+      "ogg_bytes": 19171,
+      "notes": "Retry selected; ElevenLabs source was still quiet (-40.2 dBFS). Peak-normalized to -1 dBFS; noise floor may be higher than the burst clips."
+    },
+    {
+      "file": "gun_ak47_close_02.ogg",
+      "mp3": "gun_ak47_close_02.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_ak47_close",
+      "duration": 1.48,
+      "peak_dbfs": -1.0,
+      "ogg_bytes": 19188,
+      "notes": "Retry selected; ElevenLabs source was still quiet (-40.4 dBFS). Peak-normalized to -1 dBFS; noise floor may be higher than the burst clips."
+    },
+    {
+      "file": "gun_glock_close_01.ogg",
+      "mp3": "gun_glock_close_01.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_glock_close",
+      "duration": 1.48,
+      "peak_dbfs": -1.0,
+      "ogg_bytes": 17319,
+      "notes": "Retry selected; ElevenLabs source was still quiet (-34.9 dBFS). Peak-normalized to -1 dBFS; noise floor may be higher than the burst clips."
+    },
+    {
+      "file": "gun_glock_close_02.ogg",
+      "mp3": "gun_glock_close_02.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_glock_close",
+      "duration": 1.48,
+      "peak_dbfs": -1.8,
+      "ogg_bytes": 18071,
+      "notes": "ElevenLabs source was quiet (-36.0 dBFS). Peak-normalized to -1 dBFS; noise floor may be higher than the burst clips."
+    },
+    {
+      "file": "gun_m249_burst_01.ogg",
+      "mp3": "gun_m249_burst_01.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_m249_burst",
+      "duration": 1.48,
+      "peak_dbfs": -0.7,
+      "ogg_bytes": 17239
+    },
+    {
+      "file": "gun_m249_burst_02.ogg",
+      "mp3": "gun_m249_burst_02.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_m249_burst",
+      "duration": 1.48,
+      "peak_dbfs": -0.1,
+      "ogg_bytes": 17132
+    },
+    {
+      "file": "gun_m4_burst_01.ogg",
+      "mp3": "gun_m4_burst_01.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_m4_burst",
+      "duration": 1.48,
+      "peak_dbfs": -1.1,
+      "ogg_bytes": 15977
+    },
+    {
+      "file": "gun_m4_close_01.ogg",
+      "mp3": "gun_m4_close_01.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_m4_close",
+      "duration": 1.48,
+      "peak_dbfs": -1.4,
+      "ogg_bytes": 17755,
+      "notes": "Retry selected; ElevenLabs source was still quiet (-27.1 dBFS). Peak-normalized to -1 dBFS; noise floor may be higher than the burst clips."
+    },
+    {
+      "file": "gun_m4_close_02.ogg",
+      "mp3": "gun_m4_close_02.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_m4_close",
+      "duration": 1.48,
+      "peak_dbfs": -0.8,
+      "ogg_bytes": 18314,
+      "notes": "Best remaining take; ElevenLabs source was quiet (-34.9 dBFS). Peak-normalized to -1 dBFS; noise floor may be higher than the burst clips."
+    },
+    {
+      "file": "gun_m4_suppressed_01.ogg",
+      "mp3": "gun_m4_suppressed_01.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_m4_suppressed",
+      "duration": 1.48,
+      "peak_dbfs": -1.0,
+      "ogg_bytes": 18455,
+      "notes": "Retry selected; ElevenLabs source was quiet (-34.0 dBFS). Peak-normalized to -1 dBFS."
+    },
+    {
+      "file": "gun_m4_suppressed_02.ogg",
+      "mp3": "gun_m4_suppressed_02.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_m4_suppressed",
+      "duration": 1.48,
+      "peak_dbfs": -1.4,
+      "ogg_bytes": 19434,
+      "notes": "ElevenLabs source was quiet (-41.0 dBFS). Peak-normalized to -1 dBFS."
+    },
+    {
+      "file": "gun_mossberg590_close_01.ogg",
+      "mp3": "gun_mossberg590_close_01.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_mossberg590_close",
+      "duration": 2.0,
+      "peak_dbfs": -0.2,
+      "ogg_bytes": 20854
+    },
+    {
+      "file": "gun_rifle_distant_01.ogg",
+      "mp3": "gun_rifle_distant_01.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_rifle_distant",
+      "duration": 2.48,
+      "peak_dbfs": -1.1,
+      "ogg_bytes": 25617
+    },
+    {
+      "file": "gun_rifle_distant_02.ogg",
+      "mp3": "gun_rifle_distant_02.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_rifle_distant",
+      "duration": 2.48,
+      "peak_dbfs": -1.3,
+      "ogg_bytes": 23895
+    },
+    {
+      "file": "gun_rifle_distant_03.ogg",
+      "mp3": "gun_rifle_distant_03.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_rifle_distant",
+      "duration": 2.48,
+      "peak_dbfs": -0.6,
+      "ogg_bytes": 25761
+    },
+    {
+      "file": "gun_scarh_close_01.ogg",
+      "mp3": "gun_scarh_close_01.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_scarh_close",
+      "duration": 1.48,
+      "peak_dbfs": -0.9,
+      "ogg_bytes": 17200,
+      "notes": "Retry selected; best close-rifle source in the pack (-13.6 dBFS raw)."
+    },
+    {
+      "file": "gun_scarh_close_02.ogg",
+      "mp3": "gun_scarh_close_02.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_scarh_close",
+      "duration": 1.48,
+      "peak_dbfs": -1.3,
+      "ogg_bytes": 17928,
+      "notes": "Retry selected; ElevenLabs source was moderately quiet (-28.2 dBFS). Peak-normalized to -1 dBFS."
+    },
+    {
+      "file": "gun_user_01.ogg",
+      "mp3": "gun_user_01.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_user",
+      "duration": 2.28,
+      "peak_dbfs": -1.2,
+      "ogg_bytes": 27625,
+      "notes": "Processed from the Nov 15 ElevenLabs batch, box copy clip1.mp3."
+    },
+    {
+      "file": "gun_user_02.ogg",
+      "mp3": "gun_user_02.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_user",
+      "duration": 1.532,
+      "peak_dbfs": -1.5,
+      "ogg_bytes": 19800,
+      "notes": "Processed from the Nov 15 ElevenLabs batch, box copy clip2.mp3."
+    },
+    {
+      "file": "gun_user_03.ogg",
+      "mp3": "gun_user_03.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_user",
+      "duration": 2.28,
+      "peak_dbfs": -1.4,
+      "ogg_bytes": 27112,
+      "notes": "Processed from the Nov 15 ElevenLabs batch, box copy clip3.mp3."
+    },
+    {
+      "file": "gun_user_04.ogg",
+      "mp3": "gun_user_04.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_user",
+      "duration": 1.869,
+      "peak_dbfs": -1.3,
+      "ogg_bytes": 20626,
+      "notes": "Processed from the Nov 15 ElevenLabs batch, box copy clip4.mp3."
+    },
+    {
+      "file": "gun_user_05.ogg",
+      "mp3": "gun_user_05.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_user",
+      "duration": 1.394,
+      "peak_dbfs": -1.1,
+      "ogg_bytes": 17310,
+      "notes": "Processed from the Nov 15 ElevenLabs batch, box copy clip5.mp3."
+    },
+    {
+      "file": "gun_user_06.ogg",
+      "mp3": "gun_user_06.mp3",
+      "category": "gunshot",
+      "weapon_or_surface": "gun_user",
+      "duration": 4.0,
+      "peak_dbfs": -0.9,
+      "ogg_bytes": 37366,
+      "notes": "Processed from the Nov 15 ElevenLabs batch, box copy clip6.mp3 (longer clip, 4.0 s after trim)."
+    },
+    {
+      "file": "impact_brick_01.ogg",
+      "mp3": "impact_brick_01.mp3",
+      "category": "impact",
+      "weapon_or_surface": "impact_brick",
+      "duration": 0.8,
+      "peak_dbfs": -1.0,
+      "ogg_bytes": 12186
+    },
+    {
+      "file": "impact_brick_02.ogg",
+      "mp3": "impact_brick_02.mp3",
+      "category": "impact",
+      "weapon_or_surface": "impact_brick",
+      "duration": 0.8,
+      "peak_dbfs": -1.0,
+      "ogg_bytes": 12638
+    },
+    {
+      "file": "impact_dirt_01.ogg",
+      "mp3": "impact_dirt_01.mp3",
+      "category": "impact",
+      "weapon_or_surface": "impact_dirt",
+      "duration": 0.8,
+      "peak_dbfs": -0.9,
+      "ogg_bytes": 12652
+    },
+    {
+      "file": "impact_dirt_02.ogg",
+      "mp3": "impact_dirt_02.mp3",
+      "category": "impact",
+      "weapon_or_surface": "impact_dirt",
+      "duration": 0.8,
+      "peak_dbfs": -1.2,
+      "ogg_bytes": 11348
+    },
+    {
+      "file": "step_cobble_run_01.ogg",
+      "mp3": "step_cobble_run_01.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_cobble_run",
+      "duration": 0.48,
+      "peak_dbfs": -1.6,
+      "ogg_bytes": 9769
+    },
+    {
+      "file": "step_cobble_run_02.ogg",
+      "mp3": "step_cobble_run_02.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_cobble_run",
+      "duration": 0.48,
+      "peak_dbfs": -1.4,
+      "ogg_bytes": 9929
+    },
+    {
+      "file": "step_cobble_run_03.ogg",
+      "mp3": "step_cobble_run_03.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_cobble_run",
+      "duration": 0.48,
+      "peak_dbfs": -1.5,
+      "ogg_bytes": 10165
+    },
+    {
+      "file": "step_cobble_run_04.ogg",
+      "mp3": "step_cobble_run_04.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_cobble_run",
+      "duration": 0.48,
+      "peak_dbfs": -1.6,
+      "ogg_bytes": 9920
+    },
+    {
+      "file": "step_cobble_walk_01.ogg",
+      "mp3": "step_cobble_walk_01.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_cobble_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.8,
+      "ogg_bytes": 10133
+    },
+    {
+      "file": "step_cobble_walk_02.ogg",
+      "mp3": "step_cobble_walk_02.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_cobble_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.5,
+      "ogg_bytes": 9828
+    },
+    {
+      "file": "step_cobble_walk_03.ogg",
+      "mp3": "step_cobble_walk_03.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_cobble_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.9,
+      "ogg_bytes": 10298
+    },
+    {
+      "file": "step_cobble_walk_04.ogg",
+      "mp3": "step_cobble_walk_04.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_cobble_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.6,
+      "ogg_bytes": 10398
+    },
+    {
+      "file": "step_dirt_walk_01.ogg",
+      "mp3": "step_dirt_walk_01.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_dirt_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.6,
+      "ogg_bytes": 9955
+    },
+    {
+      "file": "step_dirt_walk_02.ogg",
+      "mp3": "step_dirt_walk_02.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_dirt_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.6,
+      "ogg_bytes": 9746
+    },
+    {
+      "file": "step_dirt_walk_03.ogg",
+      "mp3": "step_dirt_walk_03.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_dirt_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.7,
+      "ogg_bytes": 9832
+    },
+    {
+      "file": "step_dirt_walk_04.ogg",
+      "mp3": "step_dirt_walk_04.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_dirt_walk",
+      "duration": 0.474,
+      "peak_dbfs": -1.4,
+      "ogg_bytes": 9702
+    },
+    {
+      "file": "step_gravel_walk_01.ogg",
+      "mp3": "step_gravel_walk_01.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_gravel_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.4,
+      "ogg_bytes": 9934
+    },
+    {
+      "file": "step_gravel_walk_02.ogg",
+      "mp3": "step_gravel_walk_02.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_gravel_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.7,
+      "ogg_bytes": 10055
+    },
+    {
+      "file": "step_gravel_walk_03.ogg",
+      "mp3": "step_gravel_walk_03.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_gravel_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.6,
+      "ogg_bytes": 9816
+    },
+    {
+      "file": "step_gravel_walk_04.ogg",
+      "mp3": "step_gravel_walk_04.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_gravel_walk",
+      "duration": 0.48,
+      "peak_dbfs": -2.0,
+      "ogg_bytes": 10166
+    },
+    {
+      "file": "step_rubble_walk_01.ogg",
+      "mp3": "step_rubble_walk_01.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_rubble_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.4,
+      "ogg_bytes": 9800
+    },
+    {
+      "file": "step_rubble_walk_02.ogg",
+      "mp3": "step_rubble_walk_02.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_rubble_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.2,
+      "ogg_bytes": 9855
+    },
+    {
+      "file": "step_rubble_walk_03.ogg",
+      "mp3": "step_rubble_walk_03.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_rubble_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.9,
+      "ogg_bytes": 9817
+    },
+    {
+      "file": "step_rubble_walk_04.ogg",
+      "mp3": "step_rubble_walk_04.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_rubble_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.2,
+      "ogg_bytes": 9624
+    },
+    {
+      "file": "step_wood_walk_01.ogg",
+      "mp3": "step_wood_walk_01.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_wood_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.7,
+      "ogg_bytes": 9450
+    },
+    {
+      "file": "step_wood_walk_02.ogg",
+      "mp3": "step_wood_walk_02.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_wood_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.2,
+      "ogg_bytes": 9366
+    },
+    {
+      "file": "step_wood_walk_03.ogg",
+      "mp3": "step_wood_walk_03.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_wood_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.4,
+      "ogg_bytes": 9451
+    },
+    {
+      "file": "step_wood_walk_04.ogg",
+      "mp3": "step_wood_walk_04.mp3",
+      "category": "footstep",
+      "weapon_or_surface": "step_wood_walk",
+      "duration": 0.48,
+      "peak_dbfs": -1.9,
+      "ogg_bytes": 9432
+    }
+  ]
+}

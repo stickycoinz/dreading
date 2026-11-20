@@ -1,0 +1,30 @@
+{
+  "map": "carentan",
+  "mapHash": "a2b72dc1",
+  "detail_repeat_m": 2,
+  "atlas_grid": [
+    4,
+    2
+  ],
+  "tile_pixels": 1024,
+  "gutter_pixels": 8,
+  "layers": [
+    "grass_ground",
+    "brown_mud_02",
+    "gravel_stones",
+    "cobblestone_floor_05",
+    "asphalt_04",
+    "cobblestone_floor_05",
+    "brown_mud_dry",
+    "concrete_pavement"
+  ],
+  "mask_world_origin": [
+    -150,
+    -150
+  ],
+  "mask_world_size": [
+    300,
+    300
+  ],
+  "status": "terrain-material-only integration; map geometry and gameplay unchanged"
+}

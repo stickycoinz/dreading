@@ -1,0 +1,27 @@
+<!doctype html><meta charset="utf-8"><link rel="icon" href="data:,"><title>DREADING terrain material validation</title>
+<style>html,body{margin:0;background:#222}canvas{width:640px;height:480px}</style><canvas id="c" width="640" height="480"></canvas>
+<script src="playcanvas-stable.min.js"></script><script src="dreading-map.js"></script><script src="dreading-terrain-pbr.js"></script>
+<script>
+window.terrainTest={state:'starting'};
+(async()=>{
+ try {
+ const canvas=document.getElementById('c');const device=await pc.createGraphicsDevice(canvas,{deviceTypes:['webgl2'],antialias:false});
+ const app=new pc.Application(canvas,{graphicsDevice:device});window.testApp=app;app.scene.ambientLight=new pc.Color(.6,.6,.6);
+ const cam=new pc.Entity('camera');cam.addComponent('camera',{clearColor:new pc.Color(.15,.18,.2),farClip:1000});cam.setPosition(80,190,220);cam.lookAt(0,0,0);app.root.addChild(cam);
+ const sun=new pc.Entity('sun');sun.addComponent('light',{type:'directional',intensity:1.5,castShadows:false});sun.setEulerAngles(45,30,0);app.root.addChild(sun);
+ const root=new pc.Entity('map-test');app.root.addChild(root);
+ const spec=DreadingMap.carentanSpec();DreadingMap.heightmap(spec);const heights=Array.from(spec.hm.heights);
+ const original=new pc.StandardMaterial();original.name='original terrain';original.update();
+ const roads=new pc.Entity('roads');roads.addComponent('render',{type:'plane'});root.addChild(roads);
+ const result=DreadingMap.buildTerrain({app,materials:()=>({dmTerrain:original})},spec,root);
+ const navMesh=result.nav.render.meshInstances[0].mesh;const navBefore=[];navMesh.getPositions(navBefore);
+ const mode=new URLSearchParams(location.search).get('mode');
+ if(mode==='mismatch'){DreadingTerrainPbr.enabled=true;DreadingTerrainPbr.attach(app,result.entity,{mapHash:'wrong'});}
+ if(DreadingTerrainPbr.promise){try{await DreadingTerrainPbr.promise;}catch(e){}}
+ await new Promise(resolve=>setTimeout(resolve,50));app.start();
+ let frames=0;app.on('frameend',()=>{if(++frames===20){const navAfter=[];navMesh.getPositions(navAfter);window.terrainTest={state:'rendered',frames,mapHash:spec.mapHash,pbrState:DreadingTerrainPbr.state,material:result.entity.render.meshInstances[0].material.name,roadsVisible:roads.render.enabled,heightUnchanged:heights.every((v,i)=>v===spec.hm.heights[i]),navUnchanged:JSON.stringify(navBefore)===JSON.stringify(navAfter),visualTris:result.visualTris,engine:pc.version};app.autoRender=false;}});
+
+ }catch(e){window.terrainTest={state:'error',message:e.stack};console.error(e);}
+})();
+</script>
+

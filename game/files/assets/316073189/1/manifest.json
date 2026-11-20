@@ -1,0 +1,275 @@
+{
+  "seed": 1987654321,
+  "assets": [
+    {
+      "kind": "buildings",
+      "name": "industrial",
+      "state": "intact",
+      "condition": "INTACT",
+      "seed": 1987654321,
+      "width": 18,
+      "depth": 12,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/buildings/industrial/intact.glb"
+    },
+    {
+      "kind": "buildings",
+      "name": "industrial",
+      "state": "breached",
+      "condition": "SEMI_COLLAPSED",
+      "seed": 1987654321,
+      "width": 18,
+      "depth": 12,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/buildings/industrial/breached.glb"
+    },
+    {
+      "kind": "buildings",
+      "name": "industrial",
+      "state": "collapsed",
+      "condition": "COLLAPSED",
+      "seed": 1987654321,
+      "width": 18,
+      "depth": 12,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/buildings/industrial/collapsed.glb"
+    },
+    {
+      "kind": "buildings",
+      "name": "old_town",
+      "state": "intact",
+      "condition": "INTACT",
+      "seed": 1987654321,
+      "width": 12,
+      "depth": 10,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/buildings/old_town/intact.glb"
+    },
+    {
+      "kind": "buildings",
+      "name": "old_town",
+      "state": "breached",
+      "condition": "SEMI_COLLAPSED",
+      "seed": 1987654321,
+      "width": 12,
+      "depth": 10,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/buildings/old_town/breached.glb"
+    },
+    {
+      "kind": "buildings",
+      "name": "old_town",
+      "state": "collapsed",
+      "condition": "COLLAPSED",
+      "seed": 1987654321,
+      "width": 12,
+      "depth": 10,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/buildings/old_town/collapsed.glb"
+    },
+    {
+      "kind": "buildings",
+      "name": "suburban",
+      "state": "intact",
+      "condition": "INTACT",
+      "seed": 1987654321,
+      "width": 10,
+      "depth": 8,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/buildings/suburban/intact.glb"
+    },
+    {
+      "kind": "buildings",
+      "name": "suburban",
+      "state": "breached",
+      "condition": "SEMI_COLLAPSED",
+      "seed": 1987654321,
+      "width": 10,
+      "depth": 8,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/buildings/suburban/breached.glb"
+    },
+    {
+      "kind": "buildings",
+      "name": "suburban",
+      "state": "collapsed",
+      "condition": "COLLAPSED",
+      "seed": 1987654321,
+      "width": 10,
+      "depth": 8,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/buildings/suburban/collapsed.glb"
+    },
+    {
+      "kind": "buildings",
+      "name": "residential",
+      "state": "intact",
+      "condition": "INTACT",
+      "seed": 1987654321,
+      "width": 14,
+      "depth": 10,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/buildings/residential/intact.glb"
+    },
+    {
+      "kind": "buildings",
+      "name": "residential",
+      "state": "breached",
+      "condition": "SEMI_COLLAPSED",
+      "seed": 1987654321,
+      "width": 14,
+      "depth": 10,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/buildings/residential/breached.glb"
+    },
+    {
+      "kind": "buildings",
+      "name": "residential",
+      "state": "collapsed",
+      "condition": "COLLAPSED",
+      "seed": 1987654321,
+      "width": 14,
+      "depth": 10,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/buildings/residential/collapsed.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "gas_station",
+      "state": "intact",
+      "condition": "INTACT",
+      "seed": 1987654321,
+      "width": 28,
+      "depth": 24,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/gas_station/intact.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "gas_station",
+      "state": "breached",
+      "condition": "SEMI_COLLAPSED",
+      "seed": 1987654321,
+      "width": 28,
+      "depth": 24,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/gas_station/breached.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "gas_station",
+      "state": "collapsed",
+      "condition": "COLLAPSED",
+      "seed": 1987654321,
+      "width": 28,
+      "depth": 24,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/gas_station/collapsed.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "police",
+      "state": "intact",
+      "condition": "INTACT",
+      "seed": 1987654321,
+      "width": 30,
+      "depth": 26,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/police/intact.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "police",
+      "state": "breached",
+      "condition": "SEMI_COLLAPSED",
+      "seed": 1987654321,
+      "width": 30,
+      "depth": 26,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/police/breached.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "police",
+      "state": "collapsed",
+      "condition": "COLLAPSED",
+      "seed": 1987654321,
+      "width": 30,
+      "depth": 26,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/police/collapsed.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "fire_station",
+      "state": "intact",
+      "condition": "INTACT",
+      "seed": 1987654321,
+      "width": 30,
+      "depth": 26,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/fire_station/intact.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "fire_station",
+      "state": "breached",
+      "condition": "SEMI_COLLAPSED",
+      "seed": 1987654321,
+      "width": 30,
+      "depth": 26,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/fire_station/breached.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "fire_station",
+      "state": "collapsed",
+      "condition": "COLLAPSED",
+      "seed": 1987654321,
+      "width": 30,
+      "depth": 26,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/fire_station/collapsed.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "auto_repair",
+      "state": "intact",
+      "condition": "INTACT",
+      "seed": 1987654321,
+      "width": 28,
+      "depth": 22,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/auto_repair/intact.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "auto_repair",
+      "state": "breached",
+      "condition": "SEMI_COLLAPSED",
+      "seed": 1987654321,
+      "width": 28,
+      "depth": 22,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/auto_repair/breached.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "auto_repair",
+      "state": "collapsed",
+      "condition": "COLLAPSED",
+      "seed": 1987654321,
+      "width": 28,
+      "depth": 22,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/auto_repair/collapsed.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "park",
+      "state": "intact",
+      "condition": "INTACT",
+      "seed": 1987654321,
+      "width": 24,
+      "depth": 24,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/park/intact.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "park",
+      "state": "breached",
+      "condition": "SEMI_COLLAPSED",
+      "seed": 1987654321,
+      "width": 24,
+      "depth": 24,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/park/breached.glb"
+    },
+    {
+      "kind": "sites",
+      "name": "park",
+      "state": "collapsed",
+      "condition": "COLLAPSED",
+      "seed": 1987654321,
+      "width": 24,
+      "depth": 24,
+      "file": "C:/Users/Cjbre/Projects/defilade-rts-test/v02/playcanvas-kit/sites/park/collapsed.glb"
+    }
+  ]
+}

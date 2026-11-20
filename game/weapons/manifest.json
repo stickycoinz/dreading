@@ -1,0 +1,6867 @@
+{
+ "version": 2,
+ "source": "Night Guns 1.1.1 add-on, Generate Gun button with panel defaults + Export Clean GLB (Bevel Segments 1). fp = exact export; tp = Blender Decimate (collapse) ratio 0.3 of the same file, nothing else changed.",
+ "axes": "glTF Y-up, barrel -Z, origin near trigger (add-on convention)",
+ "bone": "soldierNode_33",
+ "weapons": {
+  "m4": {
+   "src": "ar_s1",
+   "note": "AR seed1 style0",
+   "flag": null,
+   "type": "AR",
+   "seed": 1,
+   "style": 0,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/ar_s1.glb",
+   "tp": "weapons/ng/tp/ar_s1.glb",
+   "fp_tris": 18622,
+   "tp_tris": 5578,
+   "fp_draw_calls": 36,
+   "tp_draw_calls": 36,
+   "fp_bytes": 514668,
+   "tp_bytes": 330716,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.017,
+      -0.0019,
+      -0.0025
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.017,
+      -0.0019,
+      -0.0025
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.0406,
+      -0.0025
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.03812,
+      0.055
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.115
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03731,
+      -0.05
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.52513
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.024,
+      0.0,
+      -0.295
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.0406,
+      -0.0125
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.024,
+      -0.301
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.5913
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 682
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1278
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 2896
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 0,
+     "socket": "grip",
+     "tris": 856
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": "HANDGUARD",
+     "variant": 0,
+     "socket": "handguard",
+     "tris": 6456
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 1,
+     "socket": "mag",
+     "tris": 480
+    },
+    {
+     "node": "muzzle",
+     "slot": "muzzle",
+     "family": "MUZZLE",
+     "variant": 2,
+     "socket": "muzzle",
+     "tris": 692
+    },
+    {
+     "node": "light",
+     "slot": "light",
+     "family": "LIGHT",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 3076
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 3,
+     "socket": "stock",
+     "tris": 530
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 1,
+     "socket": "top_rail",
+     "tris": 988
+    },
+    {
+     "node": "foregrip",
+     "slot": "foregrip",
+     "family": "FOREGRIP",
+     "variant": 1,
+     "socket": "underbarrel",
+     "tris": 372
+    }
+   ]
+  },
+  "m4_worn": {
+   "src": "ar_s2_bg",
+   "note": "AR seed2 style0, palette BG (no wear option in add-on)",
+   "flag": null,
+   "type": "AR",
+   "seed": 2,
+   "style": 0,
+   "palette": "BG",
+   "fp": "weapons/ng/fp/ar_s2_bg.glb",
+   "tp": "weapons/ng/tp/ar_s2_bg.glb",
+   "fp_tris": 18642,
+   "tp_tris": 5585,
+   "fp_draw_calls": 36,
+   "tp_draw_calls": 36,
+   "fp_bytes": 514060,
+   "tp_bytes": 329668,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.017,
+      -0.00217,
+      -0.0025
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.017,
+      -0.00217,
+      -0.0025
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.03964,
+      -0.0025
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.03762,
+      0.055
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.115
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03687,
+      -0.05
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.51962
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.024,
+      0.0,
+      -0.295
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.03964,
+      -0.0125
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.024,
+      -0.301
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.5763
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 682
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1278
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 2916
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 0,
+     "socket": "grip",
+     "tris": 856
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": "HANDGUARD",
+     "variant": 0,
+     "socket": "handguard",
+     "tris": 6456
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 1,
+     "socket": "mag",
+     "tris": 480
+    },
+    {
+     "node": "muzzle",
+     "slot": "muzzle",
+     "family": "MUZZLE",
+     "variant": 2,
+     "socket": "muzzle",
+     "tris": 692
+    },
+    {
+     "node": "light",
+     "slot": "light",
+     "family": "LIGHT",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 3076
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 3,
+     "socket": "stock",
+     "tris": 530
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 1,
+     "socket": "top_rail",
+     "tris": 988
+    },
+    {
+     "node": "foregrip",
+     "slot": "foregrip",
+     "family": "FOREGRIP",
+     "variant": 1,
+     "socket": "underbarrel",
+     "tris": 372
+    }
+   ]
+  },
+  "ak47": {
+   "src": "ar_st1",
+   "note": "AR seed1 style1",
+   "flag": null,
+   "type": "AR",
+   "seed": 1,
+   "style": 1,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/ar_st1.glb",
+   "tp": "weapons/ng/tp/ar_st1.glb",
+   "fp_tris": 18629,
+   "tp_tris": 5582,
+   "fp_draw_calls": 38,
+   "tp_draw_calls": 38,
+   "fp_bytes": 553916,
+   "tp_bytes": 336328,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.017,
+      -0.00108,
+      -0.0025
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.017,
+      -0.00108,
+      -0.0025
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.04086,
+      -0.0025
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.03651,
+      0.055
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.115
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03588,
+      -0.05
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.52501
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.024,
+      0.0,
+      -0.295
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.04086,
+      -0.0125
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.024,
+      -0.301
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.58334
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 682
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1294
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 2860
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 1,
+     "socket": "grip",
+     "tris": 908
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": "HANDGUARD",
+     "variant": 1,
+     "socket": "handguard",
+     "tris": 7536
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 1,
+     "socket": "mag",
+     "tris": 480
+    },
+    {
+     "node": "muzzle",
+     "slot": "muzzle",
+     "family": "MUZZLE",
+     "variant": 1,
+     "socket": "muzzle",
+     "tris": 1030
+    },
+    {
+     "node": "laser",
+     "slot": "laser",
+     "family": "LASER",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 1477
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 3,
+     "socket": "stock",
+     "tris": 530
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 1,
+     "socket": "top_rail",
+     "tris": 988
+    },
+    {
+     "node": "foregrip",
+     "slot": "foregrip",
+     "family": "FOREGRIP",
+     "variant": 2,
+     "socket": "underbarrel",
+     "tris": 528
+    }
+   ]
+  },
+  "ak_rust": {
+   "src": "ar_r2_bt",
+   "note": "AR seed31449 style0, palette BT (no rust option)",
+   "flag": null,
+   "type": "AR",
+   "seed": 31449,
+   "style": 0,
+   "palette": "BT",
+   "fp": "weapons/ng/fp/ar_r2_bt.glb",
+   "tp": "weapons/ng/tp/ar_r2_bt.glb",
+   "fp_tris": 19602,
+   "tp_tris": 5870,
+   "fp_draw_calls": 36,
+   "tp_draw_calls": 36,
+   "fp_bytes": 542844,
+   "tp_bytes": 342132,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.017,
+      -0.00242,
+      -0.0025
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.017,
+      -0.00242,
+      -0.0025
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.03955,
+      -0.0025
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.03809,
+      0.055
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.115
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03728,
+      -0.05
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.53345
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.024,
+      0.0,
+      -0.295
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.03955,
+      -0.0125
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.024,
+      -0.301
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.60153
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 682
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1278
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 2916
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 0,
+     "socket": "grip",
+     "tris": 856
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": "HANDGUARD",
+     "variant": 0,
+     "socket": "handguard",
+     "tris": 6456
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 1,
+     "socket": "mag",
+     "tris": 480
+    },
+    {
+     "node": "muzzle",
+     "slot": "muzzle",
+     "family": "MUZZLE",
+     "variant": 2,
+     "socket": "muzzle",
+     "tris": 692
+    },
+    {
+     "node": "light",
+     "slot": "light",
+     "family": "LIGHT",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 4036
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 3,
+     "socket": "stock",
+     "tris": 530
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 1,
+     "socket": "top_rail",
+     "tris": 988
+    },
+    {
+     "node": "foregrip",
+     "slot": "foregrip",
+     "family": "FOREGRIP",
+     "variant": 1,
+     "socket": "underbarrel",
+     "tris": 372
+    }
+   ]
+  },
+  "scarh": {
+   "src": "ar_r1",
+   "note": "AR seed98439 style3",
+   "flag": null,
+   "type": "AR",
+   "seed": 98439,
+   "style": 3,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/ar_r1.glb",
+   "tp": "weapons/ng/tp/ar_r1.glb",
+   "fp_tris": 22582,
+   "tp_tris": 6766,
+   "fp_draw_calls": 41,
+   "tp_draw_calls": 41,
+   "fp_bytes": 681776,
+   "tp_bytes": 383636,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.017,
+      -0.00251,
+      -0.0025
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.017,
+      -0.00251,
+      -0.0025
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.03895,
+      -0.0025
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.03762,
+      0.055
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.115
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03686,
+      -0.05
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.53482
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.024,
+      0.0,
+      -0.295
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.03895,
+      -0.0125
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.024,
+      -0.301
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.71959
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 682
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1298
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 2824
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 0,
+     "socket": "grip",
+     "tris": 856
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": "HANDGUARD",
+     "variant": 1,
+     "socket": "handguard",
+     "tris": 7536
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 1,
+     "socket": "mag",
+     "tris": 452
+    },
+    {
+     "node": "suppressor",
+     "slot": "suppressor",
+     "family": "SUPPRESSOR",
+     "variant": 3,
+     "socket": "muzzle",
+     "tris": 3718
+    },
+    {
+     "node": "laser",
+     "slot": "laser",
+     "family": "LASER",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 1477
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 0,
+     "socket": "stock",
+     "tris": 616
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 2,
+     "socket": "top_rail",
+     "tris": 2624
+    },
+    {
+     "node": "foregrip",
+     "slot": "foregrip",
+     "family": "FOREGRIP",
+     "variant": 1,
+     "socket": "underbarrel",
+     "tris": 372
+    }
+   ]
+  },
+  "famas": {
+   "src": "bullpup_s1",
+   "note": "BULLPUP seed1 style0",
+   "flag": null,
+   "type": "BULLPUP",
+   "seed": 1,
+   "style": 0,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/bullpup_s1.glb",
+   "tp": "weapons/ng/tp/bullpup_s1.glb",
+   "fp_tris": 12956,
+   "tp_tris": 4225,
+   "fp_draw_calls": 33,
+   "tp_draw_calls": 33,
+   "fp_bytes": 356584,
+   "tp_bytes": 251632,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.021,
+      -0.00391,
+      0.09
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.021,
+      -0.00391,
+      0.09
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.0434,
+      0.09
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.041,
+      -0.0
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.14
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.04435,
+      0.14
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.5251
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.024,
+      0.0,
+      -0.236
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.32
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.0434,
+      0.03
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.024,
+      -0.2392
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.59127
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 682
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 930
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 4248
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 0,
+     "socket": "grip",
+     "tris": 856
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": "HANDGUARD",
+     "variant": 2,
+     "socket": "handguard",
+     "tris": 3180
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 1,
+     "socket": "mag",
+     "tris": 480
+    },
+    {
+     "node": "muzzle",
+     "slot": "muzzle",
+     "family": "MUZZLE",
+     "variant": 2,
+     "socket": "muzzle",
+     "tris": 692
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 4,
+     "socket": "stock",
+     "tris": 212
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 1,
+     "socket": "top_rail",
+     "tris": 988
+    },
+    {
+     "node": "foregrip",
+     "slot": "foregrip",
+     "family": "FOREGRIP",
+     "variant": 1,
+     "socket": "underbarrel",
+     "tris": 372
+    }
+   ]
+  },
+  "vector": {
+   "src": "smg_s1",
+   "note": "SMG seed1 style0 (vector)",
+   "flag": null,
+   "type": "SMG",
+   "seed": 1,
+   "style": 0,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/smg_s1.glb",
+   "tp": "weapons/ng/tp/smg_s1.glb",
+   "fp_tris": 7942,
+   "tp_tris": 2373,
+   "fp_draw_calls": 32,
+   "tp_draw_calls": 32,
+   "fp_bytes": 221740,
+   "tp_bytes": 170588,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.02016,
+      -0.01475,
+      -0.0175
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.02016,
+      -0.01475,
+      -0.0175
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.0383,
+      -0.0175
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.0555,
+      0.05
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.12
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.0527,
+      -0.075
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.2
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.017,
+      0.0,
+      -0.14
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.085
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.0383,
+      -0.0275
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.018,
+      -0.14
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.2
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 574
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 848
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 2672
+    },
+    {
+     "node": "module",
+     "slot": "module",
+     "family": "MODULE",
+     "variant": 2,
+     "socket": "casing_left",
+     "tris": 372
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 1,
+     "socket": "grip",
+     "tris": 908
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 0,
+     "socket": "mag",
+     "tris": 468
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 1,
+     "socket": "stock",
+     "tris": 408
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 0,
+     "socket": "top_rail",
+     "tris": 1004
+    },
+    {
+     "node": "foregrip",
+     "slot": "foregrip",
+     "family": "FOREGRIP",
+     "variant": 1,
+     "socket": "underbarrel",
+     "tris": 372
+    }
+   ]
+  },
+  "mp7": {
+   "src": "smg_st1",
+   "note": "SMG seed1 style1 (PDW)",
+   "flag": null,
+   "type": "SMG",
+   "seed": 1,
+   "style": 1,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/smg_st1.glb",
+   "tp": "weapons/ng/tp/smg_st1.glb",
+   "fp_tris": 3958,
+   "tp_tris": 1184,
+   "fp_draw_calls": 20,
+   "tp_draw_calls": 20,
+   "fp_bytes": 120016,
+   "tp_bytes": 79988,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.021,
+      -0.0265,
+      0.09
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.021,
+      -0.0265,
+      0.09
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.026,
+      0.09
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.02,
+      -0.02
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      0.026,
+      0.05
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.18
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.021,
+      -0.01,
+      -0.08
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.2
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.0703,
+      -0.079
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.071,
+      -0.065
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.18
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 478
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 140
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 664
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 336
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 0,
+     "socket": "grip",
+     "tris": 820
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 6,
+     "socket": "mag",
+     "tris": 320
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 4,
+     "socket": "stock",
+     "tris": 212
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 1,
+     "socket": "top_rail",
+     "tris": 988
+    }
+   ]
+  },
+  "ump45": {
+   "src": "smg_st2",
+   "note": "SMG seed1 style2 (boxy)",
+   "flag": null,
+   "type": "SMG",
+   "seed": 1,
+   "style": 2,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/smg_st2.glb",
+   "tp": "weapons/ng/tp/smg_st2.glb",
+   "fp_tris": 9028,
+   "tp_tris": 2705,
+   "fp_draw_calls": 23,
+   "tp_draw_calls": 23,
+   "fp_bytes": 250632,
+   "tp_bytes": 192084,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.02016,
+      -0.006,
+      -0.01
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.02016,
+      -0.006,
+      -0.01
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.0383,
+      -0.01
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.038,
+      0.07
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.0372,
+      -0.03
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.27
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.02232,
+      0.0,
+      -0.17
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.09
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.0383,
+      -0.02
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.0372,
+      -0.17
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.27
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 398
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1268
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 4212
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 0,
+     "socket": "grip",
+     "tris": 856
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 0,
+     "socket": "mag",
+     "tris": 460
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 3,
+     "socket": "stock",
+     "tris": 530
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 1,
+     "socket": "top_rail",
+     "tris": 988
+    }
+   ]
+  },
+  "mp5": {
+   "src": "smg_r1",
+   "note": "SMG seed29267 style3 (integral suppressor)",
+   "flag": null,
+   "type": "SMG",
+   "seed": 29267,
+   "style": 3,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/smg_r1.glb",
+   "tp": "weapons/ng/tp/smg_r1.glb",
+   "fp_tris": 9616,
+   "tp_tris": 3008,
+   "fp_draw_calls": 27,
+   "tp_draw_calls": 27,
+   "fp_bytes": 284880,
+   "tp_bytes": 173660,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.01792,
+      -0.0049,
+      -0.0025
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.01792,
+      -0.0049,
+      -0.0025
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.0363,
+      -0.0025
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.0338,
+      0.05
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.09
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03348,
+      -0.035
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.29
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.017,
+      0.0,
+      -0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.085
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.0363,
+      -0.0125
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.018,
+      -0.11
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.29
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 2958
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1204
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1724
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 2,
+     "socket": "grip",
+     "tris": 884
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 0,
+     "socket": "mag",
+     "tris": 468
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 3,
+     "socket": "stock",
+     "tris": 530
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 0,
+     "socket": "top_rail",
+     "tris": 1004
+    },
+    {
+     "node": "foregrip",
+     "slot": "foregrip",
+     "family": "FOREGRIP",
+     "variant": 2,
+     "socket": "underbarrel",
+     "tris": 528
+    }
+   ]
+  },
+  "l96": {
+   "src": "dmr_s1",
+   "note": "DMR seed1 style0 (LPVO + bipod)",
+   "flag": null,
+   "type": "DMR",
+   "seed": 1,
+   "style": 0,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/dmr_s1.glb",
+   "tp": "weapons/ng/tp/dmr_s1.glb",
+   "fp_tris": 23568,
+   "tp_tris": 7063,
+   "fp_draw_calls": 36,
+   "tp_draw_calls": 36,
+   "fp_bytes": 649068,
+   "tp_bytes": 438016,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.018,
+      -0.00271,
+      0.005
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.018,
+      -0.00271,
+      0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.03726,
+      0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.03611,
+      0.07
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.12
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03552,
+      -0.04
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.71727
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.024,
+      0.0,
+      -0.336
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.13
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.03726,
+      -0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.024,
+      -0.3432
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.76796
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1694
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1354
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 3232
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 1,
+     "socket": "grip",
+     "tris": 908
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": "HANDGUARD",
+     "variant": 0,
+     "socket": "handguard",
+     "tris": 7636
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 0,
+     "socket": "mag",
+     "tris": 460
+    },
+    {
+     "node": "muzzle",
+     "slot": "muzzle",
+     "family": "MUZZLE",
+     "variant": 0,
+     "socket": "muzzle",
+     "tris": 676
+    },
+    {
+     "node": "light",
+     "slot": "light",
+     "family": "LIGHT",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 3076
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 1,
+     "socket": "stock",
+     "tris": 404
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 2,
+     "socket": "top_rail",
+     "tris": 2624
+    },
+    {
+     "node": "bipod",
+     "slot": "bipod",
+     "family": "BIPOD",
+     "variant": 0,
+     "socket": "underbarrel",
+     "tris": 1188
+    }
+   ]
+  },
+  "svd": {
+   "src": "dmr_r1",
+   "note": "DMR seed89049 style2",
+   "flag": null,
+   "type": "DMR",
+   "seed": 89049,
+   "style": 2,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/dmr_r1.glb",
+   "tp": "weapons/ng/tp/dmr_r1.glb",
+   "fp_tris": 24156,
+   "tp_tris": 7238,
+   "fp_draw_calls": 37,
+   "tp_draw_calls": 37,
+   "fp_bytes": 664240,
+   "tp_bytes": 445984,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.018,
+      -0.00237,
+      0.005
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.018,
+      -0.00237,
+      0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.03769,
+      0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.03582,
+      0.07
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.12
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03527,
+      -0.04
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.72574
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.024,
+      0.0,
+      -0.336
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.13
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.03769,
+      -0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.024,
+      -0.3432
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.78196
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1694
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1354
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 3232
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 0,
+     "socket": "grip",
+     "tris": 856
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": "HANDGUARD",
+     "variant": 0,
+     "socket": "handguard",
+     "tris": 7636
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 0,
+     "socket": "mag",
+     "tris": 460
+    },
+    {
+     "node": "muzzle",
+     "slot": "muzzle",
+     "family": "MUZZLE",
+     "variant": 0,
+     "socket": "muzzle",
+     "tris": 676
+    },
+    {
+     "node": "light",
+     "slot": "light",
+     "family": "LIGHT",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 3716
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 1,
+     "socket": "stock",
+     "tris": 404
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 2,
+     "socket": "top_rail",
+     "tris": 2624
+    },
+    {
+     "node": "bipod",
+     "slot": "bipod",
+     "family": "BIPOD",
+     "variant": 0,
+     "socket": "underbarrel",
+     "tris": 1188
+    }
+   ]
+  },
+  "hunting_rifle": {
+   "src": "dmr_s3",
+   "note": "DMR seed3 style0",
+   "flag": null,
+   "type": "DMR",
+   "seed": 3,
+   "style": 0,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/dmr_s3.glb",
+   "tp": "weapons/ng/tp/dmr_s3.glb",
+   "fp_tris": 24204,
+   "tp_tris": 7254,
+   "fp_draw_calls": 36,
+   "tp_draw_calls": 36,
+   "fp_bytes": 667344,
+   "tp_bytes": 448000,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.018,
+      -0.00229,
+      0.005
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.018,
+      -0.00229,
+      0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.03877,
+      0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.03688,
+      0.07
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.12
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03621,
+      -0.04
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.69839
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.024,
+      0.0,
+      -0.336
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.13
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.03877,
+      -0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.024,
+      -0.3432
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.75651
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1694
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1358
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 3224
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 1,
+     "socket": "grip",
+     "tris": 908
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": "HANDGUARD",
+     "variant": 0,
+     "socket": "handguard",
+     "tris": 7636
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 0,
+     "socket": "mag",
+     "tris": 460
+    },
+    {
+     "node": "muzzle",
+     "slot": "muzzle",
+     "family": "MUZZLE",
+     "variant": 0,
+     "socket": "muzzle",
+     "tris": 676
+    },
+    {
+     "node": "light",
+     "slot": "light",
+     "family": "LIGHT",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 3716
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 1,
+     "socket": "stock",
+     "tris": 404
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 2,
+     "socket": "top_rail",
+     "tris": 2624
+    },
+    {
+     "node": "bipod",
+     "slot": "bipod",
+     "family": "BIPOD",
+     "variant": 0,
+     "socket": "underbarrel",
+     "tris": 1188
+    }
+   ]
+  },
+  "m82": {
+   "src": "dmr_r2",
+   "note": "DMR seed27555 style3",
+   "flag": null,
+   "type": "DMR",
+   "seed": 27555,
+   "style": 3,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/dmr_r2.glb",
+   "tp": "weapons/ng/tp/dmr_r2.glb",
+   "fp_tris": 24337,
+   "tp_tris": 7294,
+   "fp_draw_calls": 41,
+   "tp_draw_calls": 41,
+   "fp_bytes": 715528,
+   "tp_bytes": 415616,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.018,
+      -0.00124,
+      0.005
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.018,
+      -0.00124,
+      0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.0381,
+      0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.03367,
+      0.07
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.12
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03336,
+      -0.04
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.71653
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.024,
+      0.0,
+      -0.336
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.13
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.0381,
+      -0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.024,
+      -0.3432
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.9335
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1694
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1370
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 3168
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 1,
+     "socket": "grip",
+     "tris": 908
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": "HANDGUARD",
+     "variant": 1,
+     "socket": "handguard",
+     "tris": 8936
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 0,
+     "socket": "mag",
+     "tris": 460
+    },
+    {
+     "node": "suppressor",
+     "slot": "suppressor",
+     "family": "SUPPRESSOR",
+     "variant": 0,
+     "socket": "muzzle",
+     "tris": 1628
+    },
+    {
+     "node": "laser",
+     "slot": "laser",
+     "family": "LASER",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 1477
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 2,
+     "socket": "stock",
+     "tris": 568
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 2,
+     "socket": "top_rail",
+     "tris": 2624
+    },
+    {
+     "node": "bipod",
+     "slot": "bipod",
+     "family": "BIPOD",
+     "variant": 0,
+     "socket": "underbarrel",
+     "tris": 1188
+    }
+   ]
+  },
+  "m249": {
+   "src": "lmg_s1",
+   "note": "LMG seed1 style0 (drum + bipod)",
+   "flag": null,
+   "type": "LMG",
+   "seed": 1,
+   "style": 0,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/lmg_s1.glb",
+   "tp": "weapons/ng/tp/lmg_s1.glb",
+   "fp_tris": 30200,
+   "tp_tris": 9050,
+   "fp_draw_calls": 34,
+   "tp_draw_calls": 34,
+   "fp_bytes": 873400,
+   "tp_bytes": 514752,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.024,
+      -0.0003,
+      -0.0
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.024,
+      -0.0003,
+      -0.0
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.08145,
+      -0.0
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.04703,
+      0.075
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.14
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.0452,
+      -0.04
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.62784
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.03,
+      0.0,
+      -0.32
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.14
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.08145,
+      -0.01
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.03,
+      -0.326
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.67853
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 8042
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1227
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 7937
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 0,
+     "socket": "grip",
+     "tris": 856
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": "HANDGUARD",
+     "variant": 2,
+     "socket": "handguard",
+     "tris": 6196
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 2,
+     "socket": "mag",
+     "tris": 2254
+    },
+    {
+     "node": "muzzle",
+     "slot": "muzzle",
+     "family": "MUZZLE",
+     "variant": 0,
+     "socket": "muzzle",
+     "tris": 752
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 0,
+     "socket": "stock",
+     "tris": 616
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 1,
+     "socket": "top_rail",
+     "tris": 988
+    },
+    {
+     "node": "bipod",
+     "slot": "bipod",
+     "family": "BIPOD",
+     "variant": 0,
+     "socket": "underbarrel",
+     "tris": 1188
+    }
+   ]
+  },
+  "rem870": {
+   "src": "shotgun_s1",
+   "note": "SHOTGUN seed1 style0 (pump + tube)",
+   "flag": null,
+   "type": "SHOTGUN",
+   "seed": 1,
+   "style": 0,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/shotgun_s1.glb",
+   "tp": "weapons/ng/tp/shotgun_s1.glb",
+   "fp_tris": 7144,
+   "tp_tris": 2140,
+   "fp_draw_calls": 19,
+   "tp_draw_calls": 19,
+   "fp_bytes": 213312,
+   "tp_bytes": 128856,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.02688,
+      -0.0075,
+      -0.0
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.02688,
+      -0.0075,
+      -0.0
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.0423,
+      -0.0
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.045,
+      0.062
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.1
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.026,
+      -0.096
+     ],
+     "quaternion": [
+      0.70711,
+      0.0,
+      -0.0,
+      0.70711
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.54
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.03,
+      0.0,
+      -0.298
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.1
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.0423,
+      -0.01
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.05,
+      -0.298
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.54
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1370
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1454
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1168
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 1,
+     "socket": "grip",
+     "tris": 908
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": "HANDGUARD",
+     "variant": 3,
+     "socket": "handguard",
+     "tris": 992
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 4,
+     "socket": "mag",
+     "tris": 320
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 0,
+     "socket": "stock",
+     "tris": 616
+    }
+   ]
+  },
+  "m1014": {
+   "src": "shotgun_st1",
+   "note": "SHOTGUN seed1 style1 (box mag)",
+   "flag": null,
+   "type": "SHOTGUN",
+   "seed": 1,
+   "style": 1,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/shotgun_st1.glb",
+   "tp": "weapons/ng/tp/shotgun_st1.glb",
+   "fp_tris": 11174,
+   "tp_tris": 3344,
+   "fp_draw_calls": 28,
+   "tp_draw_calls": 28,
+   "fp_bytes": 320368,
+   "tp_bytes": 203368,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.02688,
+      -0.007,
+      -0.0
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.02688,
+      -0.007,
+      -0.0
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.0503,
+      -0.0
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.052,
+      0.062
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.1
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.0496,
+      -0.035
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.37
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.0385,
+      0.0,
+      -0.2215
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.1
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.0503,
+      -0.01
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.04075,
+      -0.2215
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.37
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 558
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1284
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1948
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 0,
+     "socket": "grip",
+     "tris": 856
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": null,
+     "variant": null,
+     "socket": "handguard",
+     "tris": 1134
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 0,
+     "socket": "mag",
+     "tris": 468
+    },
+    {
+     "node": "light",
+     "slot": "light",
+     "family": "LIGHT",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 3076
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 3,
+     "socket": "stock",
+     "tris": 530
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 0,
+     "socket": "top_rail",
+     "tris": 1004
+    }
+   ]
+  },
+  "aa12": {
+   "src": "shotgun_r1",
+   "note": "SHOTGUN seed12852 style3 (drum)",
+   "flag": null,
+   "type": "SHOTGUN",
+   "seed": 12852,
+   "style": 3,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/shotgun_r1.glb",
+   "tp": "weapons/ng/tp/shotgun_r1.glb",
+   "fp_tris": 15364,
+   "tp_tris": 4595,
+   "fp_draw_calls": 34,
+   "tp_draw_calls": 34,
+   "fp_bytes": 435804,
+   "tp_bytes": 282652,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.02688,
+      -0.007,
+      -0.0
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.02688,
+      -0.007,
+      -0.0
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.0503,
+      -0.0
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.052,
+      0.062
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.1
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.0496,
+      -0.03
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.37
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.0385,
+      0.0,
+      -0.2215
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.1
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.0503,
+      -0.01
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.04075,
+      -0.2215
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.37
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 558
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1394
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 3812
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 1,
+     "socket": "grip",
+     "tris": 908
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": null,
+     "variant": null,
+     "socket": "handguard",
+     "tris": 1134
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 2,
+     "socket": "mag",
+     "tris": 2222
+    },
+    {
+     "node": "light",
+     "slot": "light",
+     "family": "LIGHT",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 3076
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 2,
+     "socket": "stock",
+     "tris": 568
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 0,
+     "socket": "top_rail",
+     "tris": 1004
+    },
+    {
+     "node": "foregrip",
+     "slot": "foregrip",
+     "family": "FOREGRIP",
+     "variant": 1,
+     "socket": "underbarrel",
+     "tris": 372
+    }
+   ]
+  },
+  "pipe_shotgun": {
+   "src": "shotgun_st2",
+   "note": "SHOTGUN seed1 style2 (over/under)",
+   "flag": "placeholder: no improvised look in add-on",
+   "type": "SHOTGUN",
+   "seed": 1,
+   "style": 2,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/shotgun_st2.glb",
+   "tp": "weapons/ng/tp/shotgun_st2.glb",
+   "fp_tris": 4320,
+   "tp_tris": 1291,
+   "fp_draw_calls": 16,
+   "tp_draw_calls": 16,
+   "fp_bytes": 137308,
+   "tp_bytes": 80956,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.02304,
+      -0.015,
+      -0.0
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.02304,
+      -0.015,
+      -0.0
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.02,
+      -0.0
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.045,
+      0.062
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.07
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.059,
+      -0.0
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.52
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.01755,
+      -0.0135,
+      -0.2
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.0,
+      0.1
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.0195,
+      -0.0
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.05535,
+      -0.2
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.52
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1044
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 132
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1260
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 44
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 1,
+     "socket": "grip",
+     "tris": 908
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 0,
+     "socket": "stock",
+     "tris": 616
+    }
+   ]
+  },
+  "m9": {
+   "src": "pistol_s1",
+   "note": "PISTOL seed1 style0",
+   "flag": null,
+   "type": "PISTOL",
+   "seed": 1,
+   "style": 0,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/pistol_s1.glb",
+   "tp": "weapons/ng/tp/pistol_s1.glb",
+   "fp_tris": 7038,
+   "tp_tris": 2207,
+   "fp_draw_calls": 25,
+   "tp_draw_calls": 25,
+   "fp_bytes": 217076,
+   "tp_bytes": 136908,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.013,
+      -0.012,
+      -0.0175
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.013,
+      -0.012,
+      -0.0175
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.026,
+      -0.0175
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.022,
+      0.045
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.009,
+      -0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03,
+      0.041
+     ],
+     "quaternion": [
+      -0.15643,
+      0.0,
+      -0.0,
+      0.98769
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.009,
+      -0.112
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.013,
+      -0.02,
+      -0.06
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      -0.02,
+      0.075
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.026,
+      0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.032,
+      -0.0655
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.009,
+    -0.112
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 254
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 800
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1480
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 2,
+     "socket": "grip",
+     "tris": 884
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 0,
+     "socket": "mag",
+     "tris": 460
+    },
+    {
+     "node": "laser",
+     "slot": "laser",
+     "family": "LASER",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 1840
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 0,
+     "socket": "top_rail",
+     "tris": 1004
+    }
+   ]
+  },
+  "usp": {
+   "src": "pistol_s2",
+   "note": "PISTOL seed2 style0 (near-identical to m9: seed only jitters)",
+   "flag": null,
+   "type": "PISTOL",
+   "seed": 2,
+   "style": 0,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/pistol_s2.glb",
+   "tp": "weapons/ng/tp/pistol_s2.glb",
+   "fp_tris": 7038,
+   "tp_tris": 2207,
+   "fp_draw_calls": 25,
+   "tp_draw_calls": 25,
+   "fp_bytes": 217100,
+   "tp_bytes": 137408,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.013,
+      -0.012,
+      -0.0175
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.013,
+      -0.012,
+      -0.0175
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.026,
+      -0.0175
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.022,
+      0.045
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.009,
+      -0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03,
+      0.041
+     ],
+     "quaternion": [
+      -0.15643,
+      0.0,
+      -0.0,
+      0.98769
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.009,
+      -0.112
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.013,
+      -0.02,
+      -0.06
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      -0.02,
+      0.075
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.026,
+      0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.032,
+      -0.0655
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.009,
+    -0.112
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 254
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 800
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1480
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 2,
+     "socket": "grip",
+     "tris": 884
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 0,
+     "socket": "mag",
+     "tris": 460
+    },
+    {
+     "node": "laser",
+     "slot": "laser",
+     "family": "LASER",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 1840
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 0,
+     "socket": "top_rail",
+     "tris": 1004
+    }
+   ]
+  },
+  "glock18": {
+   "src": "pistol_r2",
+   "note": "PISTOL seed65866 style0",
+   "flag": null,
+   "type": "PISTOL",
+   "seed": 65866,
+   "style": 0,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/pistol_r2.glb",
+   "tp": "weapons/ng/tp/pistol_r2.glb",
+   "fp_tris": 7062,
+   "tp_tris": 2214,
+   "fp_draw_calls": 25,
+   "tp_draw_calls": 25,
+   "fp_bytes": 217180,
+   "tp_bytes": 137188,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.013,
+      -0.012,
+      -0.0175
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.013,
+      -0.012,
+      -0.0175
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.026,
+      -0.0175
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.022,
+      0.045
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.009,
+      -0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03,
+      0.041
+     ],
+     "quaternion": [
+      -0.15643,
+      0.0,
+      -0.0,
+      0.98769
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.009,
+      -0.112
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.013,
+      -0.02,
+      -0.06
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      -0.02,
+      0.075
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.026,
+      0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.032,
+      -0.0655
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.009,
+    -0.112
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 254
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 800
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1480
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 2,
+     "socket": "grip",
+     "tris": 884
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 0,
+     "socket": "mag",
+     "tris": 484
+    },
+    {
+     "node": "laser",
+     "slot": "laser",
+     "family": "LASER",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 1840
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 0,
+     "socket": "top_rail",
+     "tris": 1004
+    }
+   ]
+  },
+  "deagle": {
+   "src": "pistol_r1",
+   "note": "PISTOL seed15614 style2",
+   "flag": null,
+   "type": "PISTOL",
+   "seed": 15614,
+   "style": 2,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/pistol_r1.glb",
+   "tp": "weapons/ng/tp/pistol_r1.glb",
+   "fp_tris": 8906,
+   "tp_tris": 2767,
+   "fp_draw_calls": 28,
+   "tp_draw_calls": 28,
+   "fp_bytes": 273856,
+   "tp_bytes": 157732,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.013,
+      -0.012,
+      -0.0175
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.013,
+      -0.012,
+      -0.0175
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.026,
+      -0.0175
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.022,
+      0.045
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.009,
+      -0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03,
+      0.041
+     ],
+     "quaternion": [
+      -0.15643,
+      0.0,
+      -0.0,
+      0.98769
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.009,
+      -0.112
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.013,
+      -0.02,
+      -0.06
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      -0.02,
+      0.075
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.026,
+      0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.032,
+      -0.0655
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.009,
+    -0.27864
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 254
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 800
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1480
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 2,
+     "socket": "grip",
+     "tris": 884
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 0,
+     "socket": "mag",
+     "tris": 460
+    },
+    {
+     "node": "suppressor",
+     "slot": "suppressor",
+     "family": "SUPPRESSOR",
+     "variant": 2,
+     "socket": "muzzle",
+     "tris": 1868
+    },
+    {
+     "node": "laser",
+     "slot": "laser",
+     "family": "LASER",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 1840
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 0,
+     "socket": "top_rail",
+     "tris": 1004
+    }
+   ]
+  },
+  "nailgun": {
+   "src": "pistol_s1_bo",
+   "note": "PISTOL seed1 style0, palette BO",
+   "flag": "placeholder: no nail gun in add-on",
+   "type": "PISTOL",
+   "seed": 1,
+   "style": 0,
+   "palette": "BO",
+   "fp": "weapons/ng/fp/pistol_s1_bo.glb",
+   "tp": "weapons/ng/tp/pistol_s1_bo.glb",
+   "fp_tris": 7038,
+   "tp_tris": 2207,
+   "fp_draw_calls": 25,
+   "tp_draw_calls": 25,
+   "fp_bytes": 217120,
+   "tp_bytes": 136952,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.013,
+      -0.012,
+      -0.0175
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.013,
+      -0.012,
+      -0.0175
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.026,
+      -0.0175
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.022,
+      0.045
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.009,
+      -0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      -0.03,
+      0.041
+     ],
+     "quaternion": [
+      -0.15643,
+      0.0,
+      -0.0,
+      0.98769
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.009,
+      -0.112
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.013,
+      -0.02,
+      -0.06
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      -0.02,
+      0.075
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.026,
+      0.005
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.032,
+      -0.0655
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.009,
+    -0.112
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 254
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 800
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1480
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 2,
+     "socket": "grip",
+     "tris": 884
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 0,
+     "socket": "mag",
+     "tris": 460
+    },
+    {
+     "node": "laser",
+     "slot": "laser",
+     "family": "LASER",
+     "variant": 0,
+     "socket": "side_rail",
+     "tris": 1840
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 0,
+     "socket": "top_rail",
+     "tris": 1004
+    }
+   ]
+  },
+  "crossbow": {
+   "src": "heavy_st1",
+   "note": "HEAVY seed1 style1 (revolver grenade launcher)",
+   "flag": "placeholder: no crossbow in add-on",
+   "type": "HEAVY",
+   "seed": 1,
+   "style": 1,
+   "palette": "BW",
+   "fp": "weapons/ng/fp/heavy_st1.glb",
+   "tp": "weapons/ng/tp/heavy_st1.glb",
+   "fp_tris": 11164,
+   "tp_tris": 3488,
+   "fp_draw_calls": 31,
+   "tp_draw_calls": 31,
+   "fp_bytes": 324900,
+   "tp_bytes": 202864,
+   "sockets": {
+    "casing_left": {
+     "position": [
+      -0.062,
+      0.0,
+      -0.03
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      0.70711,
+      0.70711
+     ]
+    },
+    "casing_right": {
+     "position": [
+      0.062,
+      0.0,
+      -0.03
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "casing_top": {
+     "position": [
+      0.0,
+      0.0873,
+      -0.03
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "grip": {
+     "position": [
+      0.0,
+      -0.096,
+      0.13
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "handguard": {
+     "position": [
+      0.0,
+      0.0,
+      -0.102
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "mag": {
+     "position": [
+      0.0,
+      0.059,
+      -0.03
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "muzzle": {
+     "position": [
+      0.0,
+      0.0,
+      -0.402
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "side_rail": {
+     "position": [
+      0.0335,
+      0.0,
+      -0.327
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.70711,
+      0.70711
+     ]
+    },
+    "stock": {
+     "position": [
+      0.0,
+      0.02,
+      0.11
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "top_rail": {
+     "position": [
+      0.0,
+      0.0873,
+      -0.03
+     ],
+     "quaternion": [
+      0.0,
+      0.0,
+      -0.0,
+      1.0
+     ]
+    },
+    "underbarrel": {
+     "position": [
+      0.0,
+      -0.0335,
+      -0.327
+     ],
+     "quaternion": [
+      -0.0,
+      -0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "muzzle": [
+    0.0,
+    0.0,
+    -0.402
+   ],
+   "parts": [
+    {
+     "node": "barrel",
+     "slot": "barrel",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1342
+    },
+    {
+     "node": "handguard",
+     "slot": "handguard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 436
+    },
+    {
+     "node": "receiver",
+     "slot": "receiver",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 1226
+    },
+    {
+     "node": "trigger_guard",
+     "slot": "trigger_guard",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 316
+    },
+    {
+     "node": "upper",
+     "slot": "upper",
+     "family": null,
+     "variant": null,
+     "socket": null,
+     "tris": 2384
+    },
+    {
+     "node": "grip",
+     "slot": "grip",
+     "family": "GRIP",
+     "variant": 1,
+     "socket": "grip",
+     "tris": 908
+    },
+    {
+     "node": "magazine",
+     "slot": "magazine",
+     "family": "MAGAZINE",
+     "variant": 5,
+     "socket": "mag",
+     "tris": 1984
+    },
+    {
+     "node": "stock",
+     "slot": "stock",
+     "family": "STOCK",
+     "variant": 3,
+     "socket": "stock",
+     "tris": 530
+    },
+    {
+     "node": "optic",
+     "slot": "optic",
+     "family": "OPTIC",
+     "variant": 1,
+     "socket": "top_rail",
+     "tris": 988
+    },
+    {
+     "node": "foregrip",
+     "slot": "foregrip",
+     "family": "FOREGRIP",
+     "variant": 0,
+     "socket": "underbarrel",
+     "tris": 1050
+    }
+   ]
+  }
+ },
+ "parts": {
+  "suppressor_0_round": {
+   "family": "SUPPRESSOR",
+   "variant": 0,
+   "variant_name": "Round",
+   "socket": "muzzle",
+   "fp": "weapons/ng/parts/fp/suppressor_0_round.glb",
+   "tp": "weapons/ng/parts/tp/suppressor_0_round.glb",
+   "fp_tris": 2444,
+   "tp_tris": 733,
+   "draw_calls": 3
+  },
+  "suppressor_1_octagon": {
+   "family": "SUPPRESSOR",
+   "variant": 1,
+   "variant_name": "Octagon",
+   "socket": "muzzle",
+   "fp": "weapons/ng/parts/fp/suppressor_1_octagon.glb",
+   "tp": "weapons/ng/parts/tp/suppressor_1_octagon.glb",
+   "fp_tris": 1508,
+   "tp_tris": 451,
+   "draw_calls": 3
+  },
+  "suppressor_2_tapered": {
+   "family": "SUPPRESSOR",
+   "variant": 2,
+   "variant_name": "Tapered",
+   "socket": "muzzle",
+   "fp": "weapons/ng/parts/fp/suppressor_2_tapered.glb",
+   "tp": "weapons/ng/parts/tp/suppressor_2_tapered.glb",
+   "fp_tris": 1916,
+   "tp_tris": 574,
+   "draw_calls": 3
+  },
+  "suppressor_3_vented": {
+   "family": "SUPPRESSOR",
+   "variant": 3,
+   "variant_name": "Vented",
+   "socket": "muzzle",
+   "fp": "weapons/ng/parts/fp/suppressor_3_vented.glb",
+   "tp": "weapons/ng/parts/tp/suppressor_3_vented.glb",
+   "fp_tris": 2781,
+   "tp_tris": 1008,
+   "draw_calls": 3
+  },
+  "muzzle_0_brake": {
+   "family": "MUZZLE",
+   "variant": 0,
+   "variant_name": "Brake",
+   "socket": "muzzle",
+   "fp": "weapons/ng/parts/fp/muzzle_0_brake.glb",
+   "tp": "weapons/ng/parts/tp/muzzle_0_brake.glb",
+   "fp_tris": 676,
+   "tp_tris": 201,
+   "draw_calls": 2
+  },
+  "muzzle_1_compensator": {
+   "family": "MUZZLE",
+   "variant": 1,
+   "variant_name": "Compensator",
+   "socket": "muzzle",
+   "fp": "weapons/ng/parts/fp/muzzle_1_compensator.glb",
+   "tp": "weapons/ng/parts/tp/muzzle_1_compensator.glb",
+   "fp_tris": 1030,
+   "tp_tris": 308,
+   "draw_calls": 2
+  },
+  "muzzle_2_flash_hider": {
+   "family": "MUZZLE",
+   "variant": 2,
+   "variant_name": "Flash Hider",
+   "socket": "muzzle",
+   "fp": "weapons/ng/parts/fp/muzzle_2_flash_hider.glb",
+   "tp": "weapons/ng/parts/tp/muzzle_2_flash_hider.glb",
+   "fp_tris": 692,
+   "tp_tris": 207,
+   "draw_calls": 2
+  },
+  "handguard_0_m-lok_square": {
+   "family": "HANDGUARD",
+   "variant": 0,
+   "variant_name": "M-LOK Square",
+   "socket": "handguard",
+   "fp": "weapons/ng/parts/fp/handguard_0_m-lok_square.glb",
+   "tp": "weapons/ng/parts/tp/handguard_0_m-lok_square.glb",
+   "fp_tris": 6456,
+   "tp_tris": 1936,
+   "draw_calls": 3
+  },
+  "handguard_1_m-lok_round": {
+   "family": "HANDGUARD",
+   "variant": 1,
+   "variant_name": "M-LOK Round",
+   "socket": "handguard",
+   "fp": "weapons/ng/parts/fp/handguard_1_m-lok_round.glb",
+   "tp": "weapons/ng/parts/tp/handguard_1_m-lok_round.glb",
+   "fp_tris": 7536,
+   "tp_tris": 2260,
+   "draw_calls": 3
+  },
+  "handguard_2_vented_shroud": {
+   "family": "HANDGUARD",
+   "variant": 2,
+   "variant_name": "Vented Shroud",
+   "socket": "handguard",
+   "fp": "weapons/ng/parts/fp/handguard_2_vented_shroud.glb",
+   "tp": "weapons/ng/parts/tp/handguard_2_vented_shroud.glb",
+   "fp_tris": 6150,
+   "tp_tris": 1844,
+   "draw_calls": 3
+  },
+  "handguard_3_pump_forend": {
+   "family": "HANDGUARD",
+   "variant": 3,
+   "variant_name": "Pump Forend",
+   "socket": "handguard",
+   "fp": "weapons/ng/parts/fp/handguard_3_pump_forend.glb",
+   "tp": "weapons/ng/parts/tp/handguard_3_pump_forend.glb",
+   "fp_tris": 992,
+   "tp_tris": 297,
+   "draw_calls": 2
+  },
+  "foregrip_0_vertical": {
+   "family": "FOREGRIP",
+   "variant": 0,
+   "variant_name": "Vertical",
+   "socket": "underbarrel",
+   "fp": "weapons/ng/parts/fp/foregrip_0_vertical.glb",
+   "tp": "weapons/ng/parts/tp/foregrip_0_vertical.glb",
+   "fp_tris": 1050,
+   "tp_tris": 315,
+   "draw_calls": 3
+  },
+  "foregrip_1_angled": {
+   "family": "FOREGRIP",
+   "variant": 1,
+   "variant_name": "Angled",
+   "socket": "underbarrel",
+   "fp": "weapons/ng/parts/fp/foregrip_1_angled.glb",
+   "tp": "weapons/ng/parts/tp/foregrip_1_angled.glb",
+   "fp_tris": 372,
+   "tp_tris": 110,
+   "draw_calls": 4
+  },
+  "foregrip_2_stubby": {
+   "family": "FOREGRIP",
+   "variant": 2,
+   "variant_name": "Stubby",
+   "socket": "underbarrel",
+   "fp": "weapons/ng/parts/fp/foregrip_2_stubby.glb",
+   "tp": "weapons/ng/parts/tp/foregrip_2_stubby.glb",
+   "fp_tris": 528,
+   "tp_tris": 158,
+   "draw_calls": 3
+  },
+  "stock_0_fixed": {
+   "family": "STOCK",
+   "variant": 0,
+   "variant_name": "Fixed",
+   "socket": "stock",
+   "fp": "weapons/ng/parts/fp/stock_0_fixed.glb",
+   "tp": "weapons/ng/parts/tp/stock_0_fixed.glb",
+   "fp_tris": 616,
+   "tp_tris": 184,
+   "draw_calls": 4
+  },
+  "stock_1_skeleton": {
+   "family": "STOCK",
+   "variant": 1,
+   "variant_name": "Skeleton",
+   "socket": "stock",
+   "fp": "weapons/ng/parts/fp/stock_1_skeleton.glb",
+   "tp": "weapons/ng/parts/tp/stock_1_skeleton.glb",
+   "fp_tris": 404,
+   "tp_tris": 120,
+   "draw_calls": 4
+  },
+  "stock_2_thumbhole": {
+   "family": "STOCK",
+   "variant": 2,
+   "variant_name": "Thumbhole",
+   "socket": "stock",
+   "fp": "weapons/ng/parts/fp/stock_2_thumbhole.glb",
+   "tp": "weapons/ng/parts/tp/stock_2_thumbhole.glb",
+   "fp_tris": 568,
+   "tp_tris": 170,
+   "draw_calls": 4
+  },
+  "stock_3_collapsible": {
+   "family": "STOCK",
+   "variant": 3,
+   "variant_name": "Collapsible",
+   "socket": "stock",
+   "fp": "weapons/ng/parts/fp/stock_3_collapsible.glb",
+   "tp": "weapons/ng/parts/tp/stock_3_collapsible.glb",
+   "fp_tris": 530,
+   "tp_tris": 158,
+   "draw_calls": 3
+  },
+  "stock_4_bullpup_butt": {
+   "family": "STOCK",
+   "variant": 4,
+   "variant_name": "Bullpup Butt",
+   "socket": "stock",
+   "fp": "weapons/ng/parts/fp/stock_4_bullpup_butt.glb",
+   "tp": "weapons/ng/parts/tp/stock_4_bullpup_butt.glb",
+   "fp_tris": 212,
+   "tp_tris": 62,
+   "draw_calls": 3
+  },
+  "magazine_0_straight": {
+   "family": "MAGAZINE",
+   "variant": 0,
+   "variant_name": "Straight",
+   "socket": "mag",
+   "fp": "weapons/ng/parts/fp/magazine_0_straight.glb",
+   "tp": "weapons/ng/parts/tp/magazine_0_straight.glb",
+   "fp_tris": 468,
+   "tp_tris": 140,
+   "draw_calls": 3
+  },
+  "magazine_1_curved": {
+   "family": "MAGAZINE",
+   "variant": 1,
+   "variant_name": "Curved",
+   "socket": "mag",
+   "fp": "weapons/ng/parts/fp/magazine_1_curved.glb",
+   "tp": "weapons/ng/parts/tp/magazine_1_curved.glb",
+   "fp_tris": 480,
+   "tp_tris": 144,
+   "draw_calls": 3
+  },
+  "magazine_2_drum": {
+   "family": "MAGAZINE",
+   "variant": 2,
+   "variant_name": "Drum",
+   "socket": "mag",
+   "fp": "weapons/ng/parts/fp/magazine_2_drum.glb",
+   "tp": "weapons/ng/parts/tp/magazine_2_drum.glb",
+   "fp_tris": 2254,
+   "tp_tris": 676,
+   "draw_calls": 3
+  },
+  "magazine_3_box": {
+   "family": "MAGAZINE",
+   "variant": 3,
+   "variant_name": "Box",
+   "socket": "mag",
+   "fp": "weapons/ng/parts/fp/magazine_3_box.glb",
+   "tp": "weapons/ng/parts/tp/magazine_3_box.glb",
+   "fp_tris": 440,
+   "tp_tris": 132,
+   "draw_calls": 3
+  },
+  "magazine_4_tube": {
+   "family": "MAGAZINE",
+   "variant": 4,
+   "variant_name": "Tube",
+   "socket": "mag",
+   "fp": "weapons/ng/parts/fp/magazine_4_tube.glb",
+   "tp": "weapons/ng/parts/tp/magazine_4_tube.glb",
+   "fp_tris": 320,
+   "tp_tris": 96,
+   "draw_calls": 2
+  },
+  "magazine_5_revolver": {
+   "family": "MAGAZINE",
+   "variant": 5,
+   "variant_name": "Revolver",
+   "socket": "mag",
+   "fp": "weapons/ng/parts/fp/magazine_5_revolver.glb",
+   "tp": "weapons/ng/parts/tp/magazine_5_revolver.glb",
+   "fp_tris": 1984,
+   "tp_tris": 595,
+   "draw_calls": 3
+  },
+  "magazine_6_top_feed": {
+   "family": "MAGAZINE",
+   "variant": 6,
+   "variant_name": "Top Feed",
+   "socket": "mag",
+   "fp": "weapons/ng/parts/fp/magazine_6_top_feed.glb",
+   "tp": "weapons/ng/parts/tp/magazine_6_top_feed.glb",
+   "fp_tris": 320,
+   "tp_tris": 96,
+   "draw_calls": 2
+  },
+  "optic_0_red_dot": {
+   "family": "OPTIC",
+   "variant": 0,
+   "variant_name": "Red Dot",
+   "socket": "top_rail",
+   "fp": "weapons/ng/parts/fp/optic_0_red_dot.glb",
+   "tp": "weapons/ng/parts/tp/optic_0_red_dot.glb",
+   "fp_tris": 1004,
+   "tp_tris": 300,
+   "draw_calls": 5
+  },
+  "optic_1_holo": {
+   "family": "OPTIC",
+   "variant": 1,
+   "variant_name": "Holo",
+   "socket": "top_rail",
+   "fp": "weapons/ng/parts/fp/optic_1_holo.glb",
+   "tp": "weapons/ng/parts/tp/optic_1_holo.glb",
+   "fp_tris": 988,
+   "tp_tris": 296,
+   "draw_calls": 6
+  },
+  "optic_2_lpvo_scope": {
+   "family": "OPTIC",
+   "variant": 2,
+   "variant_name": "LPVO Scope",
+   "socket": "top_rail",
+   "fp": "weapons/ng/parts/fp/optic_2_lpvo_scope.glb",
+   "tp": "weapons/ng/parts/tp/optic_2_lpvo_scope.glb",
+   "fp_tris": 2624,
+   "tp_tris": 787,
+   "draw_calls": 5
+  },
+  "optic_3_thermal": {
+   "family": "OPTIC",
+   "variant": 3,
+   "variant_name": "Thermal",
+   "socket": "top_rail",
+   "fp": "weapons/ng/parts/fp/optic_3_thermal.glb",
+   "tp": "weapons/ng/parts/tp/optic_3_thermal.glb",
+   "fp_tris": 1640,
+   "tp_tris": 491,
+   "draw_calls": 5
+  },
+  "rail_0_short": {
+   "family": "RAIL",
+   "variant": 0,
+   "variant_name": "Short",
+   "socket": "side_rail",
+   "fp": "weapons/ng/parts/fp/rail_0_short.glb",
+   "tp": "weapons/ng/parts/tp/rail_0_short.glb",
+   "fp_tris": 632,
+   "tp_tris": 188,
+   "draw_calls": 2
+  },
+  "rail_1_medium": {
+   "family": "RAIL",
+   "variant": 1,
+   "variant_name": "Medium",
+   "socket": "side_rail",
+   "fp": "weapons/ng/parts/fp/rail_1_medium.glb",
+   "tp": "weapons/ng/parts/tp/rail_1_medium.glb",
+   "fp_tris": 768,
+   "tp_tris": 230,
+   "draw_calls": 2
+  },
+  "rail_2_long": {
+   "family": "RAIL",
+   "variant": 2,
+   "variant_name": "Long",
+   "socket": "side_rail",
+   "fp": "weapons/ng/parts/fp/rail_2_long.glb",
+   "tp": "weapons/ng/parts/tp/rail_2_long.glb",
+   "fp_tris": 972,
+   "tp_tris": 291,
+   "draw_calls": 2
+  },
+  "light_0_weapon_light": {
+   "family": "LIGHT",
+   "variant": 0,
+   "variant_name": "Weapon Light",
+   "socket": "side_rail",
+   "fp": "weapons/ng/parts/fp/light_0_weapon_light.glb",
+   "tp": "weapons/ng/parts/tp/light_0_weapon_light.glb",
+   "fp_tris": 3076,
+   "tp_tris": 922,
+   "draw_calls": 3
+  },
+  "light_1_slim_light": {
+   "family": "LIGHT",
+   "variant": 1,
+   "variant_name": "Slim Light",
+   "socket": "side_rail",
+   "fp": "weapons/ng/parts/fp/light_1_slim_light.glb",
+   "tp": "weapons/ng/parts/tp/light_1_slim_light.glb",
+   "fp_tris": 4036,
+   "tp_tris": 1210,
+   "draw_calls": 3
+  },
+  "light_2_light_laser_combo": {
+   "family": "LIGHT",
+   "variant": 2,
+   "variant_name": "Light/Laser Combo",
+   "socket": "side_rail",
+   "fp": "weapons/ng/parts/fp/light_2_light_laser_combo.glb",
+   "tp": "weapons/ng/parts/tp/light_2_light_laser_combo.glb",
+   "fp_tris": 3236,
+   "tp_tris": 970,
+   "draw_calls": 5
+  },
+  "laser_0_laser_box": {
+   "family": "LASER",
+   "variant": 0,
+   "variant_name": "Laser Box",
+   "socket": "side_rail",
+   "fp": "weapons/ng/parts/fp/laser_0_laser_box.glb",
+   "tp": "weapons/ng/parts/tp/laser_0_laser_box.glb",
+   "fp_tris": 1477,
+   "tp_tris": 443,
+   "draw_calls": 6
+  },
+  "laser_1_dark_laser": {
+   "family": "LASER",
+   "variant": 1,
+   "variant_name": "Dark Laser",
+   "socket": "side_rail",
+   "fp": "weapons/ng/parts/fp/laser_1_dark_laser.glb",
+   "tp": "weapons/ng/parts/tp/laser_1_dark_laser.glb",
+   "fp_tris": 1477,
+   "tp_tris": 443,
+   "draw_calls": 5
+  },
+  "bipod_0_folded": {
+   "family": "BIPOD",
+   "variant": 0,
+   "variant_name": "Folded",
+   "socket": "underbarrel",
+   "fp": "weapons/ng/parts/fp/bipod_0_folded.glb",
+   "tp": "weapons/ng/parts/tp/bipod_0_folded.glb",
+   "fp_tris": 1188,
+   "tp_tris": 355,
+   "draw_calls": 4
+  },
+  "bipod_1_deployed": {
+   "family": "BIPOD",
+   "variant": 1,
+   "variant_name": "Deployed",
+   "socket": "underbarrel",
+   "fp": "weapons/ng/parts/fp/bipod_1_deployed.glb",
+   "tp": "weapons/ng/parts/tp/bipod_1_deployed.glb",
+   "fp_tris": 1188,
+   "tp_tris": 356,
+   "draw_calls": 4
+  },
+  "greeble_0_vent_panel": {
+   "family": "GREEBLE",
+   "variant": 0,
+   "variant_name": "Vent Panel",
+   "socket": "side_rail",
+   "fp": "weapons/ng/parts/fp/greeble_0_vent_panel.glb",
+   "tp": "weapons/ng/parts/tp/greeble_0_vent_panel.glb",
+   "fp_tris": 660,
+   "tp_tris": 198,
+   "draw_calls": 3
+  },
+  "greeble_1_fin_block": {
+   "family": "GREEBLE",
+   "variant": 1,
+   "variant_name": "Fin Block",
+   "socket": "side_rail",
+   "fp": "weapons/ng/parts/fp/greeble_1_fin_block.glb",
+   "tp": "weapons/ng/parts/tp/greeble_1_fin_block.glb",
+   "fp_tris": 308,
+   "tp_tris": 92,
+   "draw_calls": 2
+  },
+  "greeble_2_battery_box": {
+   "family": "GREEBLE",
+   "variant": 2,
+   "variant_name": "Battery Box",
+   "socket": "side_rail",
+   "fp": "weapons/ng/parts/fp/greeble_2_battery_box.glb",
+   "tp": "weapons/ng/parts/tp/greeble_2_battery_box.glb",
+   "fp_tris": 276,
+   "tp_tris": 82,
+   "draw_calls": 2
+  },
+  "grip_0_ergo": {
+   "family": "GRIP",
+   "variant": 0,
+   "variant_name": "Ergo",
+   "socket": "grip",
+   "fp": "weapons/ng/parts/fp/grip_0_ergo.glb",
+   "tp": "weapons/ng/parts/tp/grip_0_ergo.glb",
+   "fp_tris": 856,
+   "tp_tris": 256,
+   "draw_calls": 3
+  },
+  "grip_1_finger_groove": {
+   "family": "GRIP",
+   "variant": 1,
+   "variant_name": "Finger Groove",
+   "socket": "grip",
+   "fp": "weapons/ng/parts/fp/grip_1_finger_groove.glb",
+   "tp": "weapons/ng/parts/tp/grip_1_finger_groove.glb",
+   "fp_tris": 908,
+   "tp_tris": 272,
+   "draw_calls": 3
+  },
+  "grip_2_wide": {
+   "family": "GRIP",
+   "variant": 2,
+   "variant_name": "Wide",
+   "socket": "grip",
+   "fp": "weapons/ng/parts/fp/grip_2_wide.glb",
+   "tp": "weapons/ng/parts/tp/grip_2_wide.glb",
+   "fp_tris": 884,
+   "tp_tris": 265,
+   "draw_calls": 3
+  },
+  "casing_0_armor_panel": {
+   "family": "CASING",
+   "variant": 0,
+   "variant_name": "Armor Panel",
+   "socket": "casing_right",
+   "fp": "weapons/ng/parts/fp/casing_0_armor_panel.glb",
+   "tp": "weapons/ng/parts/tp/casing_0_armor_panel.glb",
+   "fp_tris": 818,
+   "tp_tris": 245,
+   "draw_calls": 3
+  },
+  "casing_1_armored_shroud": {
+   "family": "CASING",
+   "variant": 1,
+   "variant_name": "Armored Shroud",
+   "socket": "casing_right",
+   "fp": "weapons/ng/parts/fp/casing_1_armored_shroud.glb",
+   "tp": "weapons/ng/parts/tp/casing_1_armored_shroud.glb",
+   "fp_tris": 438,
+   "tp_tris": 131,
+   "draw_calls": 2
+  },
+  "casing_2_hinge_arm": {
+   "family": "CASING",
+   "variant": 2,
+   "variant_name": "Hinge Arm",
+   "socket": "casing_right",
+   "fp": "weapons/ng/parts/fp/casing_2_hinge_arm.glb",
+   "tp": "weapons/ng/parts/tp/casing_2_hinge_arm.glb",
+   "fp_tris": 896,
+   "tp_tris": 268,
+   "draw_calls": 3
+  },
+  "casing_3_twin_tube_module": {
+   "family": "CASING",
+   "variant": 3,
+   "variant_name": "Twin Tube Module",
+   "socket": "casing_right",
+   "fp": "weapons/ng/parts/fp/casing_3_twin_tube_module.glb",
+   "tp": "weapons/ng/parts/tp/casing_3_twin_tube_module.glb",
+   "fp_tris": 1000,
+   "tp_tris": 300,
+   "draw_calls": 4
+  },
+  "module_0_energy_coil": {
+   "family": "MODULE",
+   "variant": 0,
+   "variant_name": "Energy Coil",
+   "socket": "casing_left",
+   "fp": "weapons/ng/parts/fp/module_0_energy_coil.glb",
+   "tp": "weapons/ng/parts/tp/module_0_energy_coil.glb",
+   "fp_tris": 4840,
+   "tp_tris": 1451,
+   "draw_calls": 3
+  },
+  "module_1_capacitor_bank": {
+   "family": "MODULE",
+   "variant": 1,
+   "variant_name": "Capacitor Bank",
+   "socket": "casing_left",
+   "fp": "weapons/ng/parts/fp/module_1_capacitor_bank.glb",
+   "tp": "weapons/ng/parts/tp/module_1_capacitor_bank.glb",
+   "fp_tris": 716,
+   "tp_tris": 214,
+   "draw_calls": 3
+  },
+  "module_2_battery_pack": {
+   "family": "MODULE",
+   "variant": 2,
+   "variant_name": "Battery Pack",
+   "socket": "casing_left",
+   "fp": "weapons/ng/parts/fp/module_2_battery_pack.glb",
+   "tp": "weapons/ng/parts/tp/module_2_battery_pack.glb",
+   "fp_tris": 372,
+   "tp_tris": 110,
+   "draw_calls": 3
+  },
+  "module_3_heat_sink": {
+   "family": "MODULE",
+   "variant": 3,
+   "variant_name": "Heat Sink",
+   "socket": "casing_left",
+   "fp": "weapons/ng/parts/fp/module_3_heat_sink.glb",
+   "tp": "weapons/ng/parts/tp/module_3_heat_sink.glb",
+   "fp_tris": 880,
+   "tp_tris": 264,
+   "draw_calls": 3
+  },
+  "module_4_cable_run": {
+   "family": "MODULE",
+   "variant": 4,
+   "variant_name": "Cable Run",
+   "socket": "casing_left",
+   "fp": "weapons/ng/parts/fp/module_4_cable_run.glb",
+   "tp": "weapons/ng/parts/tp/module_4_cable_run.glb",
+   "fp_tris": 2610,
+   "tp_tris": 783,
+   "draw_calls": 3
+  },
+  "module_5_hydraulic_piston": {
+   "family": "MODULE",
+   "variant": 5,
+   "variant_name": "Hydraulic Piston",
+   "socket": "casing_left",
+   "fp": "weapons/ng/parts/fp/module_5_hydraulic_piston.glb",
+   "tp": "weapons/ng/parts/tp/module_5_hydraulic_piston.glb",
+   "fp_tris": 480,
+   "tp_tris": 144,
+   "draw_calls": 2
+  }
+ }
+}

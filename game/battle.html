@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover' />
+    <meta charset='utf-8'>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+    <title>DREADING - AI merge sandbox</title>
+    <script>window.DREADING_SANDBOX = false;
+    /* AI-MERGE: default map = Carentan (M10). ?training=1 = SQD-RANGE flat training range. An explicit ?townMode= wins. */
+    (function(){var q=new URLSearchParams(location.search);if(!q.has('townMode')&&q.get('training')!=='1'){q.set('townMode','carentan');history.replaceState(null,'',location.pathname+'?'+q.toString()+location.hash);}})();</script>
+    <script src="playcanvas-stable.min.js"></script>
+    <script src="dreading-atlas.js"></script>
+    <script src="dreading-map.js"></script>
+    <script src="dreading-terrain-pbr.js"></script>
+    <script src="dreading-map-instances.js"></script>
+    <script src="dreading-night.js"></script>
+    <script src="dreading-imported-damage.js"></script>
+    <script src="dreading-imported-map.js"></script>
+    <script src="__settings__.js"></script>
+</head>
+<body>
+    <script src="__modules__.js"></script>
+    <script src="dreading-training-range.js"></script>
+    <script src="dreading-catalogue.js"></script>
+    <script src="__start__.js"></script>
+    <script src="__loading__.js"></script>
+    <script src="dreading-shot-origin.js"></script><script src="dreading-real-audio.js"></script><script src="dreading-zombie-audio.js"></script><script src="dreading-ambience.js"></script><script src="dreading-weapon-audio.js"></script><script src="dreading-audio.js"></script><script src="multiplayer-prep.js"></script><script src="multiplayer-battle.js"></script>
+    <script src="explosion-fx.js"></script>
+    <script src="tactical-weapon-models.js"></script>
+    <script src="dreading-visuals.js"></script><script src="dreading-objectives.js"></script><script src="dreading-damage-hud.js"></script>
+    <script src="dreading-fire-support.js"></script>
+    <script src="dreading-scope.js"></script>
+<script src="dreading-settings.js"></script>
+<script src="dreading-domination.js"></script>
+</body>
+</html>
+
+

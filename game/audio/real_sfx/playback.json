@@ -1,0 +1,194 @@
+{
+  "licenseNotes": "sources.md",
+  "files": [
+    {
+      "file": "m4_C.mp3",
+      "clips": [
+        {
+          "name": "fps_m4",
+          "start": 0.26
+        }
+      ]
+    },
+    {
+      "file": "ak47_B.mp3",
+      "clips": [
+        {
+          "name": "fps_ak47",
+          "start": 0.22
+        }
+      ]
+    },
+    {
+      "file": "scar_A.mp3",
+      "clips": [
+        {
+          "name": "fps_scar",
+          "start": 0.19
+        }
+      ]
+    },
+    {
+      "file": "glock_A.mp3",
+      "clips": [
+        {
+          "name": "fps_glock",
+          "start": 0
+        }
+      ]
+    },
+    {
+      "file": "mossberg_fire_B.mp3",
+      "clips": [
+        {
+          "name": "fps_shotgun",
+          "start": 0.29
+        }
+      ]
+    },
+    {
+      "file": "m249_burst_C.mp3",
+      "clips": [
+        {
+          "name": "fps_m249",
+          "start": 0.09
+        }
+      ]
+    },
+    {
+      "file": "suppressed_rifle_A.mp3",
+      "clips": [
+        {
+          "name": "fps_suppressed",
+          "start": 0.07
+        }
+      ]
+    },
+    {
+      "file": "footsteps_cobble_A.mp3",
+      "clips": [
+        {
+          "name": "real_step_cobble_1",
+          "start": 0,
+          "end": 0.6,
+          "peakLimit": 0.1
+        },
+        {
+          "name": "real_step_cobble_2",
+          "start": 0.94,
+          "end": 1.55,
+          "peakLimit": 0.1
+        },
+        {
+          "name": "real_step_cobble_3",
+          "start": 1.82,
+          "end": 2.45,
+          "peakLimit": 0.1
+        }
+      ]
+    },
+    {
+      "file": "footsteps_dirt_A.mp3",
+      "clips": [
+        {
+          "name": "real_step_dirt_1",
+          "start": 0,
+          "end": 0.45,
+          "peakLimit": 0.1
+        },
+        {
+          "name": "real_step_dirt_2",
+          "start": 0.6,
+          "end": 1.05,
+          "peakLimit": 0.1
+        },
+        {
+          "name": "real_step_dirt_3",
+          "start": 1.24,
+          "end": 1.7,
+          "peakLimit": 0.1
+        },
+        {
+          "name": "real_step_dirt_4",
+          "start": 1.82,
+          "end": 2.35,
+          "peakLimit": 0.1
+        }
+      ]
+    },
+    {
+      "file": "footsteps_gravel_A.mp3",
+      "clips": [
+        {
+          "name": "real_step_gravel_1",
+          "start": 0,
+          "end": 0.6,
+          "peakLimit": 0.1
+        },
+        {
+          "name": "real_step_gravel_2",
+          "start": 0.9,
+          "end": 1.55,
+          "peakLimit": 0.1
+        },
+        {
+          "name": "real_step_gravel_3",
+          "start": 2.02,
+          "end": 2.8,
+          "peakLimit": 0.1
+        }
+      ]
+    },
+    {
+      "file": "footsteps_wood_A.mp3",
+      "clips": [
+        {
+          "name": "real_step_wood_1",
+          "start": 0,
+          "end": 0.42,
+          "peakLimit": 0.1
+        },
+        {
+          "name": "real_step_wood_2",
+          "start": 0.94,
+          "end": 1.4,
+          "peakLimit": 0.1
+        },
+        {
+          "name": "real_step_wood_3",
+          "start": 2.1,
+          "end": 2.65,
+          "peakLimit": 0.1
+        }
+      ]
+    }
+  ],
+  "steps": {
+    "cobble": [
+      "real_step_cobble_1",
+      "real_step_cobble_2",
+      "real_step_cobble_3"
+    ],
+    "dirt": [
+      "real_step_dirt_1",
+      "real_step_dirt_2",
+      "real_step_dirt_3",
+      "real_step_dirt_4"
+    ],
+    "gravel": [
+      "real_step_gravel_1",
+      "real_step_gravel_2",
+      "real_step_gravel_3"
+    ],
+    "wood": [
+      "real_step_wood_1",
+      "real_step_wood_2",
+      "real_step_wood_3"
+    ],
+    "rubble": [
+      "real_step_gravel_1",
+      "real_step_gravel_2",
+      "real_step_gravel_3"
+    ]
+  }
+}

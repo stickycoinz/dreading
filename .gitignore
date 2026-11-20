@@ -1,0 +1,6 @@
+node_modules/
+session-private.json
+*.log
+*.pid
+CURRENT_INVITES.txt
+.env*

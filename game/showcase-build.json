@@ -1,0 +1,14 @@
+{
+  "buildId": "townhall-992495dd6818",
+  "files": [
+    "game/dreading-showcase.js",
+    "game/dreading-terrain-pbr.js",
+    "game/explosion-fx.js",
+    "game/sandbox.html",
+    "game/files/assets/316062523/1/tactical-squad-orders.js",
+    "game/files/assets/316062516/1/tactical-nav-core.js",
+    "play-furnished-map.ps1",
+    "nav_tests/test_vertical_stair_route.js"
+  ],
+  "entry": "sandbox.html?townMode=carentan&assetMap=1&terrainPbr=1&prep=0&play=1&showcase=1"
+}
