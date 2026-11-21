@@ -85,7 +85,7 @@ const handle=m=>{if(!m||typeof m!=='object')return;if(m.type==='welcome'){N.play
   if(m.pressed||m.actions?.length){const it=intents.get(id)||{pressed:false,actions:[]};it.pressed=it.pressed||!!m.pressed;if(m.actions?.length)it.actions=it.actions.concat(m.actions).slice(-16);intents.set(id,it);}
   if(m.muzzle)command({type:'command',method:'muzzle',args:[m.uid,m.weapon,m.muzzle]});
   const prev=remoteFrames.get(id);if(m.seq!==undefined&&(m.seq<=(remoteSeq.get(id)??-1)||prev?.seq>m.seq))return;remoteFrames.set(id,m);}});}};
-ws.onmessage=e=>{let m;try{m=JSON.parse(e.data);}catch{return;}handle(m);};ws.onobject=handle;ws.onfast=fastIn;}
+ws.onmessage=e=>{let m;try{m=JSON.parse(e.data);}catch{return;}handle(m);};ws.onobject=handle;ws.onfast=fastIn;ws.onbacklog=()=>{fullN=7;};}
 function makeOrders(side){const O=Object.create(orders[0]);O.initialize();O.brain=O.follow=O.hunt=O.assault=null;O.enemyTactics=()=>{};O.matchRules=()=>{};O.brainSeq=side*100000;O.team=t=>units.filter(s=>s._netOwner===(t==='friendly'?side:1-side)&&!s.disabled);O.localTeam=side===0?'friendly':'enemy';return O;}
 function boot(){if(N.ready||N.slot===null||!window.tactical?.T.ready||!tactical.T.zombieMgr?.ready)return;
  app=tactical.app;T=tactical.T;I=T.input;
