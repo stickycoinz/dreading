@@ -49,27 +49,40 @@ TacticalSoldierAnimation.prototype.update=function(dt){
  if(!s.alive){model.anim.playing=true;// procedural death: fall backwards over 0.6 s, sink after 8 s
   this.fall=Math.min(1,this.fall+dt/0.6);var since=T.elapsed-(s.deathT||0);
   this.entity.setEulerAngles(0,yawDeg,0);model.setLocalEulerAngles(this.has('death')?0:-88*this.fall*this.fall,0,0);model.setLocalPosition(0,0,0);return;}
- this.fall=0;model.setLocalPosition(0,0,0);
- var fl=s.flinchT>0&&!this.has('hit')?s.flinchT/0.3:0;model.setLocalEulerAngles(-9*fl,0,0);// procedural hit flinch
- this.entity.setEulerAngles(0,yawDeg,0);
+ this.fall=0;var fl=s.flinchT>0&&!this.has('hit')?s.flinchT/0.3:0;
+ if(window.DreadingPerf&&DreadingPerf.use('anim')){/* DREADING_perf: only write transforms that changed - every write re-dirtied the whole rig (65 bones + weapon) each frame */
+  var lp=model.getLocalPosition();if(lp.x!==0||lp.y!==0||lp.z!==0)model.setLocalPosition(0,0,0);
+  TacticalSoldierAnimation.setEulerIfChanged(model,-9*fl,0,true);TacticalSoldierAnimation.setEulerIfChanged(this.entity,yawDeg,1,false);}
+ else{model.setLocalPosition(0,0,0);model.setLocalEulerAngles(-9*fl,0,0);// procedural hit flinch
+ this.entity.setEulerAngles(0,yawDeg,0);}
 };
 
+/* DREADING_perf: rotation write that skips the call (and the hierarchy dirtying) when the target equals the current rotation */
+TacticalSoldierAnimation._q=null;
+TacticalSoldierAnimation.setEulerIfChanged=function(e,deg,axis,local){var Q=TacticalSoldierAnimation._q||(TacticalSoldierAnimation._q=new pc.Quat());if(axis===0)Q.setFromEulerAngles(deg,0,0);else Q.setFromEulerAngles(0,deg,0);
+ var c=local?e.getLocalRotation():e.getRotation();if(Math.abs(c.x-Q.x)<1e-6&&Math.abs(c.y-Q.y)<1e-6&&Math.abs(c.z-Q.z)<1e-6&&Math.abs(c.w-Q.w)<1e-6)return;
+ if(local)e.setLocalRotation(Q);else e.setRotation(Q);};
 /* opt clone: animation LOD for AI soldiers (same scheme as the zombies' pass-4b LOD): on-screen < 25 m every frame, 25-50 m every 2nd,
    further every 3rd, off-screen every 6th. Skipped time is folded into the next evaluated frame so clips stay in sync. The player-controlled
    soldier and dead soldiers always animate every frame. Purely visual: no logic reads soldier bones. ?soldierlod=0 disables. */
-TacticalSoldierAnimation.LOD={on:!/[?&]soldierlod=0/.test(typeof location!=='undefined'?location.search:''),near:25,mid:50,off:6};
-TacticalSoldierAnimation.prototype.lod=function(T,s,model,dt){var L=TacticalSoldierAnimation.LOD,an=model.anim;
+TacticalSoldierAnimation.LOD={on:!/[?&]soldierlod=0/.test(typeof location!=='undefined'?location.search:''),near:25,mid:50,off:6,
+ /* DREADING_perf: time-based LOD (on-screen < 20 m every frame, 20-40 m 30 Hz, 40-70 m 15 Hz, further / off-screen 7 Hz) */near2:20,mid2:40,far2:70,hzMid:30,hzFar:15,hzOff:7};
+TacticalSoldierAnimation.prototype.lod=function(T,s,model,dt){var L=TacticalSoldierAnimation.LOD,an=model.anim,PF=window.DreadingPerf,perf=PF&&PF.use('anim'),shPerf=PF&&PF.use('shadow');
+ if(PF&&PF.mergeSoldier&&!model._perfMerged){PF.mergeSoldier(model);}
  if(!L.on||s.controlled||!s.alive){an.playing=true;this.lodAcc=0;if(L.on&&this._mis)this.shadowLod(true);return;}
  var cam=T.activeCamera||T.camera;if(!cam||!cam.camera){an.playing=true;return;}
  var p=this.entity.getPosition(),cp=cam.getPosition(),d=cp.distance(p),sph=TacticalSoldierAnimation._sph||(TacticalSoldierAnimation._sph=new pc.BoundingSphere(new pc.Vec3(),1.3));sph.center.set(p.x,p.y+0.9,p.z);
- var fr=cam.camera.frustum,on=!fr||fr.containsSphere(sph)>0,n=!on?L.off:d<L.near?1:d<L.mid?2:3;
- this.shadowLod(on);
+ var fr=cam.camera.frustum,on=!fr||fr.containsSphere(sph)>0;
+ this.shadowLod(shPerf?(on&&d<PF.charShadowNear):on);
+ if(perf){var hz=!on?L.hzOff:d<L.near2?0:d<L.mid2?L.hzMid:d<L.far2?L.hzFar:L.hzOff;if(PF.use('lod')&&s._perfRank!==undefined){var rk=s._perfRank;/* screen-rank LOD: only the fullN nearest on-screen soldiers get full rate */if(!on)hz=Math.min(hz,PF.rigidHz-1);else if(rk>=PF.fullN*2||d>=L.far2)hz=Math.min(hz||99,PF.rigidHz);else if(rk>=PF.fullN)hz=Math.min(hz||99,L.hzFar);}if(this.lodAcc===undefined)this.lodAcc=((s.uid||0)*0.6180339)%1/L.hzOff;this.lodAcc+=dt;
+  if(!hz||this.lodAcc>=1/hz-0.25*dt){an.playing=true;an.speed=an.speed*Math.min(8,this.lodAcc/Math.max(1e-4,dt));this.lodAcc=0;}else an.playing=false;return;}
+ var n=!on?L.off:d<L.near?1:d<L.mid?2:3;
  this.lodAcc=(this.lodAcc||0)+dt;if(n===1||((this.app.frame||0)+(s.uid||0))%n===0){an.playing=true;an.speed=an.speed*Math.min(8,this.lodAcc/Math.max(1e-4,dt));this.lodAcc=0;}else an.playing=false;};
 /* opt clone: shadow-caster trim. Weapon sub-parts under 0.25 m (sights, small attachments, the zero-size flash part) stop casting into the
    directional cascades (their shadow is a few pixels under the soldier's own shadow), and an off-screen soldier stops casting altogether
    (the zombies already do this). Re-checked whenever the soldier's mesh-instance count changes (weapon swaps). ?soldierlod=0 disables. */
 TacticalSoldierAnimation.prototype.shadowLod=function(on){var mis=this._mis;if(!this._misAt||this.app.frame-this._misAt>120){this._misAt=this.app.frame;mis=[];this.entity.findComponents('render').forEach(function(r){r.meshInstances.forEach(function(m){mis.push(m);});});
-  if(!this._mis||mis.length!==this._mis.length){mis.forEach(function(m){if(m._optCast===undefined){var h=m.skinInstance?null:m.aabb.halfExtents;m._optCast=m.castShadow&&!(h&&Math.max(h.x,h.y,h.z)*2<0.25);}});this._shOn=null;}this._mis=mis;}
+  if(!this._mis||mis.length!==this._mis.length){var PFs=window.DreadingPerf&&DreadingPerf.use('shadow');mis.forEach(function(m){if(m._optCast===undefined){var h=m.skinInstance?null:m.aabb.halfExtents;m._optCast=PFs?!!m.skinInstance:(m.castShadow&&!(h&&Math.max(h.x,h.y,h.z)*2<0.25));}});this._shOn=null;}this._mis=mis;}
  if(this._shOn===on)return;this._shOn=on;for(var i=0;i<mis.length;i++){var m=mis[i];if(m._optCast!==undefined)m.castShadow=on&&m._optCast;}};
 
 /* One masked upper-body layer, reusing loaded tracks. Legs/hips remain on the base gait. */
@@ -79,5 +92,5 @@ var DreadingBodyAnimation=window.DreadingBodyAnimation={
  profiles:{rifleStand:'loose__Reloading',rifleCrouch:'loose__Reload_(1)',rifleMove:'loose__Reload',pistolStand:'loose__Reloading',pistolCrouch:'loose__Reload_(1)',pistolMove:'loose__Reload'},
  reloadClip:function(s,T){var state=s.crouchAmt>.5?'Crouch':s.speedNow>.3&&(s.controlled||s.moving)?'Move':'Stand',name=this.profiles[(this.pistol(s)?'pistol':'rifle')+state];return this.track(T,name)?name:'reload';},
  ensure:function(model,T){if(model._upperBody)return model._upperBody;if(!T.soldierGlb)return null;var aim=this.track(T,'aim_idle');if(!aim)return null;var mask={};aim.curves.forEach(function(c){c.paths.forEach(function(p){if(p.entityPath.some(function(n){return /(?:mixamorig:)?Spine/.test(n);}))mask[p.entityPath.join('/')]={value:true};});});if(!Object.keys(mask).length)return null;var layer=model.anim.addLayer('UpperBody',0,mask);layer.mask=mask;T.soldierGlb.resource.animations.filter(function(a){return /reload|aim_idle|pistol_idle|pistol_kneeling_idle/i.test(a.resource.name);}).forEach(function(a){layer.assignAnimation(a.resource.name,a.resource,1,false);});return model._upperBody={layer:layer,clip:null,time:0,reload:null};},
- update:function(model,s,T,dt,state){if(!state)return;var layer=state.layer,action=T.elapsed<(s.tossUntil||0)||!s.alive;var weight=action?0:1;if(layer.weight!==weight)layer.weight=weight;if(action){layer.playing=false;return;}var reload=s.arms.reload,clip=reload?this.reloadClip(s,T):(this.pistol(s)?(s.crouchAmt>.5?'pistol__pistol_kneeling_idle':'pistol__pistol_idle'):'aim_idle'),track=this.track(T,clip);if(!track)return;if(state.clip!==clip||reload&&(!state.reload||reload.t<state.reloadT-.1)){layer.transition(clip,0);state.clip=clip;state.time=reload?Math.max(0,reload.t||0)/Math.max(.5,reload.dur||s.arms.def.reload)*track.duration:0;}state.reload=!!reload;state.reloadT=reload?reload.t:0;var tune=window.DreadingAnimationSettings,rate=reload?track.duration/Math.max(.5,reload.dur||s.arms.def.reload)*(tune?tune.reload:1):1;state.time+=Math.min(dt,.05)*rate;layer.playing=false;if(!model.anim.playing)return;layer.activeStateCurrentTime=reload?Math.min(track.duration-.001,state.time):state.time%Math.max(.01,track.duration);}
+ update:function(model,s,T,dt,state){if(!state)return;var layer=state.layer,action=T.elapsed<(s.tossUntil||0)||!s.alive;var weight=action?0:1;if(layer.weight!==weight)layer.weight=weight;if(action){layer.playing=false;return;}var reload=s.arms.reload,clip=reload?this.reloadClip(s,T):(this.pistol(s)?(s.crouchAmt>.5?'pistol__pistol_kneeling_idle':'pistol__pistol_idle'):'aim_idle'),track=this.track(T,clip);if(!track)return;if(state.clip!==clip||reload&&(!state.reload||reload.t<state.reloadT-.1)){layer.transition(clip,0);state.clip=clip;state.time=reload?Math.max(0,reload.t||0)/Math.max(.5,reload.dur||s.arms.def.reload)*track.duration:0;}state.reload=!!reload;state.reloadT=reload?reload.t:0;var tune=window.DreadingAnimationSettings,rate=reload?track.duration/Math.max(.5,reload.dur||s.arms.def.reload)*(tune?tune.reload:1):1;state.time+=Math.min(dt,.05)*rate;var t=reload?Math.min(track.duration-.001,state.time):state.time%Math.max(.01,track.duration);if(window.DreadingPerf&&DreadingPerf.use('anim')&&layer._controller){/* DREADING_perf: write the controller clock directly and let the anim component evaluate this layer once in its own update (the layer setter forced an extra evaluate per soldier per frame); pre-subtract this frame's advance */if(!model.anim.playing){layer.playing=false;return;}var ctl=layer._controller,adv=Math.min(dt,.05)*(model.anim.speed||1);ctl.activeStateCurrentTime=Math.max(0,t-adv);layer.playing=true;return;}layer.playing=false;if(!model.anim.playing)return;layer.activeStateCurrentTime=t;}
 };

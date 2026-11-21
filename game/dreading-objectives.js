@@ -47,7 +47,7 @@ if(new URLSearchParams(location.search).get("hordeTest")!=="1"){
     return e;
   }
   O.receive = (s) => {
-    if (s && N?.slot !== 0 && s.v === 2) O.state = s;
+    if (s && !N?.isHost && s.v === 2) O.state = s;
   };
   /* ---------------- host: point + generator placement ---------------- */
   function pathOk(a, b, tol = 2) {
@@ -336,7 +336,7 @@ if(new URLSearchParams(location.search).get("hordeTest")!=="1"){
   O.deploy = function (side, tier = "recruits") {
     if (!Object.hasOwn(O.presets, tier)) return false;
     const preset = O.presets[tier], unitCount = preset.guns.length;
-    if (N.slot !== 0 || ![0, 1].includes(side) || !DreadingMPPrep.state.plans[side]) return false;
+    if (!N.isHost || ![0, 1].includes(side) || !DreadingMPPrep.state.plans[side]) return false;
     const free = T.squad.filter((s) => s._netOwner === side && (s.disabled || !s.alive));
     if (O.state.credits[side] < preset.cost || free.length < unitCount) {
       O.state.message[side] =
@@ -789,7 +789,7 @@ body:not(.tl-fp) #fire-support-panel button{font:10px var(--tlh-font-mono,monosp
   let reqN = 0;
   buy.onclick = () => {
     const req = N.slot + "-" + Date.now() + "-" + ++reqN;
-    if (N.slot === 0) O.request(0, choice.value, req);
+    if (N.isHost) O.request(0, choice.value, req);
     else N.api.send({ type: "command", method: "reinforce", args: [choice.value, req] });
   };
   const COL = { mine: [0.78, 0.9, 0], enemy: [0.9, 0.3, 0.27], neutral: [0.85, 0.85, 0.8], contested: [1, 0.6, 0.15] };
@@ -1199,20 +1199,20 @@ body:not(.tl-fp) #fire-support-panel button{font:10px var(--tlh-font-mono,monosp
     if (!window.DreadingMPPrep?.installed || !window.tactical?.T?.strategy || !window.DreadingMultiplayer?.api) return;
     T = tactical.T;
     N = DreadingMultiplayer;
-    if (N.slot === 0 && !initialize()) return;
+    if (N.isHost && !initialize()) return;
     clearInterval(wait);
     O.ready = true;
     guardPower();
     tactical.app.on("frameend", positionMarkers);
-    if (N.slot === 0) {
+    if (N.isHost) {
       const previous = N.api.onCommand;
-      N.api.onCommand = (m) => {
+      N.api.onCommand = (m, side = 1) => {
         if (m.method === "reinforce") {
           const tier = typeof m.args?.[0] === "string" ? m.args[0] : "recruits", req = m.args?.[1];
-          O.request(1, tier, typeof req === "string" || typeof req === "number" ? req : null);
+          O.request(side, tier, typeof req === "string" || typeof req === "number" ? req : null);
           return true;
         }
-        return previous?.(m);
+        return previous?.(m, side);
       };
     }
     if (T.strategy.panel) T.strategy.panel.style.display = "none";
@@ -1226,7 +1226,7 @@ body:not(.tl-fp) #fire-support-panel button{font:10px var(--tlh-font-mono,monosp
       if (acc < 0.15) return;
       const step = Math.min(acc, 0.3);
       acc = 0;
-      if (N.slot === 0) {
+      if (N.isHost) {
         O.captureTick(step);
         O.genTick(step);
         O.powerTick(step);

@@ -42,11 +42,11 @@ P.receive=function(state){if(!state||!P.installed)return;P.state=state;for(let s
  if(state.plans[N.slot]){if(opened){DreadingPrep.close();opened=false;}}
  else if(state.errors[N.slot]){DreadingPrep.state.ready=false;DreadingPrep.sync();T.input.toast(state.errors[N.slot]);}
 };
-P.restart=()=>{if(N.slot!==0)return;P.state={plans:[null,null],errors:[null,null]};applied[0]=applied[1]=null;commit(0,{});commit(1,{});};
-function open(){if(N.slot===2||P.state.plans[N.slot]||opened)return;opened=true;if(window.DreadingControl){if(N.slot===0)commit(0,{});else N.api.send({type:'command',method:'plan',args:[{}]});return;}
+P.restart=()=>{if(!N.isHost)return;P.state={plans:[null,null],errors:[null,null]};applied[0]=applied[1]=null;commit(0,{});commit(1,{});};
+function open(){if(N.slot===2||P.state.plans[N.slot]||opened)return;opened=true;if(window.DreadingControl){if(N.isHost)commit(0,{});else N.api.send({type:'command',method:'plan',args:[{}]});return;}
  DreadingPrep.open({mode:'player',playerId:'p'+(N.slot+1),playerName:'Commander '+(N.slot+1),budget:{scrap:1000000,fortify:1000000},app:tactical.app,T,armed:true,onReady(plan){
   if(!DreadingPrep.state.ready)return;
-  if(N.slot===0){commit(0,plan);if(P.state.plans[0]){DreadingPrep.close();opened=false;}else{DreadingPrep.state.ready=false;DreadingPrep.sync();T.input.toast(P.state.errors[0]);}}
+  if(N.isHost){commit(0,plan);if(P.state.plans[0]){DreadingPrep.close();opened=false;}else{DreadingPrep.state.ready=false;DreadingPrep.sync();T.input.toast(P.state.errors[0]);}}
   else N.api.send({type:'command',method:'plan',args:[plan]});
  }});
  DreadingPrep.root.style.zIndex='20000';DreadingPrep.root.style.backgroundColor='rgb(8,10,12)';
@@ -55,9 +55,9 @@ const wait=setInterval(()=>{
  if(!window.DreadingMultiplayer?.ready||!window.DreadingPrep||!window.TacticalWeaponModels?.ready)return;
  clearInterval(wait);N=DreadingMultiplayer;T=tactical.T;P.installed=true;
  T.squad.forEach(hide);
- if(N.slot===0)N.api.onCommand=m=>{if(m.method!=='plan')return false;commit(1,m.args?.[0]);return true;};
+ if(N.isHost)N.api.onCommand=(m,side=1)=>{if(m.method!=='plan')return false;commit(side,m.args?.[0]);return true;};
  // The snapshot contains each side's committed plan, including on guest reload.
- if(N.slot===0)open();else setTimeout(open,700);
+ if(N.isHost)open();else setTimeout(open,700);
  tactical.app.on('update',()=>{for(const s of T.squad){if(s.disabled&&s.label)s.label.style.display='none';if(s.prepKit)s.wmParts=(s.armsIdx===1?s.secondaryAttachments:s.attachments)||[];}});
 },100);
 })();

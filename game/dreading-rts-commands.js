@@ -134,8 +134,12 @@ function rebuildSeen(){const own=I.friendlies().filter(s=>!s.disabled);const out
 /* ---------- drawing (RTS only) ---------- */
 const A=new pc.Vec3(),B2=new pc.Vec3();
 const COL={own:new pc.Color(.35,1,.75),ownSel:new pc.Color(.7,1,.4),enemy:new pc.Color(1,.2,.15),zombie:new pc.Color(1,.6,.1),move:new pc.Color(.45,1,.6),queue:new pc.Color(.85,.95,1),attack:new pc.Color(1,.42,.25),focus:new pc.Color(1,.2,.2),cover:new pc.Color(.4,.8,1),line:new pc.Color(.75,.9,1),aline:new pc.Color(1,.5,.3)};
-function line(p,q,c){A.set(p[0],p[1],p[2]);B2.set(q[0],q[1],q[2]);app.drawLine(A,B2,c,false);}
-function ring(p,r,c,n,y){n=n||14;y=(y||0)+.08;let px=p[0]+r,pz=p[2];for(let i=1;i<=n;i++){const a=i/n*Math.PI*2,x=p[0]+Math.cos(a)*r,z=p[2]+Math.sin(a)*r;A.set(px,p[1]+y,pz);B2.set(x,p[1]+y,z);app.drawLine(A,B2,c,false);px=x;pz=z;}}
+/* DREADING_perf: all RTS lines go into one buffer and one app.drawLines call per frame (was one drawLine per segment) */
+const UIB=!!(window.DreadingPerf&&DreadingPerf.use('ui')),LB={p:[],c:[]};
+function seg(ax,ay,az,bx,by,bz,c){if(UIB){LB.p.push(ax,ay,az,bx,by,bz);LB.c.push(c.r,c.g,c.b,c.a,c.r,c.g,c.b,c.a);return;}A.set(ax,ay,az);B2.set(bx,by,bz);app.drawLine(A,B2,c,false);}
+function flushLines(){if(LB.p.length){try{app.drawLineArrays(LB.p,LB.c,false);}catch(e){}LB.p.length=0;LB.c.length=0;}}
+function line(p,q,c){seg(p[0],p[1],p[2],q[0],q[1],q[2],c);}
+function ring(p,r,c,n,y){n=n||14;y=(y||0)+.08;let px=p[0]+r,pz=p[2];for(let i=1;i<=n;i++){const a=i/n*Math.PI*2,x=p[0]+Math.cos(a)*r,z=p[2]+Math.sin(a)*r;seg(px,p[1]+y,pz,x,p[1]+y,z,c);px=x;pz=z;}}
 function draw(){if(!commanding())return;
  const camY=I.cam&&I.cam.pos?I.cam.pos.y:30,sc=Math.max(.7,Math.min(2.4,camY*.022)),selSet=new Set(T.selection||[]);
  if(R.visOn){I.friendlies().forEach(s=>{if(s.disabled||s.controlled)return;const p=s.pos(),c=selSet.has(s)?COL.ownSel:COL.own;ring(p,.62*sc,c,12);if(sc>1.1)ring(p,.5*sc,c,10);});
@@ -147,7 +151,7 @@ function draw(){if(!commanding())return;
   pts.forEach((w,i)=>{const q=[w.p[0],w.p[1]+.15,w.p[2]],c=w.kind==='attack'?COL.aline:COL.line;line(prev,q,c);ring(w.p,.55+.1*i,c,12,.07);if(w.kind==='attack'){line([q[0]-.5,q[1],q[2]-.5],[q[0]+.5,q[1],q[2]+.5],c);line([q[0]-.5,q[1],q[2]+.5],[q[0]+.5,q[1],q[2]-.5],c);}prev=q;});});
  const t=now();R.pings=R.pings.filter(pg=>t-pg.t<CFG.ping);R.pings.forEach(pg=>{const k=(t-pg.t)/CFG.ping,c=COL[pg.kind]||COL.move;ring(pg.p,(.4+k*2.2)*Math.max(1,sc*.8),c,20);ring(pg.p,(.25+k*1.1)*Math.max(1,sc*.8),c,14);line([pg.p[0],pg.p[1]+.1,pg.p[2]],[pg.p[0],pg.p[1]+.1+(1-k)*4*Math.max(1,sc*.7),pg.p[2]],c);});}
 function update(){if(!T||!T.ready)return;const t=now();if(t-tickT>=CFG.tick){tickT=t;try{if(!I.fps)rebuildSeen();if(R.records.length)tickRecords();if(R.am&&(I.fps||!selection().length))armAM(false);}catch(e){console.warn('[RTS commands]',e);}}
- try{draw();}catch(e){}}
+ try{draw();}catch(e){}if(UIB)flushLines();}
 function footer(){const f=document.getElementById('tlh-foot');if(f&&!f._drc){f._drc=true;f.textContent='RMB move \u00b7 Shift+RMB queue \u00b7 R attack-move \u00b7 Dbl-click type \u00b7 Ctrl+1-5 group (x2 centre) \u00b7 MMB orders \u00b7 G V X J \u00b7 T first person \u00b7 Tab soldier';}}
 function boot(){const t=window.tactical;if(!t||!t.T||!t.T.ready||!t.T.input||!t.app||!t.T.orders){setTimeout(boot,500);return;}
  T=t.T;app=t.app;I=T.input;canvas=app.graphicsDevice.canvas;N=window.DreadingMultiplayer||null;

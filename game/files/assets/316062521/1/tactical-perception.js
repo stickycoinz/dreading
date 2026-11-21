@@ -91,6 +91,7 @@ TacticalPerception.prototype.metrics=function(){return Object.assign({mode:this.
 TacticalPerception.prototype.sense=function(s,e,now,noise){if(!s.memory||!e)return;if(!s.memory.hasRecord(e))s.memory.createRecord(e);var r=s.memory.getRecord(e);if(r.visible)return;
  var p=e.pos(),n=noise||2;r.lastSensedPosition=[p[0]+TacticalCommon.rand(-n,n),p[1],p[2]+TacticalCommon.rand(-n,n)];r.timeLastSensed=now;};
 TacticalPerception.prototype.update=function(){var T=TacticalCommon.ns(this.app),self=this;if(!T.ready||!T.running||T.paused)return;var now=T.elapsed;
+ var PF=globalThis.DreadingPerf;if(PF&&PF.use('budget')&&TacticalCommon.AI.on){this.budgetedScan(T,now);}else
  T.squad.forEach(function(s){if(s.alive&&s.regulator&&s.regulator.ready(now))self.updateSoldier(s,now);});
  if(TacticalCommon.AI.on)this.hearTick(now);
  if(now<this._statsAt){this._statsAt=now;this._statsRaw={};}
@@ -132,3 +133,16 @@ TacticalPerception.prototype.threatsFor=function(s){var T=TacticalCommon.ns(this
   if(!out.some(function(o){return Math.hypot(o[0]-q[0],o[2]-q[2])<3;}))out.push([q[0],q[1]+1.3,q[2]]);});
  return out.length?out:[this.threatPoint(s.team)];};
 TacticalPerception.prototype.canSee=function(pos,eyeHeight,target){var p=TacticalCommon.v3(pos);return !this.blocked([p[0],p[1]+eyeHeight,p[2]],target);};
+
+/* DREADING_perf: per-frame perception budget. Soldiers whose 5 Hz vision is due are scanned oldest-due first until
+   budgetMs is spent (at least minPerFrame per frame); the rest stay due and go first next frame, so a burst of due
+   scans (big frame, many soldiers) is spread instead of landing in one frame. Off under ?ai=0 (legacy hashes). */
+TacticalPerception.BUDGET={ms:1.6,minPerFrame:3,maxLag:0.25};
+TacticalPerception.prototype.budgetedScan=function(T,now){var B=TacticalPerception.BUDGET,due=this._due||(this._due=[]);due.length=0;
+ for(var i=0;i<T.squad.length;i++){var s=T.squad[i];if(s.alive&&s.regulator&&now>=s.regulator._nextUpdateTime)due.push(s);}
+ if(!due.length)return;due.sort(function(a,b){return a.regulator._nextUpdateTime-b.regulator._nextUpdateTime;});
+ var t0=performance.now(),done=0;for(var j=0;j<due.length;j++){var s2=due[j];
+  /* overdue by more than maxLag: always run (keeps the effective rate near 5 Hz under heavy load) */
+  if(done>=B.minPerFrame&&performance.now()-t0>B.ms&&now-s2.regulator._nextUpdateTime<B.maxLag){this._count('budgetDeferred',due.length-j);break;}
+  s2.regulator.ready(now);this.updateSoldier(s2,now);done++;}
+};

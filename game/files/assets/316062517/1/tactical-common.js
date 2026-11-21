@@ -95,12 +95,12 @@ function navGeometry(app, rect){
    Returns the closest entry {t, n:[normal], shape} or null. Boxes the ray starts inside are ignored.
    (Project physics is off: use3dPhysics=false. Collision components were added to the blockers so a later switch
    to rigidbody.raycastFirst is a settings change, but nothing reads them yet.) */
-function rayWorld(o,d,maxT,shapes){
+function rayWorldBrute(o,d,maxT,shapes){
  var best=null,bt=maxT;
  for(var s=0;s<shapes.length;s++){var sh=shapes[s];
   if(sh.children){/* pass 4: cluster (one procedural building) = world AABB around its boxes; only rays that touch it test the children */
    var lo2=0,hi2=bt,mn=sh.min,mx=sh.max,ok=true;for(var k=0;k<3;k++){if(Math.abs(d[k])<1e-9){if(o[k]<mn[k]||o[k]>mx[k]){ok=false;break;}continue;}var a1=(mn[k]-o[k])/d[k],a2=(mx[k]-o[k])/d[k];if(a1>a2){var tt2=a1;a1=a2;a2=tt2;}if(a1>lo2)lo2=a1;if(a2<hi2)hi2=a2;if(lo2>hi2){ok=false;break;}}
-   if(ok){var sub=rayWorld(o,d,bt,sh.children);if(sub&&sub.t<bt){bt=sub.t;best=sub;}}continue;}
+   if(ok){var sub=rayWorldBrute(o,d,bt,sh.children);if(sub&&sub.t<bt){bt=sub.t;best=sub;}}continue;}
   var c=sh.center,low=-Infinity,high=Infinity,nAxis=-1,nSign=0,inside=true;
   for(var i=0;i<3;i++){var ax=sh.axes[i],po=(o[0]-c.x)*ax.x+(o[1]-c.y)*ax.y+(o[2]-c.z)*ax.z,dd=d[0]*ax.x+d[1]*ax.y+d[2]*ax.z,h=sh.half[i];
    if(po<-h||po>h)inside=false;
@@ -110,6 +110,37 @@ function rayWorld(o,d,maxT,shapes){
   if(inside||low>high||low<0||low>=bt||nAxis<0)continue;
   var a=sh.axes[nAxis];bt=low;best={t:low,n:[a.x*nSign,a.y*nSign,a.z*nSign],shape:sh};}
  return best;
+}
+/* DREADING_perf: uniform XZ grid broadphase for long blocker lists (perception.blockers is replaced, never mutated, on refresh).
+   Cells are walked front to back (2D DDA); a shape is tested once per query; the walk stops once the best hit lies inside the
+   current cell, so the result is identical to the brute-force loop. Lists under GRID_MIN shapes use the brute-force loop. */
+var GRID_MIN=24,GRID_CELL=6,_grids=typeof WeakMap!=='undefined'?new WeakMap():null,_one=[null];
+function gridOn(){var P=g.DreadingPerf;return !!(P&&P.use&&P.use('grid'));}
+function buildGrid(shapes){var n=shapes.length,bx=new Float32Array(n*4),x0=1e9,z0=1e9,x1=-1e9,z1=-1e9;
+ for(var s=0;s<n;s++){var sh=shapes[s],a,b,c,e;if(sh.children||sh.min){a=sh.min[0];b=sh.min[2];c=sh.max[0];e=sh.max[2];}else{var ex=0,ez=0;for(var i=0;i<3;i++){var ax=sh.axes[i],h=sh.half[i];ex+=Math.abs(ax.x)*h;ez+=Math.abs(ax.z)*h;}a=sh.center.x-ex;b=sh.center.z-ez;c=sh.center.x+ex;e=sh.center.z+ez;}
+  bx[s*4]=a;bx[s*4+1]=b;bx[s*4+2]=c;bx[s*4+3]=e;if(a<x0)x0=a;if(b<z0)z0=b;if(c>x1)x1=c;if(e>z1)z1=e;}
+ x0-=0.01;z0-=0.01;var cs=Math.max(GRID_CELL,(x1-x0)/256,(z1-z0)/256),nx=Math.max(1,Math.ceil((x1+0.01-x0)/cs)),nz=Math.max(1,Math.ceil((z1+0.01-z0)/cs)),cells=new Array(nx*nz);
+ for(s=0;s<n;s++){var ia=Math.max(0,Math.floor((bx[s*4]-x0)/cs)),ib=Math.max(0,Math.floor((bx[s*4+1]-z0)/cs)),ic=Math.min(nx-1,Math.floor((bx[s*4+2]-x0)/cs)),ie=Math.min(nz-1,Math.floor((bx[s*4+3]-z0)/cs));
+  for(var ix=ia;ix<=ic;ix++)for(var iz=ib;iz<=ie;iz++){var k=iz*nx+ix;(cells[k]||(cells[k]=[])).push(s);}}
+ return {n:n,first:shapes[0],last:shapes[n-1],x0:x0,z0:z0,cs:cs,nx:nx,nz:nz,cells:cells,stamp:new Uint32Array(n),gen:0};}
+function rayWorld(o,d,maxT,shapes){
+ if(!_grids||!shapes||shapes.length<GRID_MIN||!gridOn())return rayWorldBrute(o,d,maxT,shapes);
+ var G=_grids.get(shapes);if(!G||G.n!==shapes.length||G.first!==shapes[0]||G.last!==shapes[shapes.length-1]){G=buildGrid(shapes);_grids.set(shapes,G);}
+ var cs=G.cs,X0=G.x0,Z0=G.z0,X1=X0+G.nx*cs,Z1=Z0+G.nz*cs,t0=0,t1=maxT,dx=d[0],dz=d[2];
+ /* clip the ray to the grid rectangle */
+ if(Math.abs(dx)<1e-12){if(o[0]<X0||o[0]>X1)return null;}else{var ta=(X0-o[0])/dx,tb=(X1-o[0])/dx;if(ta>tb){var tt=ta;ta=tb;tb=tt;}if(ta>t0)t0=ta;if(tb<t1)t1=tb;}
+ if(Math.abs(dz)<1e-12){if(o[2]<Z0||o[2]>Z1)return null;}else{var tc=(Z0-o[2])/dz,td=(Z1-o[2])/dz;if(tc>td){var t2=tc;tc=td;td=t2;}if(tc>t0)t0=tc;if(td<t1)t1=td;}
+ if(t0>t1)return null;
+ if(++G.gen>4e9){G.gen=1;G.stamp.fill(0);}var gen=G.gen,stamp=G.stamp,cells=G.cells,nx=G.nx,nz=G.nz;
+ var px=o[0]+dx*t0,pz=o[2]+dz*t0,ix=Math.min(nx-1,Math.max(0,Math.floor((px-X0)/cs))),iz=Math.min(nz-1,Math.max(0,Math.floor((pz-Z0)/cs)));
+ var sx=dx>0?1:-1,sz=dz>0?1:-1,tdx=Math.abs(dx)<1e-12?Infinity:cs/Math.abs(dx),tdz=Math.abs(dz)<1e-12?Infinity:cs/Math.abs(dz);
+ var tmx=Math.abs(dx)<1e-12?Infinity:t0+((dx>0?X0+(ix+1)*cs-px:px-(X0+ix*cs))/Math.abs(dx)),tmz=Math.abs(dz)<1e-12?Infinity:t0+((dz>0?Z0+(iz+1)*cs-pz:pz-(Z0+iz*cs))/Math.abs(dz));
+ var best=null,bt=maxT,guard=nx+nz+4;
+ while(guard-->0){var cell=cells[iz*nx+ix];
+  if(cell)for(var c=0;c<cell.length;c++){var si=cell[c];if(stamp[si]===gen)continue;stamp[si]=gen;_one[0]=shapes[si];var h=rayWorldBrute(o,d,bt,_one);if(h&&h.t<bt){bt=h.t;best=h;}}
+  var exit=Math.min(tmx,tmz,t1);if(bt<=exit||exit>=t1)break;
+  if(tmx<tmz){ix+=sx;if(ix<0||ix>=nx)break;tmx+=tdx;}else{iz+=sz;if(iz<0||iz>=nz)break;tmz+=tdz;}}
+ _one[0]=null;return best;
 }
 // Seeded RNG (mulberry32) so test runs are repeatable; every ported NIGHT_SURVIVAL Math.random() goes through random().
 var _seed=1;function seed(n){_seed=(n>>>0)||1;}
@@ -128,7 +159,7 @@ function marker(app,slot){if(!_mk||_mk.app!==app){_mk={app:app,map:{}};collect(a
 function v3(p){return Array.isArray(p)?p:[p.x,p.y,p.z];}
 function fmt(p){return '['+v3(p).map(function(n){return (+n).toFixed(2);}).join(', ')+']';}
 function log(app,s,text){var T=ns(app);if(s.decision===text)return;s.decision=text;T.events.push({time:+T.elapsed.toFixed(2),soldier:s.soldierName,decision:text});if(T.events.length>100)T.events.splice(0,T.events.length-100);s.history.push((T.elapsed).toFixed(1)+'s '+text);if(s.history.length>8)s.history.shift();}
-g.TacticalCommon={AI:AI,invalidateMarkers:invalidateMarkers,rayWorld:rayWorld,seed:seed,random:random,rand:rand,randi:randi,allied:allied,KINDS:KINDS,TAG_ALIASES:TAG_ALIASES,ns:ns,tagInfo:tagInfo,collect:collect,shape:shape,corner:corner,segmentShape:segmentShape,pointInShape:pointInShape,navGeometry:navGeometry,marker:marker,v3:v3,fmt:fmt,log:log};
+g.TacticalCommon={AI:AI,invalidateMarkers:invalidateMarkers,rayWorld:rayWorld,rayWorldBrute:rayWorldBrute,seed:seed,random:random,rand:rand,randi:randi,allied:allied,KINDS:KINDS,TAG_ALIASES:TAG_ALIASES,ns:ns,tagInfo:tagInfo,collect:collect,shape:shape,corner:corner,segmentShape:segmentShape,pointInShape:pointInShape,navGeometry:navGeometry,marker:marker,v3:v3,fmt:fmt,log:log};
 })(globalThis);
 
 /* Persistent four-person units. Dead/disabled members keep their place: casualties

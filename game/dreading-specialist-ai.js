@@ -3,7 +3,7 @@
 const S=window.DreadingSpecialistAI={ready:false,routeBlockers:new Map(),stats:{moves:0,rockets:0},role:s=>s?.prepKit?.clsId};
 let T,F;const distance=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1],a[2]-b[2]);
 S.priority=function(s,e){if(S.role(s)!=='marksman'||e.isZombie)return 1;return ['rocketeer','artillery'].includes(S.role(e))?.12:1;};
-S.host=()=>!window.DreadingMultiplayer||DreadingMultiplayer.slot===0;
+S.host=()=>!window.DreadingMultiplayer||DreadingMultiplayer.isHost;
 S.registerRouteBlocker=function(id,entry){if(!entry||!Array.isArray(entry.point)||!entry.point.every(Number.isFinite)||typeof entry.active!=='function')throw Error('A route blocker requires a point and active predicate');S.routeBlockers.set(id,entry);return ()=>S.routeBlockers.delete(id);};
 S.records=s=>(T.perception.known(s,true)||[]).filter(r=>r.entity?.alive&&!r.entity.disabled&&r.entity.team!==s.team&&T.elapsed-r.timeLastSensed<4);
 S.safeBlast=function(s,p,radius){return !T.squad.some(a=>a.alive&&!a.disabled&&a.team===s.team&&distance(a.pos(),p)<radius+3);};

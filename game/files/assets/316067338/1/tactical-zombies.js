@@ -48,8 +48,13 @@ TacticalZombies.prototype.createVisual=function(z){var glb=this.glb,e=z.entity;v
  z.pivot=pivot;model.addComponent('anim',{activate:true});
  glb.resource.animations.forEach(function(a){model.anim.assignAnimation(a.resource.name,a.resource,undefined,1,!/attack|^bite$|neck_bite|scream|death|dying/.test(a.resource.name));});
  var original=glb.resource.materials&&glb.resource.materials[0];var mat=(original&&original.resource?original.resource:this.mat).clone();mat.update();model.findComponents('render').forEach(function(r){r.castShadows=true;r.meshInstances.forEach(function(mi){mi.material=mat;
-  /* pass 4b: fixed local AABB (1.3 m box around the body in every pose) instead of re-deriving it from ~65 bone boxes per mesh, per camera and per shadow cascade every frame */
-  try{var inv=new pc.Mat4().copy(mi.node.getWorldTransform()).invert(),wb=new pc.BoundingBox(new pc.Vec3(0,0.9,0),new pc.Vec3(1.3,1.3,1.3)),lb=new pc.BoundingBox();lb.setFromTransformedAabb(wb,inv);mi.setCustomAabb(lb);}catch(err){}});});
+  /* Pinned PlayCanvas 2.23 MeshInstance bounds hook: keep the cheap conservative world
+     box on the logical zombie root, independent of animated mesh nodes and pooled spawn positions.
+     A custom box also keeps skin-bone bounds evaluation off before culling. */
+  mi.setCustomAabb(new pc.BoundingBox(new pc.Vec3(0,.9,0),new pc.Vec3(1.8,1.8,1.8)));
+  mi._updateAabbFunc=function(box){var p=z.entity.getPosition();box.center.set(p.x,p.y+.9,p.z);box.halfExtents.set(1.8,1.8,1.8);return box;};
+  mi._perfNoAabb=true;
+ });});
 z.model=model;z.mat=mat;z._crowdBaked=false;};
 TacticalZombies.prototype.retireVisual=function(z){if(!z.model)return;if(z._voiceSource){try{z._voiceSource.stop();}catch(e){}z._voiceSource=null;}z.model.destroy();z.pivot.destroy();z.mat.destroy();z.model=null;z.pivot=null;z.mat=null;z._rs=null;z.castSh=undefined;z._crowdBaked=false;};
 TacticalZombies.prototype.make=function(){var T=TacticalCommon.ns(this.app),i=this.pool.length,glb=this.glb,self=this;
@@ -64,7 +69,7 @@ TacticalZombies.prototype.spawn=function(p,type){type="run";var T=TacticalCommon
  for(var i=0;i<this.pool.length;i++)if(!this.pool[i].active){z=this.pool[i];break;}
  if(!z){if(this.pool.length>=cfg.pool)return null;z=this.make();}
  // A pooled life must not inherit unfinished blend clips from its previous life.
- if(!z.model)this.createVisual(z);z.model.anim.baseLayer.reset();z._crowdTime=0;z._crowdClip=null;
+ if(!z.model)this.createVisual(z);z.model.anim.baseLayer.reset();z._crowdTime=0;z._crowdClip=null;z._idleT=0;z._tacc=undefined;z._thinkDt=0;
  var ty=cfg.types[type]||cfg.types.walk;z.type=type;z.ty=ty;z.active=true;z.alive=true;z.health=ty.hp;z.maxHp=ty.hp;z.hitK=ty.hitK;z.state='wander';z.target=null;z.lastSeenT=-99;z.lastSeenPos=null;
  z.noisePos=null;z.noiseT=-99;z.path=[];z.index=0;z.repathT=0;z.attackT=0;z.attackHit=false;z.staggerUntil=-99;z.screamT=0;z.flinchT=0;z.flash=0;z.tilt=0;z.tiltV=0;z.deadT=0;z.wanderT=C.rand(0.5,3);z.lastHitT=-99;
  z._voiceState=undefined;z._voiceNext=0;if(z._voiceSource){try{z._voiceSource.stop();}catch(e){}z._voiceSource=null;}z.fp=null;z.fpT=0;z.pathGoal=null;/* AI pass B: pooled zombies no longer carry route/stuck state into the next run (determinism across resets) */z.feed=null;z.feeding=false;z.pack=null;z.packRole='solo';z.free=false;z.crumb=0;z.trail=null;z.animAcc=0;z.yaw=C.rand(-Math.PI,Math.PI);z.moving=false;z.speedNow=0;z.clip='';z.alertedByScream=false;z.progressP=p.slice();z.progressT=T.elapsed;z.stuck=0;var w=Math.max(1,this.wave);/* NS nszSpawn speeds + damage: walker rand(1.25,1.9)+min(0.6,0.05w), runner rand(3.9,4.6), dmg min(30,12+1.5w) */z.speedMul=(type==='run'?C.rand(3.9,4.6):type==='crawl'?ty.speed*C.rand(0.9,1.12):C.rand(1.25,1.9)+Math.min(0.6,0.05*w))/ty.speed;z.speedMul*=cfg.speedBoost;z.dmg=Math.min(30,12+1.5*w)*(type==='crawl'?0.7:1);z.history.length=0;z.decision='';z.ignore=null;z.ignoreUntil=-99;z.stuckLog=[];z.regulator.reset(T.elapsed+(this.pool.indexOf(z)%8)/(8*cfg.sense));
@@ -110,7 +115,7 @@ TacticalZombies.prototype.sense=function(z,now,sold){var best=null,bd=1e9,p=z.po
   if(lightSource||(!globalThis.DreadingNight||globalThis.DreadingNight.lit(z,s,TacticalCommon.ns(this.app),PC))&&((d<2.2&&(!PC||!PC.sightBlocked(NS.entEye(z),NS.entChest(s))))||z.vision.visible(NS.entChest(s))||z.vision.visible(NS.entHead(s)))){bd=d;best=s;}}
  return best;};
 /* ---------- animation ---------- */
-TacticalZombies.prototype.play=function(z,clip,force,rate){if(z.clip!==clip||force){z.clip=clip;if(!z._crowdBaked)try{z.model.anim.baseLayer.transition(clip,clip==='death'||clip==='dying'?0.12:0.2);}catch(e){}}z.animRate=rate||1;if(!TacticalZombies.PERF.animLod)z.model.anim.speed=z.animRate;};
+TacticalZombies.prototype.play=function(z,clip,force,rate){if(z.clip!==clip||force){z.clip=clip;if(!z._crowdBaked)try{z.model.anim.baseLayer.transition(clip,clip==='death'||clip==='dying'?0.12:0.2);/* reset() pauses the layer; selecting a state does not resume its clock. */z.model.anim.baseLayer.playing=true;}catch(e){}}z.animRate=rate||1;if(!TacticalZombies.PERF.animLod)z.model.anim.speed=z.animRate;};
 /* ---------- damage / death (called from tacticalCombat) ---------- */
 TacticalZombies.prototype.onDamaged=function(z,att,dmg,part,dir){var T=TacticalCommon.ns(this.app);if(!z.alive)return;
  z.flash=0;if(z.state==='feed'){this.releaseFeed(z);z.state='wander';this.stats.feedWokeHit=(this.stats.feedWokeHit||0)+1;}if(z.packRole==='follower')z.free=true;var stagger=T.elapsed>=(z.staggerUntil||0);z.flinchT=stagger?(part==='head'?.24:.1):0;if(stagger){z.staggerUntil=T.elapsed+.65;z.tiltV-=(part==='head'?90:60);}z.hitReaction=(z.hitReaction||0)+1;
@@ -129,7 +134,7 @@ TacticalZombies.prototype.update=function(dt){var T=TacticalCommon.ns(this.app),
  for(var i=T.zombies.length-1;i>=0;i--){var z=T.zombies[i];
   if(!z.alive){z.deadT+=dt;z.flash=Math.max(0,z.flash-dt*3);var deathTrack=this.glb.resource.animations.find(function(a){return a.resource.name===z.clip;}),deathDuration=deathTrack?deathTrack.resource.duration:1;if(z.deadT>Math.max(.6,deathDuration)+.15){this.despawn(z);this.retireVisual(z);continue;}this.paint(z,dt);continue;}
   if(z.packRole==='follower'&&!z.free&&(z.useField=false,this.follow(z,now,sold))){this.move(z,dt,now,grid,key,sold);}
-  else{this.think(z,dt,now,sold);this.move(z,dt,now,grid,key,sold);}
+  else{if(this.thinkDue(z,dt))this.think(z,z._thinkDt,now,sold);this.move(z,dt,now,grid,key,sold);}
   if(z.packRole==='leader'&&z.alive)this.crumbs(z);this.paint(z,dt);}
  this.animLod(dt);this.fieldTick(now);this.stats.fieldUsers=this._fu;this.frame++;this.ms=performance.now()-t0;};
 /* perf (opt clone): integer-keyed crowd grid with reused cell arrays; cached soldier positions; nav-patch repath of crossing paths */
@@ -248,6 +253,14 @@ TacticalZombies.prototype.animLod=function(dt){var T=TacticalCommon.ns(this.app)
   /* shadow LOD: zombies further than 40 m (or off-screen) stop casting into the shadow cascades; back on inside 30 m (hysteresis) */
   var wantSh=z.castSh===false?(on&&d<P.shadowNear):(on&&d<P.shadowFar);if(wantSh!==z.castSh){z.castSh=wantSh;if(!z._rs)z._rs=z.model.findComponents('render');for(var r=0;r<z._rs.length;r++)z._rs[r].castShadows=wantSh;}
   z.animAcc=(z.animAcc||0)+dt;if(n===1||(f+z.uid)%n===0){an.playing=true;an.speed=(z.animRate||1)*Math.min(8,z.animAcc/Math.max(1e-4,dt));z.animAcc=0;}else an.playing=false;}};
+/* DREADING_perf: 20 Hz staggered zombie brains. Timed states (attack/scream/feed/flinch) and zombies within 4 m of their target still think
+   every frame, so hit timing and melee start are unchanged; movement (move) stays per frame, so no interpolation is needed. ?perfOff=tick */
+TacticalZombies.perfOn=function(f){var P=window.DreadingPerf;return !!(P&&P.use(f)&&TacticalCommon.AI.on);};
+TacticalZombies.prototype.thinkDue=function(z,dt){if(!TacticalZombies.perfOn('tick')){z._thinkDt=dt;return true;}
+ var hot=z.state==='attack'||z.state==='scream'||z.state==='feed'||z.flinchT>0||!z.regulator;if(!hot&&z.target){var a=z.pos(),b=z.target.pos();hot=Math.abs(a[0]-b[0])+Math.abs(a[2]-b[2])<5;}
+ if(z._tacc===undefined)z._tacc=-((z.uid||0)*0.6180339%1)*0.05;
+ if(hot){z._thinkDt=dt+Math.max(0,z._tacc);z._tacc=0;return true;}
+ z._tacc+=dt;if(z._tacc>=0.05){z._thinkDt=z._tacc;z._tacc=0;return true;}return false;};
 TacticalZombies.prototype.think=function(z,dt,now,sold){var T=TacticalCommon.ns(this.app),C=TacticalCommon,cfg=TacticalZombies.CONFIG,self=this,ty=z.ty;
  if(z.flinchT>0)z.flinchT-=dt;
  /* feeding: the zombie whose target just died claims a corpse slot before perception can retarget it */if(TacticalZombies.FEED.on&&z.target&&!z.target.alive&&z.state!=='feed'&&this.claimFeed(z,z.target)){z.target=null;}
@@ -308,7 +321,7 @@ TacticalZombies.prototype.move=function(z,dt,now,grid,key,sold){var T=TacticalCo
  // stall bookkeeping (tests): chasing but no progress for 10 s
  if(Math.hypot(p[0]-z.progressP[0],p[2]-z.progressP[2])>0.5||busy||!z.target||z.state!=='chase'){z.progressP=p.slice();z.progressT=now;}else if(now-z.progressT>10){z.stuck++;z.progressT=now;z.repathT=0;z.stuckLog=(z.stuckLog||[]);if(z.stuckLog.length<4)z.stuckLog.push({t:+now.toFixed(1),p:p.map(function(v){return +v.toFixed(1);}),tgt:z.target.soldierName,tp:z.target.pos().map(function(v){return +v.toFixed(1);})});z.ignore=z.target;z.ignoreUntil=now+8;z.target=null;z.state='wander';z.path=[];if(z.stuck>=2&&z.stuckLog.length>=2&&Math.hypot(z.stuckLog[0].p[0]-p[0],z.stuckLog[0].p[2]-p[2])<1){this.stats.culled=(this.stats.culled||0)+1;TacticalCommon.log(this.app,z,'Culled: stalled twice in the same spot');this.despawn(z);return;}}
  if(!busy&&z.alive){var crawl=z.type==='crawl';if(sp>0.1){var fast=sp>1.6||(crawl&&z.state==='chase');var clip=crawl?(fast?'crawl_run':'crawl'):(fast?'run':'walk'),base=crawl?(fast?2.0:ty.clipSpeed):(fast?cfg.types.run.clipSpeed:cfg.types.walk.clipSpeed);
-   this.play(z,clip,false,Math.max(0.6,Math.min(1.8,sp/base)));}else this.play(z,crawl?'crawl':'idle',false,crawl?0.0001:1);}
+   z._idleT=0;this.play(z,clip,false,Math.max(0.6,Math.min(1.8,sp/base)));}else if(!crawl&&TacticalZombies.perfOn('zclip')&&(z.clip==='run'||z.clip==='walk')&&(z._idleT=(z._idleT||0)+dt)<0.35){/* DREADING_perf: keep the stride through 1-frame speed dropouts (path waypoint / route pending) instead of run->idle->run blend flicker */}else this.play(z,crawl?'crawl':'idle',false,crawl?0.0001:1);}
  function turn(a,b,k){var d=Math.atan2(Math.sin(b-a),Math.cos(b-a));return a+d*Math.min(1,k);}};
 TacticalZombies.prototype.paint=function(z,dt){z.tiltV+=(-z.tilt*120-z.tiltV*14)*dt;z.tilt+=z.tiltV*dt;
  if(z.alive){z.pivot.setLocalEulerAngles(Math.max(-18,Math.min(18,z.tilt*1.6)),0,0);z.pivot.setLocalPosition(0,0,0);}z.entity.setEulerAngles(0,z.yaw*180/Math.PI,0);

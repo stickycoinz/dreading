@@ -3,7 +3,7 @@
 const Q=window.DreadingSquadAI={ready:false,groups:new Map(),stats:{recruitPushes:0,swatClears:0,eliteBounds:0},profiles:{recruits:{err:1.8,react:1.6,settle:1.35,head:.4},swat:{err:.8,react:.85,settle:.85,head:.9},elite:{err:.55,react:.65,settle:.7,head:1.2}}};let T,seq=1000000;const cache=new WeakMap(),hd=(a,b)=>Math.hypot(a[0]-b[0],a[2]-b[2]);
 Q.tier=s=>s.prepKit?.packageId||(s.prepKit?.clsId==='scavenger'?'recruits':null);
 Q.difficulty=function(s,base){const tier=Q.tier(s),p=Q.profiles[tier];if(!p)return base;let c=cache.get(base);if(!c){c={};cache.set(base,c);}return c[tier]||(c[tier]={...base,err:base.err*p.err,react:base.react.map(v=>v*p.react),settle:base.settle*p.settle,head:Math.min(.3,base.head*p.head)});};
-Q.host=()=>!window.DreadingMultiplayer||DreadingMultiplayer.slot===0;
+Q.host=()=>!window.DreadingMultiplayer||DreadingMultiplayer.isHost;
 // A package controller owns its members until a player replaces their orders.
 // Legacy team-wide shelter/flank logic must not steal individual members mid-bound.
 Q.owns=function(s){if(window.DreadingTeamSupport?.owns(s))return true;const g=Q.groups.get(s.squadKey);return !!g&&!g.cancelled&&g.members.includes(s)&&(s.order?.by==='package-ai'||(g.controller.brain===g.brain&&s.order?.bid===g.brain?.id));};

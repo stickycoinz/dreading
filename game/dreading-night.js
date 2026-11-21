@@ -17,6 +17,10 @@
  N.lit=function(observer,target,T,P){if(!N.enabled)return true;
   const eye=G.TacticalNS.entEye(observer),head=G.TacticalNS.entHead(target),chest=G.TacticalNS.entChest(target),now=T.elapsed;N.clock(now);
   if(Math.hypot(...chest.map((v,i)=>v-eye[i]))<=N.near)return true; // normal LOS still required by caller
+  /* DREADING_perf: the rest depends only on the target and the sim time - memoise within one sim step (exact) */
+  const PF=G.DreadingPerf,memo=PF&&PF.use&&PF.use('budget')&&G.TacticalCommon&&G.TacticalCommon.AI.on;if(memo&&target._litNow===now&&target._litRev===N.flashes.length)return target._litVal;
+  const v=N._litTarget(target,T,P,head,chest,now);if(memo){target._litNow=now;target._litRev=N.flashes.length;target._litVal=v;}return v;};
+ N._litTarget=function(target,T,P,head,chest,now){
   const clear=(a,b)=>!P.sightBlocked(a,b),points=[head,chest];
   const L=G.DreadingLook;
   if(!L||L.flashlightsOn!==false){
