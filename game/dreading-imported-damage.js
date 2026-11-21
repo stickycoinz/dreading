@@ -22,7 +22,7 @@ D.subtract=function(triangle,planes,worldOffset){
 };
 D.install=function(app,DM,metadata,makeProxy){
  if(D.installed)return;D.installed=true;
- const dirty=new Set(),pendingBatchUploads=new Set();let navTimer=null;
+ const dirty=new Set(),pendingBatchUploads=new Set();let navTimer=null,lastBreachNav=-1e9;const BREACH_NAV_GAP=1500;/* 2026-11-21: at most one breach nav patch per 1.5 s (dirty rects accumulate meanwhile) */
  const vec=a=>new pc.Vec3(...a),local=(p,box)=>box.inv.transformVector(vec(p).sub(vec(box.position)));
  function panels(b){
   const state=b.importedDamage;if(!state||state.panels)return state;
@@ -187,7 +187,7 @@ D.install=function(app,DM,metadata,makeProxy){
   }
   D.commitBatchUpdates();
   if(list.every(b=>b.importedDamage?.collapsing)){clearTimeout(navTimer);navTimer=null;}
-  else if(needsNav){const rects=list.filter(b=>b.rect);if(T.navigation&&T.navigation.markLocal)rects.forEach(b=>T.navigation.markLocal([b.rect[0]-2,b.rect[1]-2,b.rect[2]+2,b.rect[3]+2]));clearTimeout(navTimer);navTimer=setTimeout(()=>{navTimer=null;T.navigation.rebuild('imported weapon breach').catch(console.error);},350);}
+  else if(needsNav){const rects=list.filter(b=>b.rect);if(T.navigation&&T.navigation.markLocal)rects.forEach(b=>T.navigation.markLocal([b.rect[0]-2,b.rect[1]-2,b.rect[2]+2,b.rect[3]+2]));if(!navTimer){navTimer=setTimeout(()=>{navTimer=null;lastBreachNav=performance.now();T.navigation.rebuild('imported weapon breach').catch(console.error);},Math.max(350,lastBreachNav+BREACH_NAV_GAP-performance.now()));}}
  };
  app.on('update',()=>{if(dirty.size)D.flush();});
 };

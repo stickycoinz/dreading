@@ -188,10 +188,29 @@ TacticalRtsInput.prototype.onUp=function(e){
 TacticalRtsInput.prototype.onWheel=function(e){if(this.fps)return;var d=this.dir(),step=Math.max(1.5,this.cam.pos.y*0.12)*(e.deltaY>0?-1:1);var np=this.cam.pos.clone().add(d.clone().mulScalar(step));if(np.y<2.5||np.y>160)return;this.cam.pos.copy(np);this.apply();};
 /* ---------- direct control ---------- */
 TacticalRtsInput.FP={near:0.1,vmNear:0.01,vmFar:6,eyeW:14,eyeSnap:1.5};
+/* 2026-11-21 FP fall-through fix (a guest took direct control after weapon-breach nav patches and fell to y -8700).
+   Cause: navigation.walk() returns null when the start is > 0.2 m off the mesh. A nav patch (or a network snap) can leave the
+   controlled soldier just off the new mesh; that started the "support removed" fall, and TacticalTraversal.playerFall only landed
+   on a floor within 2.5 cm horizontally of the falling x/z - never true off the mesh edge, so the fall never ended.
+   Now: (1) re-snap to the floor at the same level before ever falling, (2) a fall that drops too far, goes under the terrain or
+   goes non-finite recovers to the nearest navmesh point (else the last good ground), (3) last good ground is tracked every frame. */
+TacticalRtsInput.FP.resnapH=1.2;TacticalRtsInput.FP.resnapY=0.9;TacticalRtsInput.FP.killDrop=14;TacticalRtsInput.FP.killY=-30;
+TacticalRtsInput.prototype.fpResnap=function(T,f,p,np){var nav=T.navigation,FP=TacticalRtsInput.FP;if(!nav||!nav.nearest||!isFinite(f.groundY))return null;
+ var c=nav.nearest([p[0],f.groundY,p[2]],{x:FP.resnapH,y:FP.resnapY,z:FP.resnapH});if(!c||!isFinite(c[1])||Math.abs(c[1]-f.groundY)>FP.resnapY||Math.hypot(c[0]-p[0],c[2]-p[2])>FP.resnapH+0.05)return null;
+ this.fpResnaps=(this.fpResnaps||0)+1;return nav.walk(c,[c[0]+np[0]-p[0],c[1],c[2]+np[2]-p[2]])||c;};
+TacticalRtsInput.prototype.fpFallTooFar=function(T,f,np){var FP=TacticalRtsInput.FP;if(!isFinite(np[0])||!isFinite(np[1])||!isFinite(np[2])||np[1]<FP.killY)return true;if(f.fallStart!==undefined&&f.fallStart-np[1]>FP.killDrop)return true;
+ var hm=T.town&&T.town.lay&&T.town.lay.spec&&T.town.lay.spec.hm;if(hm&&hm.at){var th=hm.at(np[0],np[2]);if(isFinite(th)&&np[1]<th-1.5)return true;}return false;};
+TacticalRtsInput.prototype.fpRecover=function(T,f,s,p){var nav=T.navigation,L=f.lastGood,top=f.fallStart!==undefined?f.fallStart:(isFinite(f.groundY)?f.groundY:(L?L[1]:0)),c=null;
+ var px=isFinite(p[0])?p[0]:(L?L[0]:0),pz=isFinite(p[2])?p[2]:(L?L[2]:0);
+ var tries=[[px,top,pz,1.5,2],L&&[L[0],L[1],L[2],1.5,2],[px,top,pz,6,40],L&&[L[0],L[1],L[2],8,40]];
+ for(var i=0;i<tries.length&&!c;i++){var t=tries[i];if(!t||!nav||!nav.nearest)continue;var r=nav.nearest([t[0],t[1],t[2]],{x:t[3],y:t[4],z:t[3]});if(r&&isFinite(r[0])&&isFinite(r[1])&&isFinite(r[2]))c=[r[0],r[1],r[2]];}
+ if(!c&&L)c=L.slice();if(!c)return null;
+ delete f.fallStart;f.fallV=0;f.vy=0;f.airY=0;f.groundY=c[1];f.eyeG=c[1];f.eyeGv=0;if(s.vel){s.vel[0]=0;s.vel[1]=0;}s.entity.setPosition(c[0],c[1],c[2]);
+ this.fpRecovers=(this.fpRecovers||0)+1;if(this.fpRecovers<=5)console.warn('[TacticalInput] '+s.soldierName+' fell off the navmesh in first person; recovered to ['+c.map(function(v){return v.toFixed(2);}).join(', ')+']');return c;};
 TacticalRtsInput.prototype.enterControl=function(s){var T=TacticalCommon.ns(this.app);if(!s||!s.alive||s.team!=='friendly')return false;if(s.prepKit?.clsId==='artillery'){this.toast('Mortar operator: command in RTS and use Bombard to choose a target.');return false;}
  this.select([s],false);this.saved={pos:this.cam.pos.clone(),yaw:this.cam.yaw,pitch:this.cam.pitch};s.controlled=true;s.stop();T.cover.release(s);s.inCover=false;s.order={type:'player',by:'direct'};s.pitch=0;s.vel=[0,0];s.wantCrouch=false;s.target=null;s.yawV=0;s.pitchV=0;s.input.fire=false;
  if(T.orders)T.orders.cancelAssault([s]);if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
- var gy=s.pos()[1];this.fps={s:s,yaw:s.lookYaw,pitch:0,fire:false,firePressed:false,ads:false,sprintW:0,wantLock:true,eyeH:1.62,airY:0,vy:0,jump:false,kick:0,kickV:0,jumps:0,groundY:gy,eyeG:gy,eyeGv:0};if(s.model)s.model.enabled=false;
+ var sp0=s.pos(),gy=sp0[1];this.fps={s:s,yaw:s.lookYaw,pitch:0,fire:false,firePressed:false,ads:false,sprintW:0,wantLock:true,eyeH:1.62,airY:0,vy:0,jump:false,kick:0,kickV:0,jumps:0,groundY:gy,eyeG:gy,eyeGv:0,lastGood:[sp0[0],gy,sp0[2]]};if(s.model)s.model.enabled=false;
  /* FP fix: world near clip 0.1 (was 0.03 -> 20000:1 depth range shimmer); the arms render in their own layer/camera with near 0.01 */
  this.savedNear=T.camera.camera.nearClip;T.camera.camera.nearClip=TacticalRtsInput.FP.near;this.ensureViewmodel();if(this.vm){this.vm.enabled=true;this.vmCam.enabled=true;this.headRest=null;this.vmCorr=[0,0,0];}
  var c=this.app.graphicsDevice.canvas;try{var r=c.requestPointerLock({unadjustedMovement:true});if(r&&r.catch)r.catch(function(){try{c.requestPointerLock();}catch(e){}});}catch(e){try{c.requestPointerLock();}catch(e2){}}
@@ -266,7 +285,7 @@ TacticalRtsInput.prototype.fpsTick=function(dt){var T=TacticalCommon.ns(this.app
  var sp=NS.MOVE_SPEED*A.def.move*(sprint?1.55:1)*(s.wantCrouch?0.6:1)*(f.ads?0.58:1),fw=NS.fwd(s.lookYaw,0),rt=NS.fwd(s.lookYaw-Math.PI/2,0);
  var wl=Math.hypot(mx,mz)||1,wx=(fw[0]*mz+rt[0]*mx)/wl*sp,wz=(fw[2]*mz+rt[2]*mx)/wl*sp;if(!mx&&!mz){wx=0;wz=0;}
  var acc=1-Math.exp(-16.5*dt);s.vel[0]+=(wx-s.vel[0])*acc;s.vel[1]+=(wz-s.vel[1])*acc;
- var p=s.pos();if(f.groundY===undefined)f.groundY=p[1];var np=[p[0]+s.vel[0]*dt,f.groundY,p[2]+s.vel[1]*dt],q=T.navigation.walk([p[0],f.groundY,p[2]],np);
+ var p=s.pos();if(f.groundY===undefined)f.groundY=p[1];var np=[p[0]+s.vel[0]*dt,f.groundY,p[2]+s.vel[1]*dt],q=T.navigation.walk([p[0],f.groundY,p[2]],np);if(!q&&f.fallStart===undefined&&!s.trav)q=this.fpResnap(T,f,p,np);/* FP fall fix: off the mesh edge after a nav patch -> same-level floor, not a fall */
  var TV=typeof TacticalTraversal!=='undefined'?TacticalTraversal:null;
  // Space at a blocked opening requests traversal; ordinary walking never does.
  if(TV&&!s.trav&&f.fallStart===undefined&&TV.playerWantsVault(f.jump,s.wantCrouch,f.airY,mx||mz,p,q,np)){var dl=Math.hypot(wx,wz)||1,lk=TV.playerProbe(T,p,f.groundY,[wx/dl,wz/dl]);if(lk){TV.begin(s,lk,[p[0],f.groundY,p[2]]);TV.stats.player++;f.jump=false;}}
@@ -274,8 +293,8 @@ TacticalRtsInput.prototype.fpsTick=function(dt){var T=TacticalCommon.ns(this.app
  if(f.jump){f.jump=false;if(f.airY<=0&&f.fallStart===undefined){if(s.wantCrouch)s.wantCrouch=false;else{f.vy=6.3;f.jumps++;}}}
  if(f.vy||f.airY>0){f.vy-=19*dt;f.airY+=f.vy*dt;if(f.airY<=0){f.airY=0;f.vy=0;}}
  if(s.trav&&TV){var tq=TV.step(s,dt);f.airY=0;f.vy=0;f.groundY=tq[1];np=tq;if(s.trav.done){var lh=s.trav.landH;s.trav=null;f.landT=T.elapsed;f.eyeGv-=Math.min(4,lh);var fdm=TV.fallDamage(lh);if(fdm&&T.combat){T.combat.applyDamage(s,fdm,null,'legs',null);TV.stats.dmg+=fdm;}}s.entity.setPosition(np[0],np[1],np[2]);}
- else{if(TV&&(!q||f.fallStart!==undefined)){var fall=TV.playerFall(T.navigation,[p[0],f.groundY+f.airY,p[2]],f,dt);np=fall.p;f.groundY=np[1];f.airY=0;f.vy=0;if(fall.landed){f.landT=T.elapsed;if(fall.damage&&T.combat)T.combat.applyDamage(s,fall.damage,null,'legs',null);}}
- else if(q){np=q;f.groundY=q[1];}else{np[0]=p[0];np[2]=p[2];}s.entity.setPosition(np[0],f.groundY+f.airY,np[2]);}
+ else{if(TV&&(!q||f.fallStart!==undefined)){var fall=TV.playerFall(T.navigation,[p[0],f.groundY+f.airY,p[2]],f,dt);np=fall.p;if(!fall.landed&&this.fpFallTooFar(T,f,np))np=this.fpRecover(T,f,s,p)||np;f.groundY=np[1];f.airY=0;f.vy=0;if(fall.landed){f.landT=T.elapsed;if(fall.damage&&T.combat)T.combat.applyDamage(s,fall.damage,null,'legs',null);}}
+ else if(q){np=q;f.groundY=q[1];var lg=f.lastGood||(f.lastGood=[0,0,0]);lg[0]=q[0];lg[1]=q[1];lg[2]=q[2];}else{np[0]=p[0];np[2]=p[2];}s.entity.setPosition(np[0],f.groundY+f.airY,np[2]);}
  s.speedNow=Math.hypot(s.vel[0],s.vel[1]);s.moving=false;s.airborne=f.airY>0||f.fallStart!==undefined;
  /* FP fix: the camera follows the navmesh height through a critically damped spring (rubble / stairs no longer step the view) */
  var w=FP.eyeW,ex=f.eyeG-f.groundY;if(Math.abs(ex)>FP.eyeSnap){f.eyeG=f.groundY;f.eyeGv=0;}else{f.eyeGv+=(-w*w*ex-2*w*f.eyeGv)*dt;f.eyeG+=f.eyeGv*dt;}

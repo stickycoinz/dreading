@@ -54,6 +54,9 @@ TacticalTraversal.playerFall=function(nav,p,state,dt){
  state.fallV=(state.fallV||0)-TacticalTraversal.G*dt;
  var y=p[1]+state.fallV*dt,mid=(p[1]+y)*0.5,q=nav.nearest([p[0],mid,p[2]],{x:0.05,y:(p[1]-y)*0.5+0.02,z:0.05});
  if(q&&Math.hypot(q[0]-p[0],q[2]-p[2])<0.025&&q[1]<=p[1]+0.001&&q[1]>=y-0.02){var h=state.fallStart-q[1];state.fallV=0;delete state.fallStart;return {p:[p[0],q[1],p[2]],landed:true,damage:TacticalTraversal.fallDamage(h)};}
+ /* 2026-11-21: also land on a floor crossed this frame within 0.5 m sideways (a soldier just off the mesh edge never matched 2.5 cm) */
+ var q2=nav.nearest([p[0],mid,p[2]],{x:0.5,y:(p[1]-y)*0.5+0.02,z:0.5});
+ if(q2&&q2[1]<=p[1]+0.001&&q2[1]>=y-0.02){var h2=state.fallStart-q2[1];state.fallV=0;delete state.fallStart;return {p:[q2[0],q2[1],q2[2]],landed:true,damage:TacticalTraversal.fallDamage(h2)};}
  return {p:[p[0],y,p[2]],landed:false,damage:0};
 };
 /* first person: a link start in front of the player, else a generic ledge / open-window drop found on the navmesh below */
