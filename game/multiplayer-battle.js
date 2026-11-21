@@ -1,6 +1,14 @@
 /* Two opposing commanders in the existing battle. Host owns world simulation.
    Guest predicts only the possessed soldier; orders and action intents execute on host. */
 (function(){'use strict';
+/* On-screen error reporter (multiplayer pages): first uncaught error / rejection / WebGL context loss is shown with its stack and a Copy button, so remote players can send the exact error. */
+(()=>{let box=null,list=[];const show=msg=>{list.push(msg);if(list.length>20)list.shift();try{if(!box){box=document.createElement('div');box.id='mp-error-report';box.style.cssText='position:fixed;right:10px;bottom:10px;z-index:100000;max-width:560px;max-height:45vh;overflow:auto;background:#2a0d0dee;color:#ffd9d0;font:11px/1.4 monospace;padding:8px 10px;border:1px solid #ff7a6a;white-space:pre-wrap;pointer-events:auto';
+ const bar=document.createElement('div');bar.style.cssText='margin-bottom:6px;font:600 12px system-ui';bar.textContent='Game error — please copy and send this: ';const copy=document.createElement('button');copy.textContent='Copy error';copy.onclick=()=>{const t=box.querySelector('pre').textContent;(navigator.clipboard?.writeText(t)||Promise.reject()).then(()=>copy.textContent='Copied',()=>{const r=document.createRange();r.selectNodeContents(box.querySelector('pre'));getSelection().removeAllRanges();getSelection().addRange(r);copy.textContent='Selected - press Ctrl+C';});};
+ const close=document.createElement('button');close.textContent='Hide';close.onclick=()=>{box.style.display='none';};bar.append(copy,' ',close);box.append(bar,document.createElement('pre'));document.body.appendChild(box);}
+ box.style.display='';box.querySelector('pre').textContent=list.join('\n\n')+'\n\n'+navigator.userAgent+' | '+location.search.slice(0,200);}catch(e){}};
+ addEventListener('error',e=>show('ERROR '+(e.message||'')+'\n at '+String(e.filename||'').split('/').pop()+':'+e.lineno+':'+e.colno+'\n'+String(e.error?.stack||'').slice(0,1200)));
+ addEventListener('unhandledrejection',e=>show('UNHANDLED PROMISE '+String(e.reason?.stack||e.reason).slice(0,1200)));
+ document.addEventListener('webglcontextlost',()=>show('WebGL context lost (graphics driver reset or out of GPU memory)'),true);})();
 const N=window.DreadingMultiplayer={slot:null,playerId:null,isHost:false,epoch:0,ready:false,connected:false,players:[false,false],rtt:0,lastState:0,rejected:0,received:0};
 let ws,T,app,I,units,orders,remote,readyGuest=false,state=null,actions=[],lastSend=0,lastSnapshot=0,lastPing=0,lastRemote=0,lastEvent=0,eventId=0,events=[],worldBusy=false,worldDesired=[],applying=false,originalShoot,originalRay,remoteFrame=null;
 let remoteId=1;const remotes=new Map(),remoteFrames=new Map(),remoteTimes=new Map();const sideFor=id=>id===3?0:id===4?1:id;

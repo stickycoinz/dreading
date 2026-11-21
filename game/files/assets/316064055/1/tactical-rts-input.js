@@ -321,8 +321,8 @@ TacticalRtsInput.prototype.update=function(dt){var T=TacticalCommon.ns(this.app)
  this.cam.pos.x=Math.max(-150,Math.min(150,this.cam.pos.x));this.cam.pos.z=Math.max(-150,Math.min(150,this.cam.pos.z));this.cam.pos.y=Math.max(2.5,Math.min(160,this.cam.pos.y));
  this.apply();this.draw();};
 TacticalRtsInput.prototype.draw=function(){var T=TacticalCommon.ns(this.app),app=this.app,a=new pc.Vec3(),b=new pc.Vec3();
- function line(p,q,c){a.set(p[0],p[1],p[2]);b.set(q[0],q[1],q[2]);app.drawLine(a,b,c,false);}
- function ring(p,r,c,n){n=n||20;for(var i=0;i<n;i++){var t0=i/n*Math.PI*2,t1=(i+1)/n*Math.PI*2;line([p[0]+Math.cos(t0)*r,p[1]+.05,p[2]+Math.sin(t0)*r],[p[0]+Math.cos(t1)*r,p[1]+.05,p[2]+Math.sin(t1)*r],c);}}
+ function line(p,q,c){if(!p||!q||p[0]===undefined||q[0]===undefined)return;a.set(p[0],p[1],p[2]);b.set(q[0],q[1],q[2]);app.drawLine(a,b,c,false);}
+ function ring(p,r,c,n){if(!p||p[0]===undefined)return;n=n||20;for(var i=0;i<n;i++){var t0=i/n*Math.PI*2,t1=(i+1)/n*Math.PI*2;line([p[0]+Math.cos(t0)*r,p[1]+.05,p[2]+Math.sin(t0)*r],[p[0]+Math.cos(t1)*r,p[1]+.05,p[2]+Math.sin(t1)*r],c);}}
  var green=new pc.Color(.45,1,.6),white=new pc.Color(1,1,1),self=this;
  (T.selection||[]).forEach(function(s){if(!s.alive||s.controlled)return;var p=s.pos();ring(p,.55,green);ring(p,.6,green);
   for(var k=s.index;k<s.path.length;k++)line(k===s.index?[p[0],p[1]+.1,p[2]]:[s.path[k-1][0],s.path[k-1][1]+.1,s.path[k-1][2]],[s.path[k][0],s.path[k][1]+.1,s.path[k][2]],green);
