@@ -1,0 +1,15 @@
+A licence review means listing everything in your game that someone else made, then checking what each licence asks of you. For DREADING it goes like this:
+
+1. **Inventory.** List every outside piece: code libraries (PlayCanvas, Recast/Detour, Yuka, anything in `third_party` and `node_modules` that ships), 3D models and textures (Botaniq, Mixamo rigs and animations, any downloaded kits), sounds and music, fonts, and Blender add-ons whose code ends up in the game.
+2. **Find each licence.** Look for the LICENSE file, the store page or the asset's terms, and write down the licence and where each item came from in a simple spreadsheet.
+3. **Sort by what it requires.**
+   - **Permissive licences** like MIT, zlib, BSD and Apache: fine to sell with, but you keep their notice text.
+   - **Copyleft licences** like GPL and LGPL: they can force you to share your source. Make sure none of that code ships inside the game itself.
+   - **Asset store terms** like Botaniq, Mixamo and marketplace kits: usually fine in a game, but often you can't redistribute the raw files.
+   - **Attribution licences** like CC-BY: you have to credit the creator.
+   - **Non-commercial licences** like CC-BY-NC: not allowed in a game you sell, so replace those.
+4. **Fix the problems.** Swap out anything that's non-commercial, has no known source, or is GPL code inside the game.
+5. **Write the credits.** Collect every required notice into a `THIRD_PARTY_LICENSES.txt` and an in-game credits screen.
+6. **Keep it current.** Add every new asset or library to the spreadsheet when you bring it in, so the next review is quick.
+
+Steps 1 to 3 can mostly be automated, and I can run them on your DREADING folder and hand you the spreadsheet with anything risky flagged. For a commercial launch, a lawyer only needs to look at the flagged items.
